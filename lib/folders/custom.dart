@@ -12,7 +12,7 @@ CustomButton({
 
   @override
   Widget build(BuildContext context) {
-  return ElevatedButton(onPressed: ()=> onPressed, 
+  return ElevatedButton(onPressed:()=> onPressed(), 
   child: Text(text,
   style: TextStyle(fontSize: 20,
   fontWeight: FontWeight.bold),),
@@ -21,8 +21,8 @@ CustomButton({
       borderRadius: BorderRadius.circular(15),
       
     ),
-    backgroundColor: Colors.blue.shade300,
-    padding: EdgeInsets.fromLTRB(10, 10, 10, 10)
+    backgroundColor: Color.fromARGB(255, 175, 79, 199),
+    padding: EdgeInsets.fromLTRB(40, 15, 40, 15)
   ),
   );
   }
