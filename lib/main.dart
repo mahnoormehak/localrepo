@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fyp/folders/custext.dart';
-import 'package:fyp/folders/custom.dart';
-import 'package:fyp/hello.dart';
+import 'package:localrepo/folders/custext.dart';
+import 'package:localrepo/folders/custom.dart';
+import 'package:localrepo/hello.dart';
 // import 'custom_button.dart';
 
 void main() {
