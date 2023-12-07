@@ -9,6 +9,7 @@ final passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
               body: Center(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(40,10,40,10),
@@ -25,8 +26,9 @@ final passwordController = TextEditingController();
                      Text('Log in to your account and shape your rental lifestyle! ',
                 style:TextStyle(
                       fontSize: 17,
-                      // fontWeight: FontWeight.w800,
-                    color: Colors.black,
+                     fontWeight: FontWeight.bold,
+                 fontStyle: FontStyle.italic,
+                 color: Colors.green.shade600,
                     )),
                 //        SizedBox(height: 20,),
                 //      Text('Dive into the comfort of your rented heaven with just on click! ',

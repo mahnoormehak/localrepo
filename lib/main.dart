@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localrepo/forgotpass.dart';
 import 'package:localrepo/login.dart';
 
 import 'package:localrepo/signUP.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
     
-      home:  signup(),
+      home:  forgotP(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -13,6 +13,7 @@ class signup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
       
           child: Column(
@@ -36,11 +37,13 @@ class signup extends StatelessWidget {
              SizedBox(height: 100,),
               Text('Sign up now to embark on a seamless renting experience! ', style: TextStyle(
                 fontSize: 18,
-                
-                color: Colors.black,
+                 fontStyle: FontStyle.italic,
+              fontWeight:FontWeight.bold ,
+                  color: Colors.green.shade600,
               ),
                 
               ),
+              SizedBox(height: 20,),
               Container(
                 
                               child: Padding(
@@ -52,7 +55,7 @@ class signup extends StatelessWidget {
                                             SizedBox(height: 15,),
                                               CustomTextField(controller:lastnamecontroller , Text: 'Last name'),
                                             SizedBox(height: 15,),
-                                            CustomTextField(controller:emailController , Text: ' Email Address'),
+                                            CustomTextField(controller:emailController , Text: 'Email Address'),
                                             SizedBox(height: 15,),
                                             CustomTextField(controller:passwordController , Text: 'Password'),
                                             SizedBox(height: 15,),
@@ -90,6 +93,7 @@ style: TextStyle(
 TextButton(onPressed: (){}, 
                     child: Text('Login',
                     style:TextStyle(
+                      decoration: TextDecoration.underline,
                       fontSize: 23,
                       fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 255, 81, 0),
