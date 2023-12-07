@@ -21,7 +21,7 @@ CustomButton({
       borderRadius: BorderRadius.circular(15),
       
     ),
-    backgroundColor: Color.fromARGB(255, 175, 79, 199),
+    backgroundColor: Color.fromARGB(255, 154, 70, 175),
     padding: EdgeInsets.fromLTRB(40, 15, 40, 15)
   ),
   );
