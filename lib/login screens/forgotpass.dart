@@ -10,6 +10,10 @@ final confpassController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      // appBar: AppBar(
+      //   title: Text('drawer'),
+      // ),
+
       backgroundColor: Colors.white,
       body: Center(
         child: Padding(
@@ -22,9 +26,7 @@ final confpassController = TextEditingController();
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                fontStyle: FontStyle.italic,
-              
-                color: Colors.green.shade600,
+               
               ),),
               SizedBox(height: 90),
               Container(

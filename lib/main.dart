@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:localrepo/forgotpass.dart';
-import 'package:localrepo/login.dart';
-
-import 'package:localrepo/signUP.dart';
+import 'package:localrepo/homescreens/categories.dart';
+import 'package:localrepo/homescreens/home.dart';
+import 'package:localrepo/homescreens/navbar.dart';
+import 'package:localrepo/homescreens/rentingitems.dart';
 
 
 void main() {
@@ -11,13 +11,11 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
     
-      home:  forgotP(),
+      home: Categories (),
       debugShowCheckedModeBanner: false,
     );
   }
