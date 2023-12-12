@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localrepo/homescreens/categories.dart';
-import 'package:localrepo/homescreens/home.dart';
+
 import 'package:localrepo/homescreens/navbar.dart';
 import 'package:localrepo/homescreens/rentingitems.dart';
 
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
     
-      home: Categories (),
+      home: HomeScreen (),
       debugShowCheckedModeBanner: false,
     );
   }

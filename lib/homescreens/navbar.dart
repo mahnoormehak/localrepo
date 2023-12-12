@@ -9,7 +9,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   final List<Widget> _screens = [
     Home1(),
-    Search(), // Use Search instead of search
+    Search(), 
     Categories(),
     Profile(),
    
@@ -211,13 +211,6 @@ class Categories extends StatelessWidget {
         title: const Text('Categories Screen'),
         backgroundColor: Colors.green,
       ),
-
-      //   ),
-
-
-
-
-        
       body: Center(
         child: Column(
           children: [
@@ -232,16 +225,21 @@ class Categories extends StatelessWidget {
                       (index) => Container(
                         color: Color.fromARGB(255, 214, 165, 226),
                         child: Center(
-                          child: 
-                          Column(children: [
+                          child:Column(
+                            children: [
+                              Text(  'index $index'),
+                   //           Text('items $index')
+                            ],
+                          )
+                       
                             
-                          ],)
+                          ),
                          
                         ),
                       ),
                     ),
                   ),
-                ),
+                
           ],
         ),
       ),
