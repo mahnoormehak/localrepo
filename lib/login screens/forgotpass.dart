@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:localrepo/custom_widgets/button.dart';
 import 'package:localrepo/custom_widgets/textfield.dart';
+import 'package:localrepo/homescreens/navbar.dart';
+// import 'package:localrepo/custom_widgets/textfield.dart';
 
 class forgotP extends StatelessWidget {
    forgotP({super.key});
@@ -10,11 +12,7 @@ final confpassController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      // appBar: AppBar(
-      //   title: Text('drawer'),
-      // ),
-
-      backgroundColor: Colors.white,
+    backgroundColor: Colors.white,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(40,30,40,10),
@@ -33,13 +31,16 @@ final confpassController = TextEditingController();
                 child: Column(
                 
                   children: [
-                    CustomTextField(controller: newpassController, Text: 'New password'),
+CustomTextField(controller: newpassController, text: 'New password ', icon: Icons.password),
+                   
             SizedBox(height: 20,),
-              CustomTextField(controller: confpassController,  Text: 'Confirm password',),
+              CustomTextField(controller: confpassController,  text: 'Confirm password',icon: Icons.password_outlined),
                  SizedBox(height: 80,),
-                 CustomButton(text: 'Update', onPressed: (){}),
+                 CustomButton(text: 'Update', onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen())); }
+                  ),
                
-               
+             
                   ],
                 ),
               ),

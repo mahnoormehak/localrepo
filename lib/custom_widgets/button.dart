@@ -18,12 +18,13 @@ CustomButton({
   fontWeight: FontWeight.bold),),
   style: ElevatedButton.styleFrom(
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(15),
+      borderRadius: BorderRadius.circular(39),
       
     ),
-    backgroundColor: Color.fromARGB(255, 154, 70, 175),
-    padding: EdgeInsets.fromLTRB(40, 15, 40, 15)
+    backgroundColor: Color.fromARGB(255, 127, 79, 190),
+    padding: EdgeInsets.fromLTRB(40, 10, 40, 10)
   ),
   );
   }
 }
+//  Color.fromARGB(255, 154, 70, 175),

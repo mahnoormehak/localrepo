@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:localrepo/custom_widgets/button.dart';
 import 'package:localrepo/custom_widgets/textfield.dart';
+import 'package:localrepo/homescreens/navbar.dart';
+import 'package:localrepo/login%20screens/forgotpass.dart';
+import 'package:localrepo/login%20screens/signUP.dart';
 
 class LOGIN extends StatelessWidget {
    LOGIN({super.key});
@@ -30,13 +33,7 @@ final passwordController = TextEditingController();
                  fontStyle: FontStyle.italic,
                  color: Colors.green.shade600,
                     )),
-                //        SizedBox(height: 20,),
-                //      Text('Dive into the comfort of your rented heaven with just on click! ',
-                // style:TextStyle(
-                //       fontSize: 14,
-                //       // fontWeight: FontWeight.w800,
-                //     color: Colors.black,
-                //     )),
+           
                     SizedBox(height: 40,),
               //  Container(
               //   height: 300,
@@ -53,22 +50,26 @@ final passwordController = TextEditingController();
               //   padding: const EdgeInsets.fromLTRB(30,20,30,20),
                 child: Column(
               children: [
-                 CustomTextField(controller: emailController, Text: 'Enter email'),
+                // CustomTextField(controller: emailController, Text: 'Enter email'),
+                CustomTextField(controller: emailController, text: 'Enter email', icon:Icons.email, ),
                 SizedBox(height: 20,),
-                  CustomTextField(controller: passwordController, Text: 'Enter password'),
+// CustomTextField(controller: passwordController, Text: 'Enter password', ),
+  CustomTextField(controller: emailController, text: 'Enter Password', icon:Icons.password, ),
                   SizedBox(height: 5,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       
                                       TextButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>forgotP()));
+                  },
                   child: Text('Forget password?',
                       style: TextStyle(
                         
                         fontSize: 19,
                         fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 255, 81, 0),
+                        color: Color.fromARGB(255, 255, 81, 100),
                       ),),
                 ),
                     ],
@@ -80,7 +81,8 @@ final passwordController = TextEditingController();
               ),
             //),
               SizedBox(height: 30,),
-              CustomButton(text: 'Login', onPressed: (){}),
+              CustomButton(text: 'Login', onPressed: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()),);
+              }),
                SizedBox(height: 10,),
               Padding(
                 padding: const EdgeInsets.only(left:10.0),
@@ -89,15 +91,17 @@ final passwordController = TextEditingController();
                   children: [
                     Text('Dont have an account?',
                     style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      // fontWeight: FontWeight.bold,
                     ),),
-                    TextButton(onPressed: (){}, 
+                    TextButton(onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>signup()));
+                    }, 
                     child: Text('Sign up',
                     style:TextStyle(
                       fontSize: 23,
                       fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 255, 81, 0),
+                    color: Color.fromARGB(255, 255, 81, 100),
                     )
                       ,)),
                     //  CustomButton(text: 'Sign Up', onPressed: (){})

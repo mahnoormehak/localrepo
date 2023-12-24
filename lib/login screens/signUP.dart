@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:localrepo/custom_widgets/button.dart';
 import 'package:localrepo/custom_widgets/checkbox.dart';
 import 'package:localrepo/custom_widgets/textfield.dart';
+import 'package:localrepo/login%20screens/login.dart';
 
 class signup extends StatelessWidget {
   // const signup({super.key});
@@ -51,15 +52,15 @@ class signup extends StatelessWidget {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
-  CustomTextField(controller:firstnamecontroller , Text: 'First name'),
+  CustomTextField(controller:firstnamecontroller , text: 'First name',icon: Icons.person,),
                                             SizedBox(height: 15,),
-                                              CustomTextField(controller:lastnamecontroller , Text: 'Last name'),
+                                              CustomTextField(controller:lastnamecontroller , text: 'Last name',icon: Icons.person),
                                             SizedBox(height: 15,),
-                                            CustomTextField(controller:emailController , Text: 'Email Address'),
+                                            CustomTextField(controller:emailController , text: 'Email Address',icon: Icons.email),
                                             SizedBox(height: 15,),
-                                            CustomTextField(controller:passwordController , Text: 'Password'),
+                                            CustomTextField(controller:passwordController , text: 'Password',icon: Icons.password),
                                             SizedBox(height: 15,),
-                                            CustomTextField(controller:phoneController , Text: 'Phone number'),
+                                            CustomTextField(controller:phoneController , text: 'Phone number',icon: Icons.phone),
                                             SizedBox(height: 15,),
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
@@ -78,7 +79,7 @@ style: TextStyle(
                               ),
               ),
        SizedBox(height: 15,),
-      CustomButton(text: 'Signup', onPressed: (){}),
+                CustomButton(text: 'Signup', onPressed: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=>LOGIN()),);}),
         SizedBox(height: 15,),
         Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
