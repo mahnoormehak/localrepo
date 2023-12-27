@@ -58,211 +58,11 @@ UploadDeviceScreen(),
         ],
         selectedItemColor: Colors.orange,
         unselectedItemColor: Colors.purple,
-        backgroundColor: Colors.blueGrey,
+        backgroundColor:Colors.white,
       ),
     );
   }
 }
-
-
-// class Home1 extends StatefulWidget {
-//   @override
-//   _Home1State createState() => _Home1State();
-// }
-
-// class _Home1State extends State<Home1> {
-//   TextEditingController _searchController = TextEditingController();
-//   List<String> items = [
-//     'camera',
-//     'lens',
-//     'tripod',
-//     'drone',
-//     'gopro',
-//     'gimble',
-//     'reflector',
-//     'microphone',
-//     'speaker',
-//     'lightning',
-//   ];
-//   List<String> filteredItems = [];
-
-//   void filterSearchResults(String query) {
-//     filteredItems.clear();
-//     if (query.isNotEmpty) {
-//       for (String item in items) {
-//         if (item.toLowerCase().contains(query.toLowerCase())) {
-//           filteredItems.add(item);
-//         }
-//       }
-//     }
-//     setState(() {});
-//   }
-
-//   void selectItem(String item) {
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(
-//         builder: (context) => ItemDetailsScreen(item: item),
-//       ),
-//     );
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//       backgroundColor: Colors.green,
-//       title: Center(child: Text('Home Screen',style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold),)),
-
-//       actions: [
-//         IconButton(onPressed: (){}, icon: Icon(Icons.wallet),)
-//       ]),
-//            drawer: Drawer(
-//         child: Container(
-//           color: Colors.grey[200],
-//           child: ListView(
-//             padding: EdgeInsets.zero,
-//             children: <Widget>[
-//               DrawerHeader(
-//                 decoration: BoxDecoration(
-//                   color: Colors.brown,
-//                 ),
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   mainAxisAlignment: MainAxisAlignment.end,
-//                   children: [
-//                     Text(
-//                       'EquiShare',
-//                       style: TextStyle(
-//                         color: Colors.white,
-//                         fontSize: 24,
-//                       ),
-//                     ),
-//                     SizedBox(height: 8),
-//                     Text(
-//                       'Welcome, User!',
-//                       style: TextStyle(
-//                         color: Colors.white,
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//               ListTile(
-//                 leading: Icon(Icons.drag_indicator),
-//                 title: Text('Cart items'),
-//                 onTap: () {},
-//               ),
-//               ListTile(
-//                 leading: Icon(Icons.settings),
-//                 title: Text('Settings'),
-//                 onTap: () {},
-//               ),
-//               ListTile(
-//                 leading: Icon(Icons.wallet),
-//                 title: Text('Wallet'),
-//                 onTap: () {},
-//               ),
-//               ListTile(
-//                 leading: Icon(Icons.notification_add),
-//                 title: Text('Notifications'),
-//                 onTap: () {},
-//               ),
-//               ListTile(
-//                 leading: Icon(Icons.info),
-//                 title: Text('About'),
-//                 onTap: () {
-//                   Navigator.push(
-//                     context,
-//                     MaterialPageRoute(
-//                       builder: (context) => Profile(),
-//                     ),
-//                   );
-//                 },
-//               ),
-//               ListTile(
-//                 leading: Icon(Icons.logout),
-//                 title: Text('Sign out '),
-//                 onTap: () {
-//                   Navigator.push(
-//                     context,
-//                     MaterialPageRoute(builder: (context) => LOGIN()),
-//                   );
-//                 },
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//       // body: Column(
-//       //   children: <Widget>[
-//       //     Padding(
-//       //       padding: EdgeInsets.fromLTRB(40, 30, 40, 10),
-//       //       child: TextField(
-//       //         controller: _searchController,
-//       //         onChanged: (value) {
-//       //           filterSearchResults(value);
-//       //         },
-//       //         decoration: InputDecoration(
-//       //           labelText: 'Search',
-//       //           hintText: 'Search items...',
-//       //           prefixIcon: Icon(Icons.search, color: Colors.purpleAccent),
-//       //           enabledBorder: OutlineInputBorder(
-//       //             borderRadius: BorderRadius.all(Radius.circular(40.0)),
-//       //             borderSide: BorderSide(color: Colors.orange),
-//       //           ),
-//       //           focusedBorder: OutlineInputBorder(
-//       //             borderRadius: BorderRadius.all(Radius.circular(40.0)),
-//       //             borderSide: BorderSide(color: Colors.purple),
-//       //           ),
-//       //         ),
-//       //       ),
-//       //     ),
-//       //     Expanded(
-//       //       child: ListView.builder(
-//       //         itemCount: filteredItems.length,
-//       //         itemBuilder: (BuildContext context, int index) {
-//       //           return ListTile(
-//       //             title: Text(filteredItems[index]),
-//       //             onTap: () {
-//       //               selectItem(filteredItems[index]);
-//       //             },
-//       //           );
-//       //         },
-//       //       ),
-//       //     ),
-//       //   ],
-//       // ),
-//     );
-//   }
-// }
-
-
-
-
-// class ItemDetailsScreen extends StatelessWidget {
-//   final String item;
-
-//   ItemDetailsScreen({required this.item});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Item Details'),
-//       ),
-//       body: Center(
-//         child: Text(
-//           'Selected Item: $item',
-//           style: TextStyle(fontSize: 20.0),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-
 
 
 
@@ -412,18 +212,11 @@ class _UploadDeviceScreenState extends State<UploadDeviceScreen> {
   }
 
   void _uploadDevice() {
-    // Implement logic to upload device details to a database or API
+
     String deviceName = _deviceNameController.text;
     String description = _descriptionController.text;
     double rentPrice = double.tryParse(_rentPriceController.text) ?? 0.0;
 
-    // Example: Print uploaded details for demonstration purposes
-    print('Device Name: $deviceName');
-    print('Description: $description');
-    print('Rent Price: $rentPrice');
-    
-    // You can proceed with uploading data to your backend here
-    // e.g., make API requests, save to a database, etc.
   }
 
   @override
@@ -431,7 +224,7 @@ class _UploadDeviceScreenState extends State<UploadDeviceScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
               appBar: AppBar(
-      backgroundColor: Colors.green,
+      backgroundColor: Colors.blue.shade100,
       title: Center(child: Text('Rent or Sell',style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold),)),
       leading:  IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back_ios_new),) ,
       actions: [
@@ -439,7 +232,7 @@ class _UploadDeviceScreenState extends State<UploadDeviceScreen> {
       ]),
       body: Padding(
         
-        padding: EdgeInsets.fromLTRB(40,40,20,30),
+        padding: EdgeInsets.fromLTRB(20,40,20,30),
 
         child: Column(
           
@@ -447,8 +240,8 @@ class _UploadDeviceScreenState extends State<UploadDeviceScreen> {
           children: <Widget>[
           
              Container(
-                      width: 130,
-                       height: 130,
+                      width: 170,
+                       height: 170,
                        decoration: BoxDecoration(
                         border: Border.all(width: 4,color: Colors.black),
                         boxShadow: [
@@ -462,36 +255,29 @@ class _UploadDeviceScreenState extends State<UploadDeviceScreen> {
                         shape: BoxShape.circle,
                        )
              ),
-        
+        SizedBox(height: 20,),
                buildTextField('Fullname', 'Device name', false),
                  buildTextField('Fullname', 'Description', false),
        
                 buildTextField('Fullname', 'Price ', false),
               buildTextField('myname', 'Avaiability', false),
-                buildTextField('myname', 'Contact info', false),
-                  buildTextField('myname', 'Location', false),
+                buildTextField('myname', 'Quality', false),
+                //   buildTextField('myname', 'Location', false),
                 
                  
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                 CustomButton(text: 'Cancel', onPressed: (){
-
+Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
                 }),
                    CustomButton(text: 'Upload', onPressed: (){
+                    _uploadDevice();
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>UploadDeviceScreen()));
                    })
                 ],
               ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //      CustomButton(text: 'Upload Device', onPressed: (){
-            //   _uploadDevice();
-            //   Navigator.pop(context);
-            // }),
-            //   ],
-            // )
+
           ],
           
         ),
@@ -563,7 +349,7 @@ class Categories extends StatelessWidget {
     
     return Scaffold(
           appBar: AppBar(
-      backgroundColor: Colors.green,
+      backgroundColor: Colors.blue.shade100,
       title: Center(child: Text('Categories',style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold,),)),
       leading:  IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back_ios_new),) ,
       actions: [
@@ -649,7 +435,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
    return Scaffold(
     appBar: AppBar(
-      backgroundColor: Colors.green,
+      backgroundColor: Colors.blue.shade100,
       title: Center(child: Text('Profile',style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold,),)),
       leading:  IconButton(onPressed: (){
          Navigator.push(context, MaterialPageRoute(builder:
@@ -934,19 +720,18 @@ class _ContractPageState extends State<ContractPage> {
               'Please agree to the following:',
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20.0),
-            Text('User information collected for account creation, bookings, and communication.Personal data, device preferences, and transaction details gathered.Utilized to facilitate rentals, personalize experiences, and enhance services.,Safeguards implemented to protect user information.Information shared with trusted parties for service improvement.Procedures for users to access, modify, or delete their data.',style: TextStyle(fontSize: 17),),
+            SizedBox(height: 10.0),
+            Text('User information collected for account creation, bookings, and communication.Personal data, device preferences, and , personalize experiences, and enhance services.,Safeguards implemented to protect user information.Information shared with trusted parties for service improvement.Procedures for users to access, modify, or delete their data.',style: TextStyle(fontSize: 17),),
             buildCheckbox(
               'Privacy Policy',
               _privacyPolicyChecked,(value) => setState(() => _privacyPolicyChecked =  value ?? false),
             ),
           SizedBox(height: 10,),
-           Text('User information collected  device preferences, and transaction details gathered.Utilized to facilitate rentals, personalize experiences, and enhance services.,Safeguards implemented to protect user information.Information shared with trusted parties for service improvement.Procedures for users to access, modify, or delete their data.',style: TextStyle(fontSize: 17),),
+           Text('User information collected  device preferences, and transaction details gathered.Utilized to facilitate rentals,  protect user information.Information shared with trusted parties for service improvement.Procedures for users to access, modify, or delete their data.',style: TextStyle(fontSize: 17),),
         buildCheckbox('Terms of Services', _termsOfServiceChecked, (value)=> setState(() =>  _termsOfServiceChecked =value ?? false)),
         
         
           
-            SizedBox(height: 20,),
              Text('User , personalize experiences, and enhance services.,Safeguards implemented to protect user information.Information shared with trusted parties for service improvement.Procedures for users to access, modify, or delete their data.',style: TextStyle(fontSize: 17),),
             buildCheckbox(
               'Rental Guidelines',
@@ -956,37 +741,60 @@ class _ContractPageState extends State<ContractPage> {
             // Add more checkboxes for other policies as necessary
             SizedBox(height: 20.0),
             Center(
-              child: TextButton(
-                onPressed: () {
-                  if (_privacyPolicyChecked &&
-                      _termsOfServiceChecked &&
-                      _rentalGuidelinesChecked) {
-                     Navigator.push(context, MaterialPageRoute(builder: (context)=>RentalAgreementScreen()));
-            
-                  } else {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Agreement Required'),
-                          content: Text('Please agree to all policies.'),
-                          actions: [
-            
-                          
-                            TextButton(
+              child: CustomButton(text: 'Agree', onPressed: (){
+if(_privacyPolicyChecked &&
+_termsOfServiceChecked &&
+_rentalGuidelinesChecked){
+   Navigator.push(context, MaterialPageRoute(builder: (context)=>RentalAgreementScreen()));
+} else{
+  showDialog(context: context,
+  builder: (BuildContext context) {
+    return AlertDialog(
+       title: Text('Agreement Required'),
+                      content: Text('Please agree to all policies.'),
+                      actions: [
+                        TextButton(
                               onPressed: () => Navigator.of(context).pop(),
                               child: Text('OK'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  }
-                },
-                child:
-                Text('Agree',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),),
-              ),
-            ),
+                        )
+                      ],
+    );
+  },
+  );
+}
+              }),
+            )
+            //   child: TextButton(
+            //     onPressed: () {
+            //       if (_privacyPolicyChecked &&
+            //           _termsOfServiceChecked &&
+            //           _rentalGuidelinesChecked) {
+            //          Navigator.push(context, MaterialPageRoute(builder: (context)=>RentalAgreementScreen()));
+            
+            //       } else {
+            //         showDialog(
+            //           context: context,
+            //           builder: (BuildContext context) {
+            //             return AlertDialog(
+            //               title: Text('Agreement Required'),
+            //               content: Text('Please agree to all policies.'),
+            //               actions: [
+            
+                          
+            //                 TextButton(
+            //                   onPressed: () => Navigator.of(context).pop(),
+            //                   child: Text('OK'),
+            //                 ),
+            //               ],
+            //             );
+            //           },
+            //         );
+            //       }
+            //     },
+            //     child:
+            //     Text('Agree',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),),
+            //   ),
+            // ),
           ],
         ),
       ),
