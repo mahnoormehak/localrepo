@@ -2,15 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:localrepo/custom_widgets/button.dart';
 // import 'package:localrepo/custom_widgets/checkbox.dart';
 import 'package:localrepo/custom_widgets/textfield.dart';
+import 'package:localrepo/login%20screens/forgotpass.dart';
 import 'package:localrepo/login%20screens/login.dart';
+import 'package:localrepo/login%20screens/splash.dart';
+import 'package:lottie/lottie.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
-class signup extends StatelessWidget {
+class signup extends StatefulWidget {
+  @override
+  State<signup> createState() => _signupState();
+}
+
+class _signupState extends State<signup> {
   // const signup({super.key});
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
+
   final TextEditingController phoneController = TextEditingController();
+
   final TextEditingController firstnamecontroller = TextEditingController();
+
   final TextEditingController lastnamecontroller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,55 +33,59 @@ class signup extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.lock),
-                Text(
-                  'Sign up',
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 100,
-            ),
-            Text(
-              'Sign up now to embark on a seamless renting experience! ',
-              style: TextStyle(
-                fontSize: 18,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold,
-                color: Colors.green.shade600,
-              ),
-                
-              ),
-              SizedBox(height: 20,),
+         
+                 Center(
+                   child: Column(
+                     children: [
+                    
+                    
+  AnimatedTextKit(
+      animatedTexts: [
+        TyperAnimatedText('Signup',
+        textStyle: TextStyle(
+                                       fontSize: 27,
+                                       fontStyle: FontStyle.italic,
+                                       fontWeight: FontWeight.bold,
+                                       color: const Color.fromARGB(255, 95, 67, 160),
+                                     ),),
+        TyperAnimatedText('Enmark on a seamless renting experience',
+        textStyle: TextStyle(
+                                      fontSize: 25,
+                                       fontStyle: FontStyle.italic,
+                                       fontWeight: FontWeight.bold,
+                                       color: const Color.fromARGB(255, 95, 67, 160),
+                                     ),),  ], ),
+  
+                     ],
+                     
+                   ),
+              
+              
+                 ),
+           
+                       Lottie.asset(
+  "assets/lotties/7.json",
+  height: 300.0,
+  width: 330.0,
+),
+           
+              SizedBox(height: 5,),
               Container(
                 
                               child: Padding(
-                                padding: const EdgeInsets.fromLTRB(40,10,40,10),
+                                padding: const EdgeInsets.fromLTRB(40,5,40,10),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
                                                   CustomTextField(controller: firstnamecontroller, text: 'First Name', icon: Icons.person),
-                                                     CustomTextField(controller: lastnamecontroller, text: 'Last Name', icon: Icons.person),
+SizedBox(height: 10,),
                                                         CustomTextField(controller: emailController, text: 'Emai Address', icon: Icons.email),
+                                                        SizedBox(height: 10,),
                                                            CustomTextField(controller: passwordController, text: 'Password', icon: Icons.password),
+                                                           SizedBox(height: 10,),
                                                               CustomTextField(controller: phoneController, text: 'Phone number', icon: Icons.phone),
-  //                                           SizedBox(height: 15,),
-  //                                             CustomTextField(controller:lastnamecontroller , Text: 'Last name'),
-  //                                           SizedBox(height: 15,),
-  //                                           CustomTextField(controller:emailController , Text: 'Email Address'),
-  //                                           SizedBox(height: 15,),
-  //                                           CustomTextField(controller:passwordController , Text: 'Password'),
-  //                                           SizedBox(height: 15,),
-  //                                           CustomTextField(controller:phoneController , Text: 'Phone number'),
-                                            SizedBox(height: 15,),
+  //                                           
+                                            SizedBox(height: 10,),
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
@@ -84,9 +102,12 @@ style: TextStyle(
                                               ),
                               ),
               ),
-       SizedBox(height: 15,),
-      CustomButton(text: 'Signup', onPressed: (){}),
-        SizedBox(height: 15,),
+       SizedBox(height: 10,),
+      CustomButton(text: 'Signup', onPressed: (){
+         Navigator.push(context, MaterialPageRoute(builder: (context)=>SplashScreen()));
+                    }, 
+      ),
+        // SizedBox(height: 10,),
         Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
@@ -97,10 +118,13 @@ style: TextStyle(
   fontSize: 17,
   fontWeight: FontWeight.normal,
 ),),
-TextButton(onPressed: (){}, 
+TextButton(onPressed: (){
+           Navigator.push(context, MaterialPageRoute(builder: (context)=>forgotP()));
+                    }, 
+
                     child: Text('Login',
                     style:TextStyle(
-                      decoration: TextDecoration.underline,
+                    
                       fontSize: 23,
                       fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 255, 81, 0),

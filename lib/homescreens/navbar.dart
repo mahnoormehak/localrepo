@@ -4,6 +4,7 @@ import 'package:localrepo/custom_widgets/textfield.dart';
 import 'package:localrepo/homescreens/agreement.dart';
 import 'package:localrepo/homescreens/edit.dart';
 import 'package:localrepo/login%20screens/login.dart';
+import 'package:localrepo/login%20screens/signUP.dart';
 // import 'package:localrepo/homescreens/contract.dart';
 
 // import 'package:localrepo/login%20screens/login.dart';
@@ -162,7 +163,7 @@ class _HometState extends State<Home> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LOGIN()),
+                    MaterialPageRoute(builder: (context) => signup()),
                   );
                 },
               ), 
@@ -813,5 +814,6 @@ _rentalGuidelinesChecked){
     );
   }
 }
+
 
 

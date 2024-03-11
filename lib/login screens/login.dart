@@ -4,50 +4,70 @@ import 'package:localrepo/custom_widgets/textfield.dart';
 import 'package:localrepo/homescreens/navbar.dart';
 import 'package:localrepo/login%20screens/forgotpass.dart';
 import 'package:localrepo/login%20screens/signUP.dart';
+import 'package:localrepo/onboarding_content/onboarding/data/data.dart';
+import 'package:lottie/lottie.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class LOGIN extends StatelessWidget {
    LOGIN({super.key});
+
 final emailController = TextEditingController();
+
 final passwordController = TextEditingController();
+
+ // Initial color
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
               body: Center(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(40,10,40,10),
+            padding: const EdgeInsets.fromLTRB(40, 10,40,30),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                 Text('Welcome!!!',
-                style:TextStyle(
-                      fontSize: 35,
-                      fontWeight: FontWeight.w800,
-                    color: Colors.black,
-                    )),
+                AnimatedTextKit(
+      animatedTexts: [
+        TyperAnimatedText('Welcome to Equishare living',
+        textStyle: TextStyle(
+                                       fontSize: 27,
+                                       fontStyle: FontStyle.italic,
+                                       fontWeight: FontWeight.bold,
+                                       color: const Color.fromARGB(255, 95, 67, 160),
+                                     ),),
+        TyperAnimatedText('Your rental adventure begins here!!!!!',
+        textStyle: TextStyle(
+                                      fontSize: 24,
+                                       fontStyle: FontStyle.italic,
+                                       fontWeight: FontWeight.bold,
+                                       color: const Color.fromARGB(255, 95, 67, 160),
+                                     ),),
+     
+      ],
+    ),
                     SizedBox(height: 20,),
-                     Text('Log in to your account and shape your rental lifestyle! ',
+                    
+
+Container(
+     child: Center(
+       child: Lottie.asset(
+              'assets/lotties/2.json',  // Adjust the path to match your animation file
+              height: 250,  // Adjust the height as needed
+              width: 350,
+          ),
+     )
+ ),   SizedBox(height: 20,),
+            
+              Text('Log in to your account and shape your rental lifestyle! ',
                 style:TextStyle(
                       fontSize: 17,
                      fontWeight: FontWeight.bold,
                  fontStyle: FontStyle.italic,
-                 color: Colors.green.shade600,
+                 color: Color.fromARGB(255, 40, 143, 45),
                     )),
-           
-                    SizedBox(height: 40,),
-              //  Container(
-              //   height: 300,
-              //   width: 300,
-              //   decoration: BoxDecoration(
-              //     image: DecorationImage(image: AssetImage('m1.jpg'),fit: BoxFit.cover),
-              //   ),
-              //  ), 
-              //   its for background image
-             
+                  SizedBox(height: 10,),
              Container(
-              // child:
-              //  Padding(
-              //   padding: const EdgeInsets.fromLTRB(30,20,30,20),
+             
                 child: Column(
               children: [
                 // CustomTextField(controller: emailController, Text: 'Enter email'),
@@ -80,8 +100,8 @@ final passwordController = TextEditingController();
                 ),
               ),
             //),
-              SizedBox(height: 30,),
-              CustomButton(text: 'Login', onPressed: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()),);
+              SizedBox(height: 10,),
+              CustomButton(text: 'Login', onPressed: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=>LOGIN()),);
               }),
                SizedBox(height: 10,),
               Padding(
