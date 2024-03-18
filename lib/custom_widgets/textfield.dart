@@ -24,7 +24,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
       controller: widget.controller,
       decoration: InputDecoration(
         labelText: widget.text,
-        prefixIcon: Icon(widget.icon), // Using the icon here
+        prefixIcon: Icon(widget.icon),
+        // Using the icon here
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(40),
           borderSide: BorderSide(color: Colors.orange),

@@ -45,8 +45,8 @@ class _RentalAgreementScreenState extends State<RentalAgreementScreen> {
   int selectedNumberOfDevices = 1;
   List<DeviceDetails> deviceDetailsList = [];
 
-  List<String> deviceNames = ['Camera', 'Tripod', 'Lenses', 'Other']; // Add more as needed
-  String selectedDevice = 'Camera'; // Set a default value
+  List<String> deviceNames = ['Camera', 'Tripod', 'Lenses', 'Other', ]; // Add more as needed
+  String selectedDevice = 'Other'; // Set a default value
 
   @override
   void initState() {
@@ -101,25 +101,32 @@ class _RentalAgreementScreenState extends State<RentalAgreementScreen> {
   }
 
   void _submitAgreement() {
-    if (deviceDetailsList.every((device) => device.rentAmount > 0)) {
-      RentalAgreement agreement = RentalAgreement(
-        deviceName: selectedDevice,
-        renterName: renterNameController.text,
-        devices: deviceDetailsList,
-        startDate: startDate,
-        endDate: endDate,
-      );
+   
+ // Check if any field is empty
+  if (renterNameController.text.isEmpty ||
+      phoneNumberController.text.isEmpty ||
+      addressController.text.isEmpty ||
+      nationalityController.text.isEmpty ||
+      idCardNumberController.text.isEmpty ||
+      cityController.text.isEmpty ||
+      deviceDetailsList.any((device) => device.rentAmount <= 0)) {
+    _showErrorDialog('Please fill all the fields and specify device prices.');}
+     else {
+    RentalAgreement agreement = RentalAgreement(
+      deviceName: selectedDevice,
+      renterName: renterNameController.text,
+      devices: deviceDetailsList,
+      startDate: startDate,
+      endDate: endDate,
+    );
 
-      // Simulate sending agreement data to a server
-      _sendAgreementToServer(agreement);
-    } else {
-      _showErrorDialog('Please specify device prices.');
-    }
+    // Simulate sending agreement data to a server
+    // _sendAgreementToServer(agreement);
+     }
+    
   }
 
-  void _sendAgreementToServer(RentalAgreement agreement) {
-    print('Sending Rental Agreement to the server: ${agreement.toString()}');
-  }
+ 
 
   void _showErrorDialog(String message) {
     showDialog(
@@ -167,8 +174,8 @@ class _RentalAgreementScreenState extends State<RentalAgreementScreen> {
             children: <Widget>[
               SizedBox(height: 20.0),
               Text(
-                'Select the device to rent:',
-                style: TextStyle(fontSize: 16),
+                'Select the device to rent: (Select only one device)',
+                style: TextStyle(fontSize: 19,fontWeight: FontWeight.w500,),
               ),
               DropdownButton<String>(
                 value: selectedDevice,
@@ -185,9 +192,9 @@ class _RentalAgreementScreenState extends State<RentalAgreementScreen> {
                 },
               ),
               SizedBox(height: 20.0),
-              Text(
-                'Enter renter details:',
-                style: TextStyle(fontSize: 16),
+             Text(
+               'Enter renter details:',
+                style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500, ),
               ),
               TextFormField(
                 controller: renterNameController,
@@ -217,7 +224,7 @@ class _RentalAgreementScreenState extends State<RentalAgreementScreen> {
               SizedBox(height: 20.0),
               Text(
                 'Specify the rental amount, responsibility, and payment methods for each device:',
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: 19,fontWeight: FontWeight.w500,),
               ),
               for (int i = 0; i < selectedNumberOfDevices; i++)
                 Column(

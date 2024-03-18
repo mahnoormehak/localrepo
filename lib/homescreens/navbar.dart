@@ -1,4 +1,8 @@
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:localrepo/Database/localdb.dart';
 import 'package:localrepo/custom_widgets/button.dart';
 import 'package:localrepo/custom_widgets/textfield.dart';
 import 'package:localrepo/homescreens/agreement.dart';
@@ -118,20 +122,11 @@ class _HometState extends State<Home> {
                 onTap: () {},
               ),
               ListTile(
-                leading: Icon(Icons.settings),
-                title: Text('Settings'),
-                onTap: () {},
-              ),
-              ListTile(
                 leading: Icon(Icons.wallet),
                 title: Text('Wallet'),
                 onTap: () {},
               ),
-              ListTile(
-                leading: Icon(Icons.notification_add),
-                title: Text('Notifications'),
-                onTap: () {},
-              ),
+            
               ListTile(
                 leading: Icon(Icons.info),
                 title: Text('About'),
@@ -147,7 +142,7 @@ class _HometState extends State<Home> {
               ),
               ListTile(
                 leading: Icon(Icons.policy_outlined),
-                title: Text('Privacy Policy'),
+                title: Text('Agreement'),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -200,131 +195,468 @@ class UploadDeviceScreen extends StatefulWidget {
 }
 
 class _UploadDeviceScreenState extends State<UploadDeviceScreen> {
+  Uint8List? _image;
+  File? selectedIMage;
   final TextEditingController _deviceNameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _rentPriceController = TextEditingController();
-
+  final TextEditingController _availbilityController = TextEditingController();
+    final TextEditingController _qualityController = TextEditingController();
   @override
+  void initState() {
+    super.initState();
+    // Fetch data when the screen initializes
+    _fetchData();
+  } 
   void dispose() {
     _deviceNameController.dispose();
     _descriptionController.dispose();
     _rentPriceController.dispose();
+    _availbilityController.dispose();
+    _qualityController.dispose();
+  
+     String deviceName = _deviceNameController.text;
+    String description = _descriptionController.text;
+    String rentPrice = _rentPriceController.text;
+    String availability= _availbilityController.text;
+    String quality = _qualityController.text;
+
+
     super.dispose();
   }
-
-  void _uploadDevice() {
-
-    String deviceName = _deviceNameController.text;
-    String description = _descriptionController.text;
-    double rentPrice = double.tryParse(_rentPriceController.text) ?? 0.0;
-
+   Future<void> _fetchData() async {
+    try {
+      final data = await LocalDatabase().fetchDataLocally();
+      setState(() {
+        // Handle fetched data
+      });
+    } catch (e) {
+      print('Error fetching data: $e');
+      // Handle error
+    }
   }
+
+   
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
               appBar: AppBar(
-      backgroundColor: Colors.blue.shade100,
+      backgroundColor: Colors.blue,
       title: Center(child: Text('Rent or Sell',style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold),)),
       leading:  IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back_ios_new),) ,
       actions: [
         IconButton(onPressed: (){}, icon: Icon(Icons.wallet),)
       ]),
-      body: Padding(
+      body: Stack(
+        children: [
+     
+         Padding(
+          
+          padding: EdgeInsets.fromLTRB(20,40,20,30),
         
-        padding: EdgeInsets.fromLTRB(20,40,20,30),
-
-        child: Column(
-          
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-          
-             Container(
-                      width: 170,
-                       height: 170,
-                       decoration: BoxDecoration(
-                        border: Border.all(width: 4,color: Colors.black),
-                        boxShadow: [
-                          BoxShadow(
-                            spreadRadius: 2,
-                            blurRadius: 10,
-                            color: Colors.black.withOpacity(0.1),
-                            
-                          ),
-                        ],
-                        shape: BoxShape.circle,
-                       )
+          child: Column(
+            
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+                   _image!=null ?
+              CircleAvatar(
+        radius: 100,
+       backgroundImage: MemoryImage(_image!)
+             ):
+             const  CircleAvatar(
+        radius: 100,
+         backgroundImage: NetworkImage
+        ('https://cdn.pixabay.com/photo/2017/08/30/12/45/girl-2696947_1280.jpg')
              ),
-        SizedBox(height: 20,),
-               buildTextField('Fullname', 'Device name', false),
-                 buildTextField('Fullname', 'Description', false),
+        
+           
+          //  Positioned(
+          //   bottom: -0,
+          //   left: 100,right: 100,
+          //   child: IconButton(onPressed: (){
+          //  //   showImagePickerOption(context);
+          //   }, icon: Icon(Icons.add_a_photo))),
+          SizedBox(height: 20,),
+           TextFormField(
+                controller: _deviceNameController,
+                decoration: InputDecoration(
+                  labelText: 'Device Name',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                ),
+              ), 
+              SizedBox(height: 15,) ,
+              TextFormField(
+                controller: _descriptionController,
+                decoration: InputDecoration(
+                  labelText: 'Description',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                ),
+              ), 
+                 SizedBox(height: 15,) ,
+              TextFormField(
+                controller: _rentPriceController,
+                decoration: InputDecoration(
+                  labelText: 'Price',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                ),
+              ), 
+                 SizedBox(height: 15,) ,
+              TextFormField(
+                controller: _availbilityController,
+                decoration: InputDecoration(
+                  labelText: 'Availability',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                ),
+              ), 
+              
+                 SizedBox(height: 20,) ,
+                  
+                   
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                  CustomButton(text: 'Cancel', onPressed: (){
+                    // Call the method to delete all data
+   
+                     _deviceNameController.clear();
+    _descriptionController.clear();
+    _rentPriceController.clear();
+    _availbilityController.clear();
+    _qualityController.clear();
+   
+    
+    // Navigate to the HomeScreen or any other screen if needed
+    //Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
        
-                buildTextField('Fullname', 'Price ', false),
-              buildTextField('myname', 'Avaiability', false),
-                buildTextField('myname', 'Quality', false),
-                //   buildTextField('myname', 'Location', false),
-                
-                 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                CustomButton(text: 'Cancel', onPressed: (){
-Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
-                }),
-                   CustomButton(text: 'Upload', onPressed: (){
-                    _uploadDevice();
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>UploadDeviceScreen()));
-                   })
-                ],
-              ),
+                  }),
+                  
+                    CustomButton(
+          text: 'Upload',
+          onPressed: () async { 
+            double price = double.parse(_rentPriceController.text);
+            int availability = int.parse(_availbilityController.text);
+        
+    String result =        await LocalDatabase().addDataLocally(
+        name: _deviceNameController.text,
+        description: _descriptionController.text,
+        price: price,
+        availability: availability,  
+            );
+           
+    if (result == 'added') {
+      // Fetch the data
+      List<Map<String, dynamic>>? fetchedData = await LocalDatabase().fetchDataLocally();
 
-          ],
+      // Navigate to the screen where you want to display the fetched data
+      if (fetchedData != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => uploadScreen1(fetchedData: fetchedData),
+          ),
+        );
+      } else {
+        // Handle case where fetched data is null
+        print('Error: Fetched data is null');
+      }
+    } else {
+      // Handle case where data addition failed
+      print('Error: Data addition failed');
+    } 
+  
+                     
+                     })
+                  ],
+                ),
+        
+            ],
+            
+          ),
           
         ),
-        
+        ]
       ),
     );
   }
-    Widget buildTextField(String labelText , String placeholder, bool ispasswordTextField ){
-return Padding(padding: EdgeInsets.only(bottom: 30,left: 20,right: 20),
-child: TextFormField(
-// obscureText:ispasswordTextField? isObscurepassword : false,
- keyboardType: TextInputType.multiline,
-                maxLines: null,
-decoration: InputDecoration(
-  suffixIcon: ispasswordTextField ?
-  IconButton(onPressed: (){}, 
-  icon: Icon(Icons.remove_red_eye, color: Colors.black,),
-  ): null,
-  contentPadding: EdgeInsets.only(bottom: 5),
-  labelText: placeholder,
-  hintStyle: TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.normal,
-    color: Colors.black,
-
-  ),
-  // enabledBorder: OutlineInputBorder(
-  //   borderRadius: BorderRadius.circular(40),
-  //   borderSide: BorderSide(color: Colors.orange)
-  // ),
-  // focusedBorder: OutlineInputBorder(
-  //    borderRadius: BorderRadius.circular(40),
-  //   borderSide: BorderSide(color: Colors.purple),
-  // )
-),
 
 
 
-),
-);
+//void showImagePickerOption(BuildContext context){
+//   showModalBottomSheet(
+//     backgroundColor: Colors.blue[100],
+//     context: context, builder: (builder){
+// return Padding(
+//   padding: const EdgeInsets.all(18.0),
+//   child: SizedBox(
+//     width: MediaQuery.of(context).size.width,
+//      height: MediaQuery.of(context).size.height/4.5,
+//      child: Row(
+//       children: [
+//         Expanded(
+//           child: InkWell(
+//             onTap: (){
+//            //   _pickImageFromGallery();
+//             },
+//             child: SizedBox(
+//               child: Column(
+//                 children: [
+//                   Icon(Icons.image,size: 70,),
+//                   Text('Gallery')
+//                 ],
+//               ),
+//             ),
+//           ),
+//         ),
+//         Expanded(
+//           child: InkWell(
+//             onTap: (){},
+//             child: SizedBox(
+//               child: Column(
+//                 children: [
+//                   Icon(Icons.camera_alt,size: 70,),
+//                   Text('Camera',)
+//                 ],
+//               ),
+//             ),
+//           ),
+//         ),
+//       ],
+//      ),
+//   ),
+// );
   }
+
+// Future _pickImageFromGallery() async{
+//   final returnImage= 
+//   await ImagePicker().pickImage(source: ImageSource.gallery);
+//   if(returnImage== null)return;
+//   setState(() {
+//     selectedIMage= File(returnImage.path);
+//     _image= File(returnImage.path).readAsBytesSync();
+//   });
+//}
+
+ // }
+
+
+
+
+class uploadScreen1 extends StatefulWidget {
+    final List<Map<String, dynamic>>? fetchedData;
+  const uploadScreen1({Key? key, this.fetchedData}) : super(key: key);
+
+  @override
+  State<uploadScreen1> createState() => _uploadScreen1State();
 }
 
+class _uploadScreen1State extends State<uploadScreen1> {
+   final LocalDatabase _localDatabase = LocalDatabase();
+  List<Map<String, dynamic>>? _fetchedData;
+    
+  @override
+  void initState() {
+    super.initState();
+   // Assign the fetched data from the widget's property to the local variable
+    _fetchedData = widget.fetchedData;
+  }
 
+  Future<void> _fetchData() async {
+    try {
+    final data = (await LocalDatabase().fetchDataLocally()) ?? [];
+    setState(() {
+    _fetchedData = data ?? [];    // Handle fetched data
+    });
+  } catch (e) {
+    print('Error fetching data: $e');
+    // Handle error
+  }
+}
+  Widget build(BuildContext context) {
+     return Scaffold(
+      appBar: AppBar(
+        title: Text('Local Data'),
+      ),
+      body: _fetchedData != null
+      
+          ? ListView.builder(
+              itemCount: _fetchedData!.length,
+              itemBuilder: (context, index) {
+                final item = _fetchedData![index];
+             if (item != null) { // Add null check here
+   
+    return Container(
+        margin: EdgeInsets.symmetric(vertical: 7.0, horizontal: 25.0),
+        padding: EdgeInsets.all(16.0),
+        decoration: BoxDecoration(
+          color: Colors.grey[400],
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+             Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                              onPressed: () {
+                                _showEditBottomSheet(context, item);
+                              },
+                              icon: Icon(Icons.edit),
+                            ),
+ IconButton(
+            onPressed: () async {
+              // Delete data from the database
+               await LocalDatabase().deleteDataLocally(item['id']);
+// Fetch updated data from the database
+    List<Map<String, dynamic>>? newData = await LocalDatabase().fetchDataLocally();
+               // Update the UI with the new data
+    setState(() {
+      _fetchedData = newData;
+    });
+            },
+            icon: Icon(Icons.delete),
+          ),
+          
+        
+              ],
+             ),
+      
+            Text(
+            'Name: ${item['Name'] ?? ''}',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 17.0,
+              ),
+            ),
+            SizedBox(height: 8.0),
+            Text(
+                'Description: ${item['description'] ?? ''}',
+              style: TextStyle(fontWeight: FontWeight.bold,
+                fontSize: 17.0,
+              ),
+            ),
+            SizedBox(height: 8.0),
+            Text(
+              'Price: ${item['price']?.toString() ?? ''}',
+              style: TextStyle(fontWeight: FontWeight.bold,
+                fontSize: 17.0,),
+            ),
+            SizedBox(height: 8.0),
+            Text(
+              'Availability: ${item['availability']?.toString() ?? ''}',
+              style: TextStyle(fontWeight: FontWeight.bold,
+                fontSize: 17.0,),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return SizedBox(); // Return an empty widget or another placeholder
 
+    
+    }
 
+  },
+ 
+            )
+          : Center(
+              child: CircularProgressIndicator(),
+            ),
+    );
+     // show bottom sheet
+     
+  }
+  void _showEditBottomSheet(BuildContext context, Map<String, dynamic> item) {
+    TextEditingController nameController =
+        TextEditingController(text: item['Name']);
+    TextEditingController descriptionController =
+        TextEditingController(text: item['description']);
+    TextEditingController priceController =
+        TextEditingController(text: item['price']?.toString());
+    TextEditingController availabilityController =
+        TextEditingController(text: item['availability']?.toString());
+
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                  controller: nameController,
+                  decoration: InputDecoration(labelText: 'Name'),
+                ),
+                TextFormField(
+                  controller: descriptionController,
+                  decoration: InputDecoration(labelText: 'Description'),
+                ),
+                TextFormField(
+                  controller: priceController,
+                  decoration: InputDecoration(labelText: 'Price'),
+                ),
+                TextFormField(
+                  controller: availabilityController,
+                  decoration: InputDecoration(labelText: 'Availability'),
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () async {
+                    // Update the item with new values
+                    // You can use the controllers' text values to get the updated values
+                    // For demonstration, I'm just printing here
+                    print('Updated Name: ${nameController.text}');
+                    print('Updated Description: ${descriptionController.text}');
+                    print('Updated Price: ${priceController.text}');
+                    print('Updated Availability: ${availabilityController.text}');
+
+                    // Update the data in the database
+                    // For example:
+                    await LocalDatabase().updateItemLocally(
+                      id: item['id'],
+                      name: nameController.text,
+                      description: descriptionController.text,
+                      price: double.tryParse(priceController.text) ?? 0,
+                      availability: int.tryParse(availabilityController.text) ?? 0,
+                    );
+
+                    // Refresh the UI to reflect the changes
+                    List<Map<String, dynamic>>? newData =
+                        await LocalDatabase().fetchDataLocally();
+                    setState(() {
+                      _fetchedData = newData;
+                    });
+
+                    Navigator.pop(context); // Close the bottom sheet
+                  },
+                  child: Text('Save',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.pink[600],
+                    
+                  ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+}
 
 
 
@@ -465,12 +797,12 @@ body:Column(
       ),
     // Divider(),
     // SizedBox(height: 10,),
-      ListTile(
-       leading: Icon(Icons.notification_add,color: Colors.black,),
-        title: Text('Notifications', style: TextStyle(fontSize: 17,fontWeight:FontWeight.normal,color: Colors.black),),
-        trailing:  Icon(Icons.arrow_forward_ios_outlined,color: Colors.black,),
-        onTap: (){},
-      ),
+      // ListTile(
+      //  leading: Icon(Icons.notification_add,color: Colors.black,),
+      //   title: Text('Notifications', style: TextStyle(fontSize: 17,fontWeight:FontWeight.normal,color: Colors.black),),
+      //   trailing:  Icon(Icons.arrow_forward_ios_outlined,color: Colors.black,),
+      //   onTap: (){},
+      // ),
         
          ListTile(
        leading: Icon(Icons.policy,color: Colors.black,),
@@ -516,14 +848,14 @@ body:Column(
         trailing:  Icon(Icons.arrow_forward_ios_outlined,color: Colors.black,),
         onTap: (){},
       ),
-          ListTile(
-       leading: Icon(Icons.location_history,color: Colors.black,),
-        title: Text('Location', style: TextStyle(fontSize: 17,fontWeight:FontWeight.normal,color: Colors.black),),
-        trailing:  Icon(Icons.arrow_forward_ios_outlined,color: Colors.black,),
-        onTap: (){},
-      ),
+      //     ListTile(
+      //  leading: Icon(Icons.location_history,color: Colors.black,),
+      //   title: Text('Location', style: TextStyle(fontSize: 17,fontWeight:FontWeight.normal,color: Colors.black),),
+      //   trailing:  Icon(Icons.arrow_forward_ios_outlined,color: Colors.black,),
+      //   onTap: (){},
+      // ),
         
-     
+     SizedBox(height:100 ,),
 Center(child: CustomButton(text: 'Signout', onPressed: (){  
    Navigator.push(
   context,
@@ -542,13 +874,14 @@ Center(child: CustomButton(text: 'Signout', onPressed: (){
 
 
 class editScreen extends StatefulWidget {
-  const editScreen({super.key});
+  const editScreen({Key? key}) : super(key: key);
 
   @override
   State<editScreen> createState() => _editScreenState();
 }
 
 class _editScreenState extends State<editScreen> {
+  
   bool isObscurepassword = true;
    final nameController = TextEditingController();
   @override
