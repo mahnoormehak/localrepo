@@ -261,7 +261,7 @@ class _RentalAgreementScreenState extends State<RentalAgreementScreen> {
                   Text('Start Date: ${startDate.toString().substring(0, 10)}'),
                   ElevatedButton(
                     onPressed: () => _showDatePicker(context, true),
-                    child: Text('Select'),
+                    child: const Text('Select'),
                   ),
                 ],
               ),
