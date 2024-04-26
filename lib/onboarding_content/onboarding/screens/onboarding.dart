@@ -1,13 +1,16 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+// import 'package:localrepo/homescreens/home_screen.dart';
+import 'package:localrepo/routes.dart';
 import '../data/data.dart';
 import '../custom/custom_bg.dart';
 import '../widgets/item_card.dart';
 import '../widgets/widgets.dart';
-import 'package:localrepo/homescreens/navbar.dart';
+// import 'package:localrepo/homescreens/sidebar.dart';
 
 class OnboardingScreen extends StatefulWidget {
+  static const String routeName = "/onboarding";
   const OnboardingScreen({super.key});
 
   @override
@@ -319,99 +322,27 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        if (pageValue < 2.0) {
-                          pageController.nextPage(
-                            duration: const Duration(seconds: 1),
-                            curve: Curves.ease,
-                          );
-                        } else {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeScreen()),
-                          );
-                        }
+                        // Navigate to the login screen
+                        Navigator.pushNamed(context, AppRoutes.logIn);
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 20),
                         decoration: const BoxDecoration(
                           color: Colors.black,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(15),
-                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
                         ),
-                        child: AnimatedCrossFade(
-                          duration: const Duration(milliseconds: 500),
-                          crossFadeState: pageValue < 2.0
-                              ? CrossFadeState.showFirst
-                              : CrossFadeState.showSecond,
-                          firstChild: const Center(
-                            child: Icon(
-                              Icons.arrow_forward_ios_rounded,
-                              size: 30,
+                        child: const Center(
+                          child: Text(
+                            "Get Started",
+                            style: TextStyle(
+                              fontSize: 20,
                               color: Colors.white,
-                            ),
-                          ),
-                          secondChild: const Center(
-                            child: Text(
-                              "Get Started",
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-
-                    // GestureDetector(
-                    //   onTap: () {
-                    //     if (pageValue < 2.0) {
-                    //       pageController.nextPage(
-                    //           duration: const Duration(seconds: 1),
-                    //           curve: Curves.ease);
-                    //     } else {
-                    //       // context.go(AppRoutes.authRoute.path);
-                    //     }
-                    //   },
-                    //   child: Container(
-                    //     padding: const EdgeInsets.symmetric(
-                    //         horizontal: 20, vertical: 20),
-                    //     decoration: const BoxDecoration(
-                    //       color: Colors.black,
-                    //       borderRadius: BorderRadius.all(
-                    //         Radius.circular(15),
-                    //       ),
-                    //     ),
-                    //     child: AnimatedCrossFade(
-                    //       duration: const Duration(milliseconds: 500),
-                    //       // height: 50,
-                    //       crossFadeState: pageValue < 2.0
-                    //           ? CrossFadeState.showFirst
-                    //           : CrossFadeState.showSecond,
-                    //       firstChild: const Center(
-                    //         child: Icon(
-                    //           Icons.arrow_forward_ios_rounded,
-                    //           size: 30,
-                    //           color: Colors.white,
-                    //         ),
-                    //       ),
-                    //       secondChild: const Center(
-                    //         child: InkWell(
-                    //           child: Text(
-                    //             "Get Started",
-                    //             style: TextStyle(
-                    //               fontSize: 20,
-                    //               color: Colors.white,
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),

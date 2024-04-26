@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -7,11 +6,11 @@ class CustomTextField extends StatefulWidget {
   final IconData icon;
 
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.controller,
     required this.text,
     required this.icon,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -28,11 +27,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
         // Using the icon here
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(40),
-          borderSide: BorderSide(color: Colors.orange),
+          borderSide: const BorderSide(color: Colors.orange),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(40),
-          borderSide: BorderSide(color: Colors.purple),
+          borderSide: const BorderSide(color: Colors.purple),
         ),
         filled: true,
         fillColor: Colors.white,
@@ -40,4 +39,3 @@ class _CustomTextFieldState extends State<CustomTextField> {
     );
   }
 }
-
