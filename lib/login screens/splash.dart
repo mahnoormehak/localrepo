@@ -18,6 +18,7 @@
 //   void initState() {
 //     super.initState();
 
+<<<<<<< HEAD
 //     // Simulate some loading or initialization process
 //     // You can replace this with your actual application logic
 //     Timer(
@@ -31,6 +32,21 @@
 //       },
 //     );
 //   }
+=======
+    // Simulate some loading or initialization process
+    // You can replace this with your actual application logic
+    Timer(
+      Duration(seconds: 4), // Set the duration of your splash screen
+      () {
+        // Navigate to the next screen after the splash screen
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) =>Profile ()),
+        );
+      },
+    );
+  }
+>>>>>>> d34cf9279b94f2760c354f3b1da40a48d181d321
 
 //   @override
 //   Widget build(BuildContext context) {
