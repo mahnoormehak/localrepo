@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:localrepo/Database/uploadScreen/sc2.dart';
+import 'package:localrepo/Database/uploadScreen/screen1.dart';
 import 'package:localrepo/cart/cart_screen.dart';
 // import 'package:localrepo/cart/cart_screen.dart';
 import 'package:localrepo/contract_page/contract_page.dart';
@@ -8,6 +10,7 @@ import 'package:localrepo/homescreens/home_screen.dart';
 import 'package:localrepo/homescreens/popular_product.dart';
 import 'package:localrepo/homescreens/special_offers.dart';
 import 'package:localrepo/init_screen.dart';
+import 'package:localrepo/login%20screens/login.dart';
 // import 'package:localrepo/models/cart.dart';
 import 'package:localrepo/onboarding_content/onboarding/screens/onboarding.dart';
 import 'package:localrepo/login%20screens/signUP.dart';
@@ -37,24 +40,29 @@ class AppRoutes {
   static const String sidebar = '/sidebar';
   static const String contract = '/contract';
   static const String cart = '/cart';
+  static const String upload1 = '/upload1';
+  static const String upload2 = '/upload2';
 }
 
 // Define routes using a Map
 final Map<String, WidgetBuilder> appRoutes = {
   InitScreen.routeName: (context) => const InitScreen(),
   AppRoutes.onboarding: (context) => const OnboardingScreen(),
-  AppRoutes.signUp: (context) => const signup(),
-  AppRoutes.logIn: (context) => LOGIN(),
+  AppRoutes.signUp: (context) =>  signup(),
+// AppRoutes.logIn: (context) => LOGIN(),
+AppRoutes.upload1: (context) =>  UploadDeviceScreen(),
+AppRoutes.upload2: (context) =>  uploadScreen1(),
+
   AppRoutes.home: (context) => const HomeScreen(),
   AppRoutes.products: (context) => const ProductsScreen(),
-  AppRoutes.profile: (context) => const ProfileScreen(), // Add profile route
+  //AppRoutes.profile: (context) => const ProfileScreen(), // Add profile route
   AppRoutes.favorite: (context) => const FavoriteScreen(), // Add favorite route
   AppRoutes.popularProducts: (context) =>
       const PopularProducts(), // Add popular products route
   AppRoutes.specialOffers: (context) =>
       const SpecialOffers(), // Add special offers route
   AppRoutes.rentalAgreement: (context) =>
-      const RentalAgreementScreen(), // Add rental agreement route
+       RentalAgreementScreen(deviceName: '', rentAmount: 0,), // Add rental agreement route
   AppRoutes.details: (context) => const DetailsScreen(),
   AppRoutes.sidebar: (context) => const Sidebar(),
   AppRoutes.contract: (context) => const ContractPage(),

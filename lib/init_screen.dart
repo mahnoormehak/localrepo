@@ -35,7 +35,7 @@ class _InitScreenState extends State<InitScreen> {
     const Center(
       child: Text("Chat"),
     ),
-    const ProfileScreen()
+     Profile()
   ];
 
   @override

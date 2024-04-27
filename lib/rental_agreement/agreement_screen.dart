@@ -1,6 +1,6 @@
-// ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:localrepo/custom_widgets/button.dart';
 
 class RentalAgreement {
   final String deviceName;
@@ -31,14 +31,17 @@ class DeviceDetails {
 }
 
 class RentalAgreementScreen extends StatefulWidget {
-  static const String rentalAgreement = '/rental_agreement';
-  const RentalAgreementScreen({super.key});
+  final String deviceName;
+  final double rentAmount;
+
+  RentalAgreementScreen({required this.deviceName, required this.rentAmount});
 
   @override
   _RentalAgreementScreenState createState() => _RentalAgreementScreenState();
 }
 
 class _RentalAgreementScreenState extends State<RentalAgreementScreen> {
+    final _formKey = GlobalKey<FormState>(); // Key for accessing the form's state
   late TextEditingController renterNameController;
   late TextEditingController phoneNumberController;
   late TextEditingController addressController;
@@ -50,19 +53,15 @@ class _RentalAgreementScreenState extends State<RentalAgreementScreen> {
   int selectedNumberOfDevices = 1;
   List<DeviceDetails> deviceDetailsList = [];
 
-  List<String> deviceNames = [
-    'Camera',
-    'Tripod',
-    'Lenses',
-    'Other',
-  ]; // Add more as needed
+  List<String> deviceNames = ['Camera', 'Tripod', 'Lenses', 'Other']; // Add more as needed
   String selectedDevice = 'Other'; // Set a default value
+  int _selectedDays = 1;
 
   @override
   void initState() {
     super.initState();
     startDate = DateTime.now();
-    endDate = DateTime.now().add(const Duration(days: 7));
+    endDate = DateTime.now().add(Duration(days: 7));
     initializeDeviceDetailsList();
 
     renterNameController = TextEditingController();
@@ -76,8 +75,7 @@ class _RentalAgreementScreenState extends State<RentalAgreementScreen> {
   void initializeDeviceDetailsList() {
     deviceDetailsList = List<DeviceDetails>.generate(
       selectedNumberOfDevices,
-      (index) => DeviceDetails(
-          deviceNumber: index + 1, rentAmount: 0, responsible: false),
+      (index) => DeviceDetails(deviceNumber: index + 1, rentAmount: 0, responsible: false),
     );
   }
 
@@ -107,8 +105,141 @@ class _RentalAgreementScreenState extends State<RentalAgreementScreen> {
         } else {
           endDate = picked;
         }
+          // Update the total price based on the selected start and end dates
+      _updateTotalPrice();
       });
     }
+  }
+  void _updateTotalPrice() {
+  // Calculate the number of days between start and end dates
+  final int numberOfDays = endDate.difference(startDate).inDays;
+  // Update the total price for all devices
+  for (int i = 0; i < selectedNumberOfDevices; i++) {
+    deviceDetailsList[i].rentAmount = widget.rentAmount * numberOfDays;
+  }
+}
+
+
+  void _generateInvoice(BuildContext context, Map<String, dynamic> item) {
+    // Extract renter details from the form
+    String renterName = renterNameController.text;
+    String idCardNumber = idCardNumberController.text;
+    String nationality = nationalityController.text;
+    String phoneNumber = phoneNumberController.text;
+    String address = addressController.text;
+    String city = cityController.text;
+
+    // Initialize the total price with the price for one day
+    double totalPrice = (item['price'] as double);
+    // Calculate the number of days between start and end dates
+  int numberOfDays = endDate.difference(startDate).inDays;
+
+// Calculate the total price based on the number of days
+  // ignore: unused_local_variable
+//  double totalPrice = widget.rentAmount * numberOfDays;
+
+    // Show bottom sheet with the invoice
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+      ),
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Container(
+              padding: EdgeInsets.all(20.0),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+                color: Color.fromARGB(255, 217, 230, 241),
+              ),
+              height: MediaQuery.of(context).size.height * 0.6,
+              width:MediaQuery.of(context).size.width * 3.8,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Invoice',
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 20.0),
+                  Text(
+                    'Renter Name: $renterName',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                    ),
+                  ),
+                  SizedBox(height: 3,),
+                  Text(
+                    'Phone Number: $phoneNumber',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                    ),
+                  ), SizedBox(height: 3,),
+                  Text(
+                    'Address: $address',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                    ),
+                  ), SizedBox(height: 3,),
+                  Text(
+                    'Nationality: $nationality',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                    ),
+                  ), SizedBox(height: 3,),
+                  Text(
+                    'ID Card Number: $idCardNumber',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                    ),
+                  ), SizedBox(height: 3,),
+                  Text(
+                    'City: $city',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                    ),
+                  ), SizedBox(height: 3,),
+
+                  Text(
+                 'Device: ${widget.deviceName}',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                    ),
+                  ), SizedBox(height: 3,),
+                       Text(
+                  'Price per day: \$${widget.rentAmount}',
+                  style: TextStyle(fontSize: 18.0),
+                ), SizedBox(height: 3,),
+                 Text(
+                  'Number of days: $numberOfDays',
+                  style: TextStyle(fontSize: 18.0),
+                ), SizedBox(height: 15,),
+                   Text(
+                  'Total Price: \$${totalPrice.toStringAsFixed(2)}',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold,
+                  ),),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(onPressed: (){}, child: Text('Checkout',style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),)),
+                    ],
+                  )
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   void _submitAgreement() {
@@ -118,21 +249,19 @@ class _RentalAgreementScreenState extends State<RentalAgreementScreen> {
         addressController.text.isEmpty ||
         nationalityController.text.isEmpty ||
         idCardNumberController.text.isEmpty ||
-        cityController.text.isEmpty ||
-        deviceDetailsList.any((device) => device.rentAmount <= 0)) {
+        cityController.text.isEmpty 
+       // deviceDetailsList.any((device) => device.rentAmount <= 0)
+        )
+         {
       _showErrorDialog('Please fill all the fields and specify device prices.');
     } else {
-      // ignore: unused_local_variable
-      RentalAgreement agreement = RentalAgreement(
-        deviceName: selectedDevice,
-        renterName: renterNameController.text,
-        devices: deviceDetailsList,
-        startDate: startDate,
-        endDate: endDate,
-      );
+     
+      _generateInvoice(context, {
+        'Name': renterNameController.text,
+        'description': selectedDevice,
+        'price': deviceDetailsList.fold<double>(0, (total, device) => total + device.rentAmount),
+      });
 
-      // Simulate sending agreement data to a server
-      // _sendAgreementToServer(agreement);
     }
   }
 
@@ -141,11 +270,11 @@ class _RentalAgreementScreenState extends State<RentalAgreementScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Error'),
+          title: Text('Error'),
           content: Text(message),
           actions: <Widget>[
             TextButton(
-              child: const Text('OK'),
+              child: Text('OK'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -156,8 +285,7 @@ class _RentalAgreementScreenState extends State<RentalAgreementScreen> {
     );
   }
 
-  void updateDeviceDetails(
-      int deviceNumber, double rentAmount, bool responsible) {
+  void updateDeviceDetails(int deviceNumber, double rentAmount, bool responsible) {
     setState(() {
       deviceDetailsList[deviceNumber - 1].rentAmount = rentAmount;
       deviceDetailsList[deviceNumber - 1].responsible = responsible;
@@ -168,7 +296,7 @@ class _RentalAgreementScreenState extends State<RentalAgreementScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
+        title: Center(
           child: Text(
             'RENTAL AGREEMENT',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -176,137 +304,206 @@ class _RentalAgreementScreenState extends State<RentalAgreementScreen> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.fromLTRB(40.0,0,40,20),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              const SizedBox(height: 20.0),
-              const Text(
-                'Select the device to rent: (Select only one device)',
-                style: TextStyle(
-                  fontSize: 19,
-                  fontWeight: FontWeight.w500,
+
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                SizedBox(height: 20.0),
+                Text(
+                  'Please Fill out all the details:',
+                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),
                 ),
-              ),
-              DropdownButton<String>(
-                value: selectedDevice,
-                items: deviceNames.map((name) {
-                  return DropdownMenuItem<String>(
-                    value: name,
-                    child: Text(name),
-                  );
-                }).toList(),
-                onChanged: (String? value) {
-                  setState(() {
-                    selectedDevice = value ?? 'Camera';
-                  });
-                },
-              ),
-              const SizedBox(height: 20.0),
-              const Text(
-                'Enter renter details:',
-                style: TextStyle(
-                  fontSize: 19,
-                  fontWeight: FontWeight.w500,
+                TextFormField(
+                  controller: renterNameController,
+                  decoration: InputDecoration(labelText: 'Renter Name'),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter renter name';
+                    }
+                    return null;
+                  },
                 ),
-              ),
-              TextFormField(
-                controller: renterNameController,
-                decoration: const InputDecoration(labelText: 'Renter Name'),
-              ),
-              TextFormField(
-                controller: phoneNumberController,
-                keyboardType: TextInputType.phone,
-                decoration: const InputDecoration(labelText: 'Phone Number'),
-              ),
-              TextFormField(
-                controller: addressController,
-                decoration: const InputDecoration(labelText: 'Address'),
-              ),
-              TextFormField(
-                controller: nationalityController,
-                decoration: const InputDecoration(labelText: 'Nationality'),
-              ),
-              TextFormField(
-                controller: idCardNumberController,
-                decoration: const InputDecoration(labelText: 'ID Card Number'),
-              ),
-              TextFormField(
-                controller: cityController,
-                decoration: const InputDecoration(labelText: 'City'),
-              ),
-              const SizedBox(height: 20.0),
-              const Text(
-                'Specify the rental amount, responsibility, and payment methods for each device:',
-                style: TextStyle(
-                  fontSize: 19,
-                  fontWeight: FontWeight.w500,
+                TextFormField(
+                  controller: phoneNumberController,
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(labelText: 'Phone Number'),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter phone number';
+                    } else if (value.length != 11) {
+                      return 'Phone number must be 11 digits';
+                    }
+                    return null;
+                  },
                 ),
-              ),
-              for (int i = 0; i < selectedNumberOfDevices; i++)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      'Device ${i + 1}',
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
+                TextFormField(
+                  controller: addressController,
+                  decoration: InputDecoration(labelText: 'Address'),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter address';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: nationalityController,
+                  decoration: InputDecoration(labelText: 'Nationality'),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter nationality';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: idCardNumberController,
+                  decoration: InputDecoration(labelText: 'ID Card Number'),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter ID card number';
+                    } else if (value.length != 13) {
+                      return 'ID card number must be 13 digits';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: cityController,
+                  decoration: InputDecoration(labelText: 'City'),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter city';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 20.0),
+                Text(
+                  'The device name and price per day:',
+                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),
+                ),
+                  SizedBox(height: 10,),
+                for (int i = 0; i < selectedNumberOfDevices; i++)
+              
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                  
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(40,0,40,0),
+                            child: Container(
+                              height: 50,
+                              width: 60,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black,),
+                            
+                                borderRadius: BorderRadius.circular(40),
+                            
+                              ),
+                              child: Center(
+                                child: Text(
+                                                  'Device: ${widget.deviceName}',
+                                                  style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.bold),
+                                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 10,),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(40,0,40,0),
+                  child: Container(
+                    height: 50,
+                              width: 60,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black,),
+                  
+                                borderRadius: BorderRadius.circular(40),
+                  
+                              ),
+                    child: Center(
+                      child: Text(
+                        'Price per day: \$${widget.rentAmount}',
+                        style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.bold),
+                        
+                      ),
                     ),
-                    TextFormField(
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                          labelText: 'Rental Amount for Device ${i + 1}'),
-                      onChanged: (value) {
-                        updateDeviceDetails(i + 1, double.parse(value),
-                            deviceDetailsList[i].responsible);
-                      },
-                    ),
-                    Row(
-                      children: [
-                        Checkbox(
-                          value: deviceDetailsList[i].responsible,
-                          onChanged: (value) {
-                            updateDeviceDetails(
-                                i + 1,
-                                deviceDetailsList[i].rentAmount,
-                                value ?? false);
-                          },
-                        ),
-                        const Text('I will be responsible for this device'),
-                      ],
-                    ),
-                    const SizedBox(height: 20.0),
+                  ),
+                ),
+                      Row(
+                        children: [
+                          Checkbox(
+                            value: deviceDetailsList[i].responsible,
+                            onChanged: (value) {
+                              updateDeviceDetails(i + 1, deviceDetailsList[i].rentAmount, value ?? false);
+                            },
+                          ),
+                          Text('I will be responsible for this device',
+                          style: TextStyle(fontSize: 15),),
+                          
+                        ],
+                      ),
+                      
+                      SizedBox(height: 5.0),
+                    ],
+                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('Start Date: ${startDate.toString().substring(0, 10)}'),
+                
+                    TextButton(onPressed: (){
+                       _showDatePicker(context, true);
+                    }, child: Text('Select',style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),))
                   ],
                 ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text('Start Date: ${startDate.toString().substring(0, 10)}'),
-                  ElevatedButton(
-                    onPressed: () => _showDatePicker(context, true),
-                    child: const Text('Select'),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text('End Date: ${endDate.toString().substring(0, 10)}'),
-                  ElevatedButton(
-                    onPressed: () => _showDatePicker(context, false),
-                    child: const Text('Select'),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20.0),
-              ElevatedButton(
-                onPressed: _submitAgreement,
-                child: const Text('Submit Agreement'),
-              ),
-              const SizedBox(height: 20.0),
-            ],
+                SizedBox(height: 5.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('End Date: ${endDate.toString().substring(0, 10)}'),
+                    TextButton(onPressed: (){
+                       _showDatePicker(context, false);
+                    }, child: Text('Select',style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),))
+                  ],
+                  
+                ),
+                SizedBox(height: 20.0),
+               
+                // CustomButton(text: 'Agree', onPressed: (){
+                //      _submitAgreement();
+                //     }),
+                   Padding(
+                     padding: const EdgeInsets.fromLTRB(70,0,70,0
+                     ),
+                     child: Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        color: Color.fromARGB(255, 255, 193, 8),
+                      ),
+                       child: TextButton(onPressed: (){
+                         _submitAgreement();
+                        }, child: Text('Agree',style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),)),
+                     ),
+                   ),
+                SizedBox(height: 20.0),
+              ],
+            ),
           ),
         ),
       ),
@@ -315,7 +512,7 @@ class _RentalAgreementScreenState extends State<RentalAgreementScreen> {
 }
 
 void main() {
-  runApp(const MaterialApp(
-    home: RentalAgreementScreen(),
+  runApp(MaterialApp(
+    home: RentalAgreementScreen(deviceName: '', rentAmount: 0,),
   ));
 }

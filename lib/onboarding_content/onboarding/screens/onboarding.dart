@@ -323,7 +323,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     GestureDetector(
                       onTap: () {
                         // Navigate to the login screen
-                        Navigator.pushNamed(context, AppRoutes.logIn);
+                        Navigator.pushNamed(context, AppRoutes.upload1);
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
