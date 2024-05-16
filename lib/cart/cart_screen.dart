@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import "package:flutter_svg/flutter_svg.dart";
-
+import 'package:flutter_svg/flutter_svg.dart';
 import '../models/cart.dart';
 import 'components/cart_card.dart';
 import 'components/check_out_card.dart';
@@ -8,15 +7,39 @@ import 'components/check_out_card.dart';
 class CartScreen extends StatefulWidget {
   static String routeName = "/cart";
 
-  const CartScreen({super.key});
+  const CartScreen({
+    super.key,
+  });
 
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
 
 class _CartScreenState extends State<CartScreen> {
+  double calculateTotalPrice(List<Cart> carts) {
+    double totalPrice = 0;
+    for (var cart in carts) {
+      totalPrice += cart.product.price * cart.numOfItem;
+    }
+    return totalPrice;
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Calculate total price
+    double totalPrice = calculateTotalPrice(demoCarts);
+
+    // Remove duplicate items from the cart list
+    final Set<int> productIds = {};
+    final List<Cart> uniqueCarts = [];
+    for (final cartItem in demoCarts) {
+      if (productIds.contains(cartItem.product.id)) {
+        continue;
+      }
+      productIds.add(cartItem.product.id);
+      uniqueCarts.add(cartItem);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Column(
@@ -26,8 +49,8 @@ class _CartScreenState extends State<CartScreen> {
               style: TextStyle(color: Colors.black),
             ),
             Text(
-              "${demoCarts.length} items",
-              style: Theme.of(context).textTheme.bodySmall,
+              "${uniqueCarts.length} items",
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
         ),
@@ -35,15 +58,15 @@ class _CartScreenState extends State<CartScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: ListView.builder(
-          itemCount: demoCarts.length,
+          itemCount: uniqueCarts.length,
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Dismissible(
-              key: Key(demoCarts[index].product.id.toString()),
+              key: Key(uniqueCarts[index].product.id.toString()),
               direction: DismissDirection.endToStart,
               onDismissed: (direction) {
                 setState(() {
-                  demoCarts.removeAt(index);
+                  demoCarts.remove(uniqueCarts[index]);
                 });
               },
               background: Container(
@@ -59,12 +82,12 @@ class _CartScreenState extends State<CartScreen> {
                   ],
                 ),
               ),
-              child: CartCard(cart: demoCarts[index]),
+              child: CartCard(cart: uniqueCarts[index]),
             ),
           ),
         ),
       ),
-      bottomNavigationBar: const CheckoutCard(),
+      bottomNavigationBar: CheckoutCard(totalPrice: totalPrice),
     );
   }
 }

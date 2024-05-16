@@ -3,8 +3,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:localrepo/constants_copy.dart';
 
 class CheckoutCard extends StatelessWidget {
+  final double totalPrice;
+
   const CheckoutCard({
     super.key,
+    required this.totalPrice,
   });
 
   @override
@@ -14,7 +17,6 @@ class CheckoutCard extends StatelessWidget {
         vertical: 16,
         horizontal: 20,
       ),
-      // height: 174,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: const BorderRadius.only(
@@ -59,14 +61,14 @@ class CheckoutCard extends StatelessWidget {
             const SizedBox(height: 16),
             Row(
               children: [
-                const Expanded(
+                Expanded(
                   child: Text.rich(
                     TextSpan(
                       text: "Total:\n",
                       children: [
                         TextSpan(
-                          text: "\$337.15",
-                          style: TextStyle(fontSize: 16, color: Colors.black),
+                          text: "\$$totalPrice", // Use totalPrice here
+                          style: const TextStyle(fontSize: 16, color: Colors.black),
                         ),
                       ],
                     ),

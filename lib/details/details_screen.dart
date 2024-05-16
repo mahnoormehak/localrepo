@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:localrepo/cart/cart_screen.dart';
+import 'package:localrepo/models/cart.dart';
 
 import '../../models/Product.dart';
 import 'components/color_dots.dart';
@@ -8,16 +9,22 @@ import 'components/product_description.dart';
 import 'components/product_images.dart';
 import 'components/top_rounded_container.dart';
 
-class DetailsScreen extends StatelessWidget {
+class DetailsScreen extends StatefulWidget {
   static String routeName = "/details";
 
-  const DetailsScreen({super.key});
+  final ProductDetailsArguments args;
+
+  const DetailsScreen({super.key, required this.args});
 
   @override
+  _DetailsScreenState createState() => _DetailsScreenState();
+}
+
+class _DetailsScreenState extends State<DetailsScreen> {
+  @override
   Widget build(BuildContext context) {
-    final ProductDetailsArguments agrs =
-        ModalRoute.of(context)!.settings.arguments as ProductDetailsArguments;
-    final product = agrs.product;
+    final Product product = widget.args.product;
+
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,
@@ -105,6 +112,9 @@ class DetailsScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             child: ElevatedButton(
               onPressed: () {
+                // Add selected product to the cart
+                demoCarts.add(Cart(product: product, numOfItem: 1));
+                // Navigate to the cart screen
                 Navigator.pushNamed(context, CartScreen.routeName);
               },
               child: const Text("Add To Cart"),

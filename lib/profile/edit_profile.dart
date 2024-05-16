@@ -1,157 +1,151 @@
 import 'package:flutter/material.dart';
 
-import 'dart:io';
-import 'dart:typed_data';
 // ignore: depend_on_referenced_packages
-import 'package:image_picker/image_picker.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
-import 'package:localrepo/Database/authentication.dart';
-import 'package:localrepo/Database/localdb.dart';
-import 'package:localrepo/custom_widgets/button.dart';
-import 'package:localrepo/custom_widgets/textfield.dart';
-import 'package:localrepo/homescreens/agreement.dart';
 
-import 'package:localrepo/login%20screens/login.dart';
-import 'package:localrepo/login%20screens/signUP.dart';
-import 'package:localrepo/onboarding_content/onboarding/screens/onboarding.dart';
+import 'package:localrepo/Database/authentication.dart';
+
+import 'package:localrepo/custom_widgets/button.dart';
 
 class editScreen extends StatefulWidget {
-  const editScreen({Key? key}) : super(key: key);
+  const editScreen({super.key});
 
   @override
   State<editScreen> createState() => _editScreenState();
 }
 
 class _editScreenState extends State<editScreen> {
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
- 
-     final nameController = TextEditingController();
+  final nameController = TextEditingController();
   final lastNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final countryController = TextEditingController();
-  
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-         appBar: AppBar(
-      backgroundColor: Colors.green,
-      title: Center(child: Text('Profile',style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold,),)),
-      // leading:  IconButton
-      // (onPressed: (){
-      //    Navigator.push(context, MaterialPageRoute(builder:
-      //                      (context)=>HomeScreen(),
-      //                      )
-      //                      );
-      // }, 
-      
-      // icon: Icon(Icons.arrow_back_ios_new),) ,
-      actions: [
-        IconButton(onPressed: (){}, icon: Icon(Icons.wallet),)
-      ]),
+    return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Colors.green,
+          title: const Center(
+              child: Text(
+            'Profile',
+            style: TextStyle(
+              fontSize: 23,
+              fontWeight: FontWeight.bold,
+            ),
+          )),
+          // leading:  IconButton
+          // (onPressed: (){
+          //    Navigator.push(context, MaterialPageRoute(builder:
+          //                      (context)=>HomeScreen(),
+          //                      )
+          //                      );
+          // },
+
+          // icon: Icon(Icons.arrow_back_ios_new),) ,
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.wallet),
+            )
+          ]),
       body: Container(
-          padding: EdgeInsets.only(left: 15,top: 20,right: 15),
-          child: GestureDetector(
-            onTap: (){
-              FocusScope.of(context).unfocus();
-            },
-            child: ListView(
-              children: [
-                Center(
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: 130,
-                         height: 130,
-                         decoration: BoxDecoration(
-                          border: Border.all(width: 4,color: Colors.white),
+        padding: const EdgeInsets.only(left: 15, top: 20, right: 15),
+        child: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: ListView(
+            children: [
+              Center(
+                child: Stack(
+                  children: [
+                    Container(
+                      width: 130,
+                      height: 130,
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 4, color: Colors.white),
                           boxShadow: [
                             BoxShadow(
                               spreadRadius: 2,
                               blurRadius: 10,
                               color: Colors.black.withOpacity(0.1),
-                              
                             ),
                           ],
                           shape: BoxShape.circle,
-                          image: DecorationImage(fit: BoxFit.cover,
-                            image: NetworkImage('https://cdn.pixabay.com/photo/2017/08/30/12/45/girl-2696947_1280.jpg'))
-                         ),
+                          image: const DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                  'https://cdn.pixabay.com/photo/2017/08/30/12/45/girl-2696947_1280.jpg'))),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            width: 4,
+                            color: Colors.white,
+                          ),
+                          color: Colors.blue,
+                        ),
+                        child: const Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                        ),
                       ),
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-        height: 40,
-        width: 40,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(
-            width: 4,
-            color: Colors.white,
-          ),
-          color: Colors.blue,
-        ),
-        child: Icon(
-          Icons.edit, color: Colors.white,
-          ),
-                      ),
-                      ),
-        
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 20,),
-        
-        
-            Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Column(
-                children: [
-              TextFormField(
- 
-  controller: nameController,
-  decoration: InputDecoration(
-    labelText: 'Name',
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(40),
-    ),
-  ),
-
-),
-
-                 
-                    SizedBox(height: 10,) ,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Column(
+                  children: [
                     TextFormField(
-
-  controller: lastNameController,
-  decoration: InputDecoration(
-    labelText: 'Lastname',
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(40),
-    ),
-  ),
-  
-),
-
-                    SizedBox(height: 10,) ,
-                     TextFormField(
-                   //    initialValue: _userData['email'],
-                     controller: emailController,
+                      controller: nameController,
                       decoration: InputDecoration(
-                        labelText: 'email',
-                         
+                        labelText: 'Name',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(40),
                         ),
                       ),
-                      
                     ),
-                    SizedBox(height: 10,) ,
-                     TextFormField(
-                     
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      controller: lastNameController,
+                      decoration: InputDecoration(
+                        labelText: 'Lastname',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      //    initialValue: _userData['email'],
+                      controller: emailController,
+                      decoration: InputDecoration(
+                        labelText: 'email',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
                       controller: passwordController,
                       decoration: InputDecoration(
                         labelText: 'password',
@@ -160,49 +154,54 @@ class _editScreenState extends State<editScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10,) ,
-                     TextFormField(
- 
-                     controller: phoneNumberController,
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      controller: phoneNumberController,
                       decoration: InputDecoration(
                         labelText: 'Phone',
-                         
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(40),
                         ),
                       ),
-                    
                     ),
-                      
-              ],
+                  ],
+                ),
               ),
-            ),
-         
-                SizedBox(height: 10,) ,
-        
-        
-        
-                    SizedBox(height: 20,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                  CustomButton(text: 'Cancel', onPressed: (){
-                                     nameController.clear();
-            lastNameController.clear();
-            emailController.clear();
-            passwordController.clear();
-            countryController.clear();
-                  }),
-                     CustomButton(text: 'Save', onPressed: ()async{
-                 _updateUserData();   }
-                     )
-                  ],),   ],
-            ),
+              const SizedBox(
+                height: 10,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  CustomButton(
+                      text: 'Cancel',
+                      onPressed: () {
+                        nameController.clear();
+                        lastNameController.clear();
+                        emailController.clear();
+                        passwordController.clear();
+                        countryController.clear();
+                      }),
+                  CustomButton(
+                      text: 'Save',
+                      onPressed: () async {
+                        _updateUserData();
+                      })
+                ],
+              ),
+            ],
           ),
         ),
-      );
+      ),
+    );
   }
-    // Method to update user data in the database
+
+  // Method to update user data in the database
   void _updateUserData() async {
     // Get the updated values from text field controllers
     String name = nameController.text;
