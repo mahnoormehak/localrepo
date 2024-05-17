@@ -3,17 +3,22 @@ import 'package:localrepo/homescreens/Carousel_slider.dart';
 import 'package:localrepo/homescreens/home_header.dart';
 import 'package:localrepo/homescreens/popular_product.dart';
 import 'package:localrepo/homescreens/special_offers.dart';
+import 'package:localrepo/sidebar/sidebar_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   static String routeName = "/home";
 
   const HomeScreen({
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home Screen'),
+      ),
+      drawer: const Sidebar(), // Make sure Sidebar is implemented correctly
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(vertical: 16),
