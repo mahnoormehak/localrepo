@@ -1,4 +1,3 @@
-// favorite_controller.dart
 import 'package:get/get.dart';
 import 'package:localrepo/models/Product.dart';
 

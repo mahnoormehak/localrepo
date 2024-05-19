@@ -1,79 +1,79 @@
-import 'package:flutter/material.dart';
-import 'package:localrepo/constants_copy.dart';
+// import 'package:flutter/material.dart';
+// import 'package:localrepo/constants_copy.dart';
 
-import '../../../components/rounded_icon_btn.dart';
+// import '../../../components/rounded_icon_btn.dart';
 
-import '../../../models/Product.dart';
+// import '../../../models/Product.dart';
 
-class ColorDots extends StatelessWidget {
-  const ColorDots({
-    super.key,
-    required this.product,
-  });
+// class ColorDots extends StatelessWidget {
+//   const ColorDots({
+//     super.key,
+//     required this.product,
+//   });
 
-  final Product product;
+//   final Product product;
 
-  @override
-  Widget build(BuildContext context) {
-    // Now this is fixed and only for demo
-    int selectedColor = 3;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        children: [
-          ...List.generate(
-            product.colors.length,
-            (index) => ColorDot(
-              color: product.colors[index],
-              isSelected: index == selectedColor,
-            ),
-          ),
-          const Spacer(),
-          RoundedIconBtn(
-            icon: Icons.remove,
-            press: () {},
-          ),
-          const SizedBox(width: 20),
-          RoundedIconBtn(
-            icon: Icons.add,
-            showShadow: true,
-            press: () {},
-          ),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     // Now this is fixed and only for demo
+//     int selectedColor = 3;
+//     return Padding(
+//       padding: const EdgeInsets.symmetric(horizontal: 20),
+//       child: Row(
+//         children: [
+//           ...List.generate(
+//             product.colors.length,
+//             (index) => ColorDot(
+//               color: product.colors[index],
+//               isSelected: index == selectedColor,
+//             ),
+//           ),
+//           const Spacer(),
+//           RoundedIconBtn(
+//             icon: Icons.remove,
+//             press: () {},
+//           ),
+//           const SizedBox(width: 20),
+//           RoundedIconBtn(
+//             icon: Icons.add,
+//             showShadow: true,
+//             press: () {},
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
-class ColorDot extends StatelessWidget {
-  const ColorDot({
-    super.key,
-    required this.color,
-    this.isSelected = false,
-  });
+// class ColorDot extends StatelessWidget {
+//   const ColorDot({
+//     super.key,
+//     required this.color,
+//     this.isSelected = false,
+//   });
 
-  final Color color;
-  final bool isSelected;
+//   final Color color;
+//   final bool isSelected;
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: 2),
-      padding: const EdgeInsets.all(8),
-      height: 40,
-      width: 40,
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        border:
-            Border.all(color: isSelected ? kPrimaryColor : Colors.transparent),
-        shape: BoxShape.circle,
-      ),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       margin: const EdgeInsets.only(right: 2),
+//       padding: const EdgeInsets.all(8),
+//       height: 40,
+//       width: 40,
+//       decoration: BoxDecoration(
+//         color: Colors.transparent,
+//         border:
+//             Border.all(color: isSelected ? kPrimaryColor : Colors.transparent),
+//         shape: BoxShape.circle,
+//       ),
+//       child: DecoratedBox(
+//         decoration: BoxDecoration(
+//           color: color,
+//           shape: BoxShape.circle,
+//         ),
+//       ),
+//     );
+//   }
+// }

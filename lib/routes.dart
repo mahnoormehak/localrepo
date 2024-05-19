@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
 import 'package:localrepo/cart/cart_screen.dart';
+import 'package:localrepo/cart/components/check_out_card.dart';
+import 'package:localrepo/cart/components/success_dialog.dart';
 import 'package:localrepo/contract_page/contract_page.dart';
 import 'package:localrepo/details/details_screen.dart';
 import 'package:localrepo/favorite/favorite_screen.dart';
-
 import 'package:localrepo/homescreens/popular_product.dart';
 import 'package:localrepo/homescreens/special_offers.dart';
 import 'package:localrepo/init_screen.dart';
@@ -28,6 +29,9 @@ class AppRoutes {
   static const String sidebar = '/sidebar';
   static const String contract = '/contract';
   static const String cart = '/cart';
+  static const String checkoutcard = '/checkoutcard';
+  static const String checkout = '/checkout';
+  static const String orderSuccess = '/order_success';
 
   static final List<GetPage> getPages = [
     GetPage(name: onboarding, page: () => const OnboardingScreen()),
@@ -49,6 +53,11 @@ class AppRoutes {
     GetPage(name: sidebar, page: () => const Sidebar()),
     GetPage(name: contract, page: () => const ContractPage()),
     GetPage(name: cart, page: () => const CartScreen()),
+    GetPage(
+      name: checkoutcard,
+      page: () => CheckoutCard(totalPrice: Get.arguments['totalPrice']),
+    ),
+    GetPage(name: orderSuccess, page: () => const OrderSuccessScreen()),
   ];
 }
 
