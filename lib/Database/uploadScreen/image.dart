@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:localrepo/Database/uploadScreen/display.dart';
 import 'package:localrepo/Database/uploadScreen/imgD.dart';
-import 'package:localrepo/Database/uploadScreen/sc2.dart';
+//import 'package:localrepo/Database/uploadScreen/sc2.dart';
 import 'package:localrepo/Database/uploadScreen/screen1.dart';
+import 'package:localrepo/custom_widgets/button.dart';
 
 class ImageSelectorPage extends StatefulWidget {
   @override
@@ -62,50 +63,50 @@ Widget build(BuildContext context) {
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 9.0,
-                mainAxisSpacing: 9.0,
+                crossAxisSpacing: 22.0,
+                mainAxisSpacing: 22.0,
               ),
               itemCount: selectedImages.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () => _getImage(index),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 3.0,
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 3.0,
+                        ),
                       ),
+                      child: selectedImages[index] != null
+                          ? Image.file(
+                              selectedImages[index]!,
+                              fit: BoxFit.cover,
+                            )
+                          : Icon(Icons.image,color: Color.fromARGB(113, 0, 26, 97),),
                     ),
-                    child: selectedImages[index] != null
-                        ? Image.file(selectedImages[index]!)
-                        : Icon(Icons.image,color: Color.fromARGB(113, 0, 26, 97),),
                   ),
                 );
               },
             ),
           ),
           SizedBox(height: 16.0),
-      
-          Container(
-            height: 45,
-            width: 50,
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 230, 194, 142),
-              border: Border.all(color: Color.fromARGB(115, 185, 68, 68),width: 4),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: TextButton(onPressed: ()async{
-             for (File? image in selectedImages) {
+          CustomButton(text: 'Next', onPressed: ()async{
+            for (File? image in selectedImages) {
                   if (image != null) {
                     await _saveToDatabase(image.path);
                   }
                 }
                 _navigateToDisplayImagesScreen();
-            }, child: Text('Next',style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),)),
+          }),
+    
+         
+         
+            
+           ] )
           )
-        ],
-      ),
-    ),
-  );
+        
+      );
 }
 }

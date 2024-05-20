@@ -13,8 +13,7 @@ class DBHelper {
 
   // Open the database
   static Future open() async {
-    if (_database== null) {
-      _database = await openDatabase(
+    _database ??= await openDatabase(
         join(await getDatabasesPath(), 'my_database.db'),
         onCreate: (db, version) {
           return db.execute('''
@@ -30,7 +29,6 @@ class DBHelper {
         },
         version: 1,
       );
-    }
   }
 
 
@@ -43,7 +41,7 @@ class DBHelper {
   }
   // Validate password strength
   String password = data['password'];
-  if (password != null && password.length < 8) {
+  if (password.length < 8) {
     //throw Exception('Password must be at least 8 characters long');
   }
     await _database?.insert(tableName, data,

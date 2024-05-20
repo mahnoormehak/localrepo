@@ -8,8 +8,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:localrepo/Database/localdb.dart';
 import 'package:localrepo/Database/uploadScreen/display.dart';
 import 'package:localrepo/Database/uploadScreen/imgD.dart';
-import 'package:localrepo/Database/uploadScreen/sc2.dart';
+// import 'package:localrepo/Database/uploadScreen/sc2.dart';
 import 'package:localrepo/custom_widgets/button.dart';
+import 'package:lottie/lottie.dart';
 
 class UploadDeviceScreen extends StatefulWidget {
   const UploadDeviceScreen({super.key});
@@ -90,18 +91,15 @@ class _UploadDeviceScreenState extends State<UploadDeviceScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                Text('Enter details to upload your product'),
 
- GestureDetector(
-                onTap: _pickImage, // Trigger image selection
-                child: Container(
-                  width: 200,
-                  height: 200,
-                  color: Colors.grey[200],
-                  child: _imageFile != null
-                      ? Image.file(_imageFile!, fit: BoxFit.cover)
-                      : Icon(Icons.add_a_photo, size: 50),
+    Center(
+                  child: Lottie.asset(
+                    'assets/lotties/splash.json', // Adjust the path to match your animation file
+                    height: 250, // Adjust the height as needed
+                    width: 350,
+                  ),
                 ),
-              ),
             SizedBox(height: 20,),
              Padding(
                padding: const EdgeInsets.all(12.0),
@@ -129,7 +127,7 @@ class _UploadDeviceScreenState extends State<UploadDeviceScreen> {
                 
                   SizedBox(height: 15,) ,
                   TextFormField(
-                    maxLines: 4,
+                    maxLines: 6,
                     controller: _descriptionController,
                     decoration: InputDecoration(
                       labelText: 'Description',

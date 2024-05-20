@@ -13,12 +13,7 @@ const CustomButton({super.key,
   @override
   Widget build(BuildContext context) {
   return ElevatedButton(
-    onPressed:()=> onPressed(), 
-  child: Text(text,
-  
-  style: TextStyle(fontSize: 19,
-  color: Colors.black,
-  fontWeight: FontWeight.bold),),
+    onPressed:()=> onPressed(),
   style: ElevatedButton.styleFrom(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(39),
@@ -27,6 +22,11 @@ const CustomButton({super.key,
     backgroundColor: const Color.fromARGB(255, 228, 138, 228),
     padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
   ), 
+  child: Text(text,
+  
+  style: const TextStyle(fontSize: 19,
+  color: Colors.black,
+  fontWeight: FontWeight.bold),), 
 
   );
 

@@ -1,4 +1,5 @@
 
+
 import 'dart:typed_data';
 
 import 'package:sqflite/sqflite.dart';
@@ -64,18 +65,17 @@ class LocalDatabase {
     required String description,
     required double price,
     required int availability,
-     // Add image parameter
+  // required Uint8List? image, // Add image parameter
    //  Uint8List? image, // Add image parameter
   }) async {
     try {
       final db = await database;
-   //  final imageData = image; 
       await db.insert('Localdata', {
         'Name': name,
         'description': description,
         'price': price,
         'availability': availability,
-      // Save image data to the database
+     //   'image': image, // Save image data to the database
       });
       print('$name Added to Database Successfully');
       return 'added'; // Return a value on success
@@ -85,8 +85,6 @@ class LocalDatabase {
     }
  
   }
-
-
   Future<List<String>> getDeviceNames() async {
     final db = await database;
     final List<Map<String, dynamic>> devices = await db.query('Localdata');
@@ -141,8 +139,34 @@ class LocalDatabase {
     } catch (e) {
       print('Error updating item: $e');
     }
+
+  Future<void> updateItemLocally({
+    required int id,
+    required String name,
+    required String description,
+    required double price,
+    required int availability,
+  }) async {
+    try {
+      final db = await database;
+      await db.update(
+        'Localdata',
+        {
+          'Name': name,
+          'description': description,
+          'price': price,
+          'availability': availability,
+        },
+        where: 'id = ?',
+        whereArgs: [id],
+      );
+      print('Item with ID $id updated successfully');
+    } catch (e) {
+      print('Error updating item: $e');
+    }
   }
 
   addUserRegistration({required String email, required String firstName, required String lastName, required String password, required String phone}) {}
 
+}
 }
