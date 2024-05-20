@@ -64,17 +64,18 @@ class LocalDatabase {
     required String description,
     required double price,
     required int availability,
-  // required Uint8List? image, // Add image parameter
+     // Add image parameter
    //  Uint8List? image, // Add image parameter
   }) async {
     try {
       final db = await database;
+   //  final imageData = image; 
       await db.insert('Localdata', {
         'Name': name,
         'description': description,
         'price': price,
         'availability': availability,
-     //   'image': image, // Save image data to the database
+      // Save image data to the database
       });
       print('$name Added to Database Successfully');
       return 'added'; // Return a value on success
@@ -84,6 +85,8 @@ class LocalDatabase {
     }
  
   }
+
+
   Future<List<String>> getDeviceNames() async {
     final db = await database;
     final List<Map<String, dynamic>> devices = await db.query('Localdata');
@@ -117,6 +120,8 @@ class LocalDatabase {
     required String description,
     required double price,
     required int availability,
+     Uint8List? imageData,
+
   }) async {
     try {
       final db = await database;
@@ -127,6 +132,7 @@ class LocalDatabase {
           'description': description,
           'price': price,
           'availability': availability,
+          'image': imageData,
         },
         where: 'id = ?',
         whereArgs: [id],

@@ -6,6 +6,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:localrepo/Database/localdb.dart';
+import 'package:localrepo/Database/uploadScreen/display.dart';
+import 'package:localrepo/Database/uploadScreen/imgD.dart';
 import 'package:localrepo/Database/uploadScreen/sc2.dart';
 import 'package:localrepo/custom_widgets/button.dart';
 
@@ -89,44 +91,17 @@ class _UploadDeviceScreenState extends State<UploadDeviceScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
 
-Container(
-  height: 200,
-width: 350,
-decoration: BoxDecoration(
-  color: Colors.grey[200],
-  border: Border.all(color: Colors.black,width: 2),
-  borderRadius: BorderRadius.circular(10),
-   image: selectedImage != null ? DecorationImage(
-      image: FileImage(selectedImage!),
-      fit: BoxFit.cover,
-    ) : null,
-  ),
-
- child: Stack(
-    children: [
-      if (_imageFile != null)
-        Positioned.fill(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: FittedBox(
-              fit: BoxFit.cover,
-              child: Image.file(
-                _imageFile!,
+ GestureDetector(
+                onTap: _pickImage, // Trigger image selection
+                child: Container(
+                  width: 200,
+                  height: 200,
+                  color: Colors.grey[200],
+                  child: _imageFile != null
+                      ? Image.file(_imageFile!, fit: BoxFit.cover)
+                      : Icon(Icons.add_a_photo, size: 50),
+                ),
               ),
-            ),
-          ),
-        ),
-      Positioned(
-        top: 0,
-        right: 0,
-        child: IconButton(
-          onPressed: _pickProfileImage,
-          icon: Icon(Icons.photo, size: 30,color: Colors.white,),
-        ),
-      ),
-    ],
-  ),
-),
             SizedBox(height: 20,),
              Padding(
                padding: const EdgeInsets.all(12.0),
@@ -240,10 +215,10 @@ decoration: BoxDecoration(
             onPressed: () async { 
               double price = double.parse(_rentPriceController.text);
               int availability = int.parse(_availbilityController.text);
-  //           Uint8List? imageData;
-  // if (_imageFile != null) {
-  //   imageData = await _imageFile!.readAsBytes();
-  // }
+         Uint8List imageData = Uint8List(0);
+  if (_imageFile != null) {
+    imageData = await _imageFile!.readAsBytes();
+  }
     ///Uint8List imageData = await _imageFile!.readAsBytes();
 
             String result =        await LocalDatabase().addDataLocally(
@@ -251,7 +226,9 @@ decoration: BoxDecoration(
           description: _descriptionController.text,
           price: price,
           availability: availability,
-          //  image: imageData, 
+          // imageData: imageData, 
+     
+          // image: imageData, 
               );
              
             if (result == 'added') {
@@ -263,7 +240,8 @@ decoration: BoxDecoration(
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => uploadScreen1(fetchedData: fetchedData),
+              builder: (context) => CombinedScreen()
+              //uploadScreen1(fetchedData: fetchedData),
             ),
           );
         } else {
@@ -289,19 +267,72 @@ decoration: BoxDecoration(
       ),
     );
   }
-     Future<void> _pickProfileImage() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? image = await _picker.pickImage(
-      source: ImageSource.gallery, // Change to ImageSource.camera for camera access
-    );
-
-    if (image != null) {
+     // Method to select an image from the device
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
       setState(() {
-        _imageFile = File(image.path);
+        _imageFile = File(pickedFile.path);
       });
     }
   }
+
+// Method to upload device details along with the image to the database
+  void _uploadToDevice() async {
+    if (_imageFile == null) {
+      // Show an error message or handle the case where no image is selected
+      return;
+    }
+
+    // Read the image file as bytes
+    final Uint8List imageData = await _imageFile!.readAsBytes();
+
+    // Extract device details from text controllers
+    String deviceName = _deviceNameController.text;
+    String description = _descriptionController.text;
+    double rentPrice = double.tryParse(_rentPriceController.text) ?? 0.0;
+    int availability = int.tryParse(_availbilityController.text) ?? 0;
+
+    // Store the device details along with the image data in the database
+    String result = await LocalDatabase().addDataLocally(
+      name: deviceName,
+      description: description,
+      price: rentPrice,
+      availability: availability,
+      // imageData: imageData,
+    );
+
+    if (result == 'added') {
+      // Handle successful upload
+      print('Device details uploaded successfully!');
+    } else {
+      // Handle upload failure
+      print('Failed to upload device details.');
+    }
+  }
 }
+
+
+//     // Call the method to add data locally with image data
+//     await LocalDatabase().addDataLocally(
+//       name: _deviceNameController.text,
+//       description: _descriptionController.text,
+//       price: double.parse(_rentPriceController.text),
+//       availability: int.parse(_availbilityController.text),
+//       imageData: imageData, // Pass image data to the method
+//     );
+
+//     // Navigate to the screen where you want to display the uploaded image
+//     Navigator.push(
+//       context,
+//       MaterialPageRoute(
+//         builder: (context) => uploadScreen1(), // Replace NextScreen with your screen widget
+//       ),
+//     );
+//     }
+//   }
+// }
 
 
 

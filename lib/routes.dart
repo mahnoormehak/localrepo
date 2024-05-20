@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localrepo/Database/uploadScreen/image.dart';
 import 'package:localrepo/Database/uploadScreen/sc2.dart';
 import 'package:localrepo/Database/uploadScreen/screen1.dart';
 import 'package:localrepo/cart/cart_screen.dart';
@@ -42,6 +43,7 @@ class AppRoutes {
   static const String cart = '/cart';
   static const String upload1 = '/upload1';
   static const String upload2 = '/upload2';
+    static const String image = '/image';
 }
 
 // Define routes using a Map
@@ -51,7 +53,8 @@ final Map<String, WidgetBuilder> appRoutes = {
   AppRoutes.signUp: (context) =>  signup(),
 // AppRoutes.logIn: (context) => LOGIN(),
 AppRoutes.upload1: (context) =>  UploadDeviceScreen(),
-AppRoutes.upload2: (context) =>  uploadScreen1(),
+//AppRoutes.upload2: (context) =>  uploadScreen1(),
+AppRoutes.image: (context) =>  ImageSelectorPage(),
 
   AppRoutes.home: (context) => const HomeScreen(),
   AppRoutes.products: (context) => const ProductsScreen(),
