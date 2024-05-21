@@ -1,5 +1,6 @@
 
 // import 'dart:io';
+// import 'dart:math';
 // import 'dart:typed_data';
 // import 'package:flutter/material.dart';
 // import 'package:localrepo/Database/localdb.dart';
@@ -140,6 +141,7 @@
 //     return Scaffold(
 //       appBar: AppBar(
 //         title: Text('Combined Screen'),
+        
 //       ),
 //       body: SingleChildScrollView(
 //         child: Column(
@@ -158,145 +160,437 @@
 //       ),
 //     );
 //   }
+//   //////////////////////////////////////////////////////////////////////////
+// // Widget _buildImageAndDataWidgets() {
+// //   List<Widget> containers = [];
+// //   int totalImages = imagePaths.length;
 
-//   Widget _buildImageAndDataWidgets() {
-//     List<Widget> widgets = [];
-//     int totalImages = imagePaths.length;
+// //   // Iterate over the imagePaths list with a step of 4
+// //   for (int i = 0; i < totalImages; i += 4) {
+// //     List<String> batch = imagePaths.sublist(i, i + 4 < totalImages ? i + 4 : totalImages);
+// //     List<Widget> imageWidgets = [];
 
-//     for (int i = 0; i < totalImages; i += 4) {
-//       List<String> batch = imagePaths.sublist(i, i + 4 < totalImages ? i + 4 : totalImages);
-//       List<Widget> imageWidgets = batch.map((path) {
-//         return GestureDetector(
-//           onTap: () {
-//             setState(() {
-//               selectedImages.add(path);
-//             });
-//           },
-//           child: Container(
-//             width: 100,
-//             height: 100,
-//             margin: EdgeInsets.all(8.0),
-//             decoration: BoxDecoration(
-//               border: Border.all(color: selectedImages.contains(path) ? Colors.blue : Colors.black, width: 3.0),
-//               borderRadius: BorderRadius.circular(10.0),
-//               image: DecorationImage(
-//                 image: FileImage(File(path)),
-//                 fit: BoxFit.cover,
+// //     // Add image widgets for the current batch
+// //     for (String path in batch) {
+// //       imageWidgets.add(
+// //         GestureDetector(
+// //           onTap: () {
+// //             setState(() {
+// //               selectedImages.add(path);
+// //             });
+// //           },
+// //           child: Container(
+// //             width: 100,
+// //             height: 100,
+// //             margin: EdgeInsets.all(8.0),
+// //             decoration: BoxDecoration(
+// //               border: Border.all(color: selectedImages.contains(path) ? Colors.blue : Colors.black, width: 3.0),
+// //               borderRadius: BorderRadius.circular(10.0),
+// //               image: DecorationImage(
+// //                 image: FileImage(File(path)),
+// //                 fit: BoxFit.cover,
+// //               ),
+// //             ),
+// //           ),
+// //         ),
+// //       );
+// //     }
+
+// //     // Add data widget for the current batch if _fetchedData is not null
+// //     if (_fetchedData != null && _fetchedData!.isNotEmpty) {
+// //       final item = _fetchedData![i ~/ 4]; // Get the corresponding data item for this batch
+// // Widget dataWidget = InkWell(
+// //   onTap: () {
+// //     _createInvoice(context, item);
+// //   },
+// //   child: Container(
+// //     margin: EdgeInsets.only(top: 16.0),
+// //     padding: EdgeInsets.all(16.0), // Increased padding
+// //     decoration: BoxDecoration(
+// //       border: Border.all(color: Colors.grey),
+// //       borderRadius: BorderRadius.circular(10.0),
+// //     ),
+// //     width: double.infinity, // Set width to match the image container width
+// //     child: Column(
+// //       crossAxisAlignment: CrossAxisAlignment.start,
+// //       children: [
+// //         Row(
+// //           mainAxisAlignment: MainAxisAlignment.end,
+// //           children: [
+           
+// //             Row(
+// //               children: [
+// //                 IconButton(
+// //                   icon: Icon(Icons.edit),
+// //                   onPressed: () {
+// //                     _showEditBottomSheet(context, item);
+// //                   },
+// //                 ),
+// //                 IconButton(
+// //                           onPressed: () async {
+// //                             await LocalDatabase().deleteDataLocally(item['id']);
+// //                             List<Map<String, dynamic>>? newData = await LocalDatabase().fetchDataLocally();
+// //                             setState(() {
+// //                               _fetchedData = newData;
+// //                             });
+// //                           },
+// //                           icon: Icon(Icons.delete),
+// //                         ),
+// //               ],
+// //             ),
+// //           ],
+// //         ),
+// //         SizedBox(height: 8.0),
+// //          Text(
+// //               'Name: ${item['Name'] ?? ''}',
+// //               style: TextStyle(
+// //                 fontWeight: FontWeight.bold,
+// //                 fontSize: 17.0,
+// //               ),
+// //             ),
+// //         Text(
+// //           'Description: ${item['description'] ?? ''}',
+// //           style: TextStyle(
+// //             fontWeight: FontWeight.bold,
+// //             fontSize: 17.0,
+// //           ),
+// //         ),
+// //         SizedBox(height: 8.0),
+// //         Text(
+// //           'Price: ${item['price']?.toString() ?? ''}',
+// //           style: TextStyle(
+// //             fontWeight: FontWeight.bold,
+// //             fontSize: 17.0,
+// //           ),
+// //         ),
+// //         SizedBox(height: 8.0),
+// //         Text(
+// //           'Availability: ${item['availability']?.toString() ?? ''}',
+// //           style: TextStyle(
+// //             fontWeight: FontWeight.bold,
+// //             fontSize: 17.0,
+// //           ),
+// //         ),
+// //       ],
+// //     ),
+// //   ),
+// // );
+  
+// //       // Create a container widget for the current batch of images and the data widget
+// //       containers.add(
+// //         Container(
+// //           margin: EdgeInsets.all(16.0), // Increased margin
+// //           padding: EdgeInsets.all(16.0), // Increased padding
+// //           decoration: BoxDecoration(
+// //             border: Border.all(color: Colors.black),
+// //             borderRadius: BorderRadius.circular(10.0),
+// //           ),
+// //           child: Column(
+// //             crossAxisAlignment: CrossAxisAlignment.start,
+// //             children: [
+// //               Wrap(
+// //                 spacing: 8.0,
+// //                 runSpacing: 8.0,
+// //                 children: imageWidgets,
+// //               ),
+// //               dataWidget,
+// //             ],
+// //           ),
+// //         ),
+// //       );
+// //     }
+// //   }
+
+// //   return Column(
+// //     crossAxisAlignment: CrossAxisAlignment.start,
+// //     children: containers,
+// //   );
+// // }
+// // }
+// // Widget _buildImageAndDataWidgets() {
+// //   List<Widget> containers = [];
+
+// //   // Check if fetched data is not null and not empty
+// //   if (_fetchedData != null && _fetchedData!.isNotEmpty) {
+// //     // Iterate over the fetched data list
+// //     for (Map<String, dynamic> item in _fetchedData!) {
+// //       List<Widget> imageWidgets = [];
+
+// //       // Add image widgets for the current item
+// //       for (String path in imagePaths) {
+// //         imageWidgets.add(
+// //           GestureDetector(
+// //             onTap: () {
+// //               setState(() {
+// //                 selectedImages.add(path);
+// //               });
+// //             },
+// //             child: Container(
+// //               width: 100,
+// //               height: 100,
+// //               margin: EdgeInsets.all(8.0),
+// //               decoration: BoxDecoration(
+// //                 border: Border.all(color: selectedImages.contains(path) ? Colors.blue : Colors.black, width: 3.0),
+// //                 borderRadius: BorderRadius.circular(10.0),
+// //                 image: DecorationImage(
+// //                   image: FileImage(File(path)),
+// //                   fit: BoxFit.cover,
+// //                 ),
+// //               ),
+// //             ),
+// //           ),
+// //         );
+// //       }
+
+// //       // Create a data widget for the current item
+// //       Widget dataWidget = InkWell(
+// //         onTap: () {
+// //           _createInvoice(context, item);
+// //         },
+// //         child: Container(
+// //           margin: EdgeInsets.only(top: 16.0),
+// //           padding: EdgeInsets.all(16.0),
+// //           decoration: BoxDecoration(
+// //             border: Border.all(color: Colors.grey),
+// //             borderRadius: BorderRadius.circular(10.0),
+// //           ),
+// //           width: double.infinity,
+// //           child: Column(
+// //             crossAxisAlignment: CrossAxisAlignment.start,
+// //             children: [
+// //               Row(
+// //                 mainAxisAlignment: MainAxisAlignment.end,
+// //                 children: [
+// //                   IconButton(
+// //                     icon: Icon(Icons.edit),
+// //                     onPressed: () {
+// //                       _showEditBottomSheet(context, item);
+// //                     },
+// //                   ),
+// //                   IconButton(
+// //                     onPressed: () async {
+// //                       await LocalDatabase().deleteDataLocally(item['id']);
+// //                       List<Map<String, dynamic>>? newData = await LocalDatabase().fetchDataLocally();
+// //                       setState(() {
+// //                         _fetchedData = newData;
+// //                       });
+// //                     },
+// //                     icon: Icon(Icons.delete),
+// //                   ),
+// //                 ],
+// //               ),
+// //               SizedBox(height: 8.0),
+// //               Text(
+// //                 'Name: ${item['Name'] ?? ''}',
+// //                 style: TextStyle(
+// //                   fontWeight: FontWeight.bold,
+// //                   fontSize: 17.0,
+// //                 ),
+// //               ),
+// //               Text(
+// //                 'Description: ${item['description'] ?? ''}',
+// //                 style: TextStyle(
+// //                   fontWeight: FontWeight.bold,
+// //                   fontSize: 17.0,
+// //                 ),
+// //               ),
+// //               SizedBox(height: 8.0),
+// //               Text(
+// //                 'Price: ${item['price']?.toString() ?? ''}',
+// //                 style: TextStyle(
+// //                   fontWeight: FontWeight.bold,
+// //                   fontSize: 17.0,
+// //                 ),
+// //               ),
+// //               SizedBox(height: 8.0),
+// //               Text(
+// //                 'Availability: ${item['availability']?.toString() ?? ''}',
+// //                 style: TextStyle(
+// //                   fontWeight: FontWeight.bold,
+// //                   fontSize: 17.0,
+// //                 ),
+// //               ),
+// //             ],
+// //           ),
+// //         ),
+// //       );
+
+// //       // Create a container widget for the current item
+// //       containers.add(
+// //         Container(
+// //           margin: EdgeInsets.all(16.0),
+// //           padding: EdgeInsets.all(16.0),
+// //           decoration: BoxDecoration(
+// //             border: Border.all(color: Colors.black),
+// //             borderRadius: BorderRadius.circular(10.0),
+// //           ),
+// //           child: Column(
+// //             crossAxisAlignment: CrossAxisAlignment.start,
+// //             children: [
+// //               Wrap(
+// //                 spacing: 8.0,
+// //                 runSpacing: 8.0,
+// //                 children: imageWidgets,
+// //               ),
+// //               dataWidget,
+// //             ],
+// //           ),
+// //         ),
+// //       );
+// //     }
+// //   }
+
+// //   return Column(
+// //     crossAxisAlignment: CrossAxisAlignment.start,
+// //     children: containers,
+// //   );
+// // }
+// // }
+// /////////////////////////////////////////////////////////////////////////
+
+// Widget _buildImageAndDataWidgets() {
+//   List<Widget> containers = [];
+
+//   // Check if fetched data is not null and not empty
+//   if (_fetchedData != null && _fetchedData!.isNotEmpty) {
+//     // Iterate over the fetched data list
+//     for (Map<String, dynamic> item in _fetchedData!) {
+//       List<Widget> imageWidgets = [];
+      
+//       // Get the images for the current item
+//       List<String> itemImages = imagePaths.sublist(0, min(imagePaths.length, 4)); // Take the first four images
+      
+//       // Add image widgets for the current item
+//       for (String path in itemImages) {
+//         imageWidgets.add(
+//           GestureDetector(
+//             onTap: () {
+//               setState(() {
+//                 selectedImages.add(path);
+//               });
+//             },
+//             child: Container(
+//               width: 100,
+//               height: 100,
+//               margin: EdgeInsets.all(8.0),
+//               decoration: BoxDecoration(
+//                 border: Border.all(color: selectedImages.contains(path) ? Colors.blue : Colors.black, width: 3.0),
+//                 borderRadius: BorderRadius.circular(10.0),
+//                 image: DecorationImage(
+//                   image: FileImage(File(path)),
+//                   fit: BoxFit.cover,
+//                 ),
 //               ),
 //             ),
 //           ),
 //         );
-//       }).toList();
-
-//       List<Widget> dataWidgets = [];
-//       if (_fetchedData != null && _fetchedData!.isNotEmpty) {
-//         for (int j = 0; j < 4 && (i ~/ 4 * 4 + j) < _fetchedData!.length; j++) {
-//           final item = _fetchedData![i ~/ 4 * 4 + j];
-//           final Uint8List? imageData = item['image'] as Uint8List?;
-//           dataWidgets.add(
-//             InkWell(
-//               onTap: () {
-//                 _createInvoice(context, item);
-//               },
-//               child: Container(
-//                 margin: EdgeInsets.symmetric(vertical: 7.0, horizontal: 25.0),
-//                 padding: EdgeInsets.all(10.0),
-//                 decoration: BoxDecoration(
-//                   border: Border.all(color: Colors.grey),
-//                   borderRadius: BorderRadius.circular(10.0),
-//                 ),
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Row(
-//                       mainAxisAlignment: MainAxisAlignment.end,
-//                       children: [
-//                         IconButton(
-//                           onPressed: () {
-//                             _showEditBottomSheet(context, item);
-//                           },
-//                           icon: Icon(Icons.edit),
-//                         ),
-//                         IconButton(
-//                           onPressed: () async {
-//                             await LocalDatabase().deleteDataLocally(item['id']);
-//                             List<Map<String, dynamic>>? newData = await LocalDatabase().fetchDataLocally();
-//                             setState(() {
-//                               _fetchedData = newData;
-//                             });
-//                           },
-//                           icon: Icon(Icons.delete),
-//                         ),
-//                       ],
-//                     ),
-//                     Text(
-//                       'Name: ${item['Name'] ?? ''}',
-//                       style: TextStyle(
-//                         fontWeight: FontWeight.bold,
-//                         fontSize: 17.0,
-//                       ),
-//                     ),
-//                     SizedBox(height: 8.0),
-//                     Text(
-//                       'Description: ${item['description'] ?? ''}',
-//                       style: TextStyle(
-//                         fontWeight: FontWeight.bold,
-//                         fontSize: 17.0,
-//                       ),
-//                     ),
-//                     SizedBox(height: 8.0),
-//                     Text(
-//                       'Price: ${item['price']?.toString() ?? ''}',
-//                       style: TextStyle(
-//                         fontWeight: FontWeight.bold,
-//                         fontSize: 17.0,
-//                       ),
-//                     ),
-//                     SizedBox(height: 8.0),
-//                     Text(
-//                       'Availability: ${item['availability']?.toString() ?? ''}',
-//                       style: TextStyle(
-//                         fontWeight: FontWeight.bold,
-//                         fontSize: 17.0,
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           );
-//         }
 //       }
 
-//       widgets.add(
-//         Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Wrap(
-//               spacing: 8.0,
-//               runSpacing: 8.0,
-//               children: imageWidgets,
-//             ),
-//             SizedBox(height: 16.0), // Add some space between images and data
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: dataWidgets,
-//             ),
-//             SizedBox(height: 16.0),
-//           ],
+//       // Create a data widget for the current item
+//       Widget dataWidget = InkWell(
+//         onTap: () {
+//           _createInvoice(context, item);
+//         },
+//         child: Container(
+//           margin: EdgeInsets.only(top: 16.0),
+//           padding: EdgeInsets.all(16.0),
+//           decoration: BoxDecoration(
+//             border: Border.all(color: Colors.grey),
+//             borderRadius: BorderRadius.circular(10.0),
+//           ),
+//           width: double.infinity,
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Row(
+//                 mainAxisAlignment: MainAxisAlignment.end,
+//                 children: [
+//                   IconButton(
+//                     icon: Icon(Icons.edit),
+//                     onPressed: () {
+//                       _showEditBottomSheet(context, item);
+//                     },
+//                   ),
+//                   IconButton(
+//                     onPressed: () async {
+//                       await LocalDatabase().deleteDataLocally(item['id']);
+//                       List<Map<String, dynamic>>? newData = await LocalDatabase().fetchDataLocally();
+//                       setState(() {
+//                         _fetchedData = newData;
+//                       });
+//                     },
+//                     icon: Icon(Icons.delete),
+//                   ),
+//                 ],
+//               ),
+//               SizedBox(height: 8.0),
+//               Text(
+//                 'Name: ${item['Name'] ?? ''}',
+//                 style: TextStyle(
+//                   fontWeight: FontWeight.bold,
+//                   fontSize: 17.0,
+//                 ),
+//               ),
+//               Text(
+//                 'Description: ${item['description'] ?? ''}',
+//                 style: TextStyle(
+//                   fontWeight: FontWeight.bold,
+//                   fontSize: 17.0,
+//                 ),
+//               ),
+//               SizedBox(height: 8.0),
+//               Text(
+//                 'Price: ${item['price']?.toString() ?? ''}',
+//                 style: TextStyle(
+//                   fontWeight: FontWeight.bold,
+//                   fontSize: 17.0,
+//                 ),
+//               ),
+//               SizedBox(height: 8.0),
+//               Text(
+//                 'Availability: ${item['availability']?.toString() ?? ''}',
+//                 style: TextStyle(
+//                   fontWeight: FontWeight.bold,
+//                   fontSize: 17.0,
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       );
+
+//       // Create a container widget for the current item
+//       containers.add(
+//         Container(
+//           margin: EdgeInsets.all(16.0),
+//           padding: EdgeInsets.all(16.0),
+//           decoration: BoxDecoration(
+//             border: Border.all(color: Colors.black),
+//             borderRadius: BorderRadius.circular(10.0),
+//           ),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Wrap(
+//                 spacing: 8.0,
+//                 runSpacing: 8.0,
+//                 children: imageWidgets,
+//               ),
+//               dataWidget,
+//             ],
+//           ),
 //         ),
 //       );
 //     }
-
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: widgets,
-//     );
 //   }
-// }
 
+//   return Column(
+//     crossAxisAlignment: CrossAxisAlignment.start,
+//     children: containers,
+//   );
+// }
+// }
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:localrepo/Database/localdb.dart';
 import 'package:localrepo/Database/uploadScreen/imgD.dart';
@@ -456,137 +750,151 @@ class _CombinedScreenState extends State<CombinedScreen> {
   }
 
   Widget _buildImageAndDataWidgets() {
-    List<Widget> widgets = [];
-    int totalImages = imagePaths.length;
+    List<Widget> containers = [];
 
-    for (int i = 0; i < totalImages; i += 4) {
-      List<String> batch = imagePaths.sublist(i, i + 4 < totalImages ? i + 4 : totalImages);
-      List<Widget> imageWidgets = batch.map((path) {
-        return GestureDetector(
-          onTap: () {
-            setState(() {
-              selectedImages.add(path);
-            });
-          },
-          child: Container(
-            width: 100,
-            height: 100,
-            margin: EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              border: Border.all(color: selectedImages.contains(path) ? Colors.blue : Colors.black, width: 3.0),
-              borderRadius: BorderRadius.circular(10.0),
-              image: DecorationImage(
-                image: FileImage(File(path)),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-        );
-      }).toList();
+    // Check if fetched data is not null and not empty
+    if (_fetchedData != null && _fetchedData!.isNotEmpty) {
+      // Iterate over the fetched data list
+      for (int i = 0; i < _fetchedData!.length; i++) {
+        Map<String, dynamic> item = _fetchedData![i];
+        List<Widget> imageWidgets = [];
 
-      List<Widget> dataWidgets = [];
-      if (_fetchedData != null && _fetchedData!.isNotEmpty) {
-        for (int j = 0; j < 4 && (i ~/ 4 * 4 + j) < _fetchedData!.length; j++) {
-          final item = _fetchedData![i ~/ 4 * 4 + j];
-          final Uint8List? imageData = item['image'] as Uint8List?;
-          dataWidgets.add(
-            InkWell(
+        // Ensure images are correctly mapped to their respective items
+        int startIndex = i * 4;
+        int endIndex = startIndex + 4;
+        List<String> itemImages = imagePaths.sublist(
+            startIndex, endIndex > imagePaths.length ? imagePaths.length : endIndex);
+
+        // Add image widgets for the current item
+        for (String path in itemImages) {
+          imageWidgets.add(
+            GestureDetector(
               onTap: () {
-                _createInvoice(context, item);
+                setState(() {
+                  selectedImages.add(path);
+                });
               },
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: 7.0, horizontal: 25.0),
-                padding: EdgeInsets.all(10.0),
+                width: 100,
+                height: 100,
+                margin: EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
+                  border: Border.all(
+                      color: selectedImages.contains(path) ? Colors.blue : Colors.black,
+                      width: 3.0),
                   borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            _showEditBottomSheet(context, item);
-                          },
-                          icon: Icon(Icons.edit),
-                        ),
-                        IconButton(
-                          onPressed: () async {
-                            await LocalDatabase().deleteDataLocally(item['id']);
-                            List<Map<String, dynamic>>? newData = await LocalDatabase().fetchDataLocally();
-                            setState(() {
-                              _fetchedData = newData;
-                            });
-                          },
-                          icon: Icon(Icons.delete),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      'Name: ${item['Name'] ?? ''}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17.0,
-                      ),
-                    ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      'Description: ${item['description'] ?? ''}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17.0,
-                      ),
-                    ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      'Price: ${item['price']?.toString() ?? ''}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17.0,
-                      ),
-                    ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      'Availability: ${item['availability']?.toString() ?? ''}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17.0,
-                      ),
-                    ),
-                  ],
+                  image: DecorationImage(
+                    image: FileImage(File(path)),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
           );
         }
-      }
 
-      widgets.add(
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Wrap(
-              spacing: 8.0,
-              runSpacing: 8.0,
-              children: imageWidgets,
+        // Create a data widget for the current item
+        Widget dataWidget = InkWell(
+          onTap: () {
+            _createInvoice(context, item);
+          },
+          child: Container(
+            margin: EdgeInsets.only(top: 16.0),
+            padding: EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(10.0),
             ),
-            SizedBox(height: 16.0), // Add some space between images and data
-            Column(
+            width: double.infinity,
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: dataWidgets,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () {
+                        _showEditBottomSheet(context, item);
+                      },
+                    ),
+                    IconButton(
+                      onPressed: () async {
+                        await LocalDatabase().deleteDataLocally(item['id']);
+                        List<Map<String, dynamic>>? newData =
+                            await LocalDatabase().fetchDataLocally();
+                        setState(() {
+                          _fetchedData = newData;
+                        });
+                      },
+                      icon: Icon(Icons.delete),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 8.0),
+                Text(
+                  'Name: ${item['Name'] ?? ''}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17.0,
+                  ),
+                ),
+                Text(
+                  'Description: ${item['description'] ?? ''}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17.0,
+                  ),
+                ),
+                SizedBox(height: 8.0),
+                Text(
+                  'Price: ${item['price']?.toString() ?? ''}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17.0,
+                  ),
+                ),
+                SizedBox(height: 8.0),
+                Text(
+                  'Availability: ${item['availability']?.toString() ?? ''}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17.0,
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 16.0),
-          ],
-        ),
-      );
+          ),
+        );
+
+        // Create a container widget for the current item
+        containers.add(
+          Container(
+            margin: EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Wrap(
+                  spacing: 8.0,
+                  runSpacing: 8.0,
+                  children: imageWidgets,
+                ),
+                dataWidget,
+              ],
+            ),
+          ),
+        );
+      }
     }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: widgets,
+      children: containers,
     );
   }
 }

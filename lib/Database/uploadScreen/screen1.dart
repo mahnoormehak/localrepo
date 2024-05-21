@@ -87,20 +87,23 @@ class _UploadDeviceScreenState extends State<UploadDeviceScreen> {
          
            Padding(
             
-            padding: EdgeInsets.fromLTRB(20,30,20,30),
+            padding: EdgeInsets.fromLTRB(10,15,10,30),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text('Enter details to upload your product'),
+                Text('Enter details to upload your product',style: TextStyle(
+                  fontSize: 19,
+                  fontWeight: FontWeight.bold,
+                ),),
 
     Center(
                   child: Lottie.asset(
-                    'assets/lotties/splash.json', // Adjust the path to match your animation file
-                    height: 250, // Adjust the height as needed
+                    'assets/lotties/pro.json', // Adjust the path to match your animation file
+                    height: 180, // Adjust the height as needed
                     width: 350,
                   ),
                 ),
-            SizedBox(height: 20,),
+            SizedBox(height: 10,),
              Padding(
                padding: const EdgeInsets.all(12.0),
                child: Column(
@@ -163,6 +166,7 @@ class _UploadDeviceScreenState extends State<UploadDeviceScreen> {
           ),
           filled: true,
           fillColor: Colors.white,
+          
                     ),
                   ), 
                      SizedBox(height: 15,) ,

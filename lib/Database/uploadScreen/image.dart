@@ -6,6 +6,7 @@ import 'package:localrepo/Database/uploadScreen/imgD.dart';
 //import 'package:localrepo/Database/uploadScreen/sc2.dart';
 import 'package:localrepo/Database/uploadScreen/screen1.dart';
 import 'package:localrepo/custom_widgets/button.dart';
+import 'package:lottie/lottie.dart';
 
 class ImageSelectorPage extends StatefulWidget {
   @override
@@ -47,7 +48,7 @@ Widget build(BuildContext context) {
       title: Text('Image Selector'),
     ),
     body: Padding(
-      padding: const EdgeInsets.all(30.0),
+      padding: const EdgeInsets.fromLTRB(30,0,30,30),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -58,13 +59,21 @@ Widget build(BuildContext context) {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 20.0),
+          Center(
+                  child: Lottie.asset(
+                    'assets/lotties/pic1.json', // Adjust the path to match your animation file
+                    height: 200, // Adjust the height as needed
+                    width: 350,
+                  ),
+                ),
+
+         // SizedBox(height: 20.0),
           Expanded(
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 22.0,
-                mainAxisSpacing: 22.0,
+                crossAxisSpacing: 25.0,
+                mainAxisSpacing: 10.0,
               ),
               itemCount: selectedImages.length,
               itemBuilder: (context, index) {
@@ -74,7 +83,9 @@ Widget build(BuildContext context) {
                     aspectRatio: 1,
                     child: Container(
                       decoration: BoxDecoration(
+                     //   borderRadius: BorderRadius.circular(30),
                         border: Border.all(
+                          
                           color: Colors.black,
                           width: 3.0,
                         ),
