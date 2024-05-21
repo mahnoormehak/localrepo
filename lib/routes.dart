@@ -5,6 +5,7 @@ import 'package:localrepo/cart/cart_screen.dart';
 import 'package:localrepo/cart/components/check_out_card.dart';
 import 'package:localrepo/cart/components/success_dialog.dart';
 import 'package:localrepo/contract_page/contract_page.dart';
+import 'package:localrepo/contract_page/installment.dart';
 import 'package:localrepo/details/details_screen.dart';
 import 'package:localrepo/favorite/favorite_screen.dart';
 import 'package:localrepo/homescreens/popular_product.dart';
@@ -36,6 +37,7 @@ class AppRoutes {
   static const String orderSuccess = '/order_success';
     static const String uploadimages = '/uploadimages';
       static const String uploadProducts = '/uploadProducts';
+            static const String installment = '/installment';
 
   static final List<GetPage> getPages = [
     GetPage(name: onboarding, page: () => const OnboardingScreen()),
@@ -48,6 +50,7 @@ class AppRoutes {
     GetPage(name: specialOffers, page: () => const SpecialOffers()),
      GetPage(name: uploadimages, page: () =>  ImageSelectorPage()),
     GetPage(name: uploadProducts, page: () => const UploadDeviceScreen()),
+    GetPage(name: installment, page: () =>  InstallmentScreen()),
     GetPage(
       name: rentalAgreement,
       page: () => const RentalAgreementScreen(deviceName: '', rentAmount: 0),
