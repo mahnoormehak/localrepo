@@ -1,13 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-// import 'package:localrepo/homescreens/home_screen.dart';
+ import 'package:localrepo/homescreens/home_screen.dart';
 import 'package:localrepo/routes.dart';
 import '../data/data.dart';
 import '../custom/custom_bg.dart';
 import '../widgets/item_card.dart';
 import '../widgets/widgets.dart';
-// import 'package:localrepo/homescreens/sidebar.dart';
+import 'package:localrepo/homescreens/sidebar.dart';
 
 class OnboardingScreen extends StatefulWidget {
   static const String routeName = "/onboarding";
@@ -322,8 +322,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        // Navigate to the login screen
-                        Navigator.pushNamed(context, AppRoutes.installment);
+                        // Navigate to the login screen screen
+                        Navigator.pushNamed(context, AppRoutes.uploadimages);
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
@@ -353,3 +353,4 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 }
+

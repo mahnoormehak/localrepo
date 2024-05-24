@@ -4,6 +4,7 @@ import 'package:localrepo/Database/authentication.dart';
 import 'package:localrepo/custom_widgets/button.dart';
 
 import 'package:localrepo/homescreens/home_screen.dart';
+import 'package:localrepo/login%20screens/forgotpass.dart';
 
 import 'package:localrepo/login%20screens/signUP.dart';
 
@@ -136,28 +137,7 @@ class _LOGINState extends State<LOGIN> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // AnimatedTextKit(
-                //   animatedTexts: [
-                //     TyperAnimatedText(
-                //       'Welcome to Equishare living',
-                //       textStyle: const TextStyle(
-                //         fontSize: 27,
-                //         fontStyle: FontStyle.italic,
-                //         fontWeight: FontWeight.bold,
-                //         color: Color.fromARGB(255, 95, 67, 160),
-                //       ),
-                //     ),
-                //     TyperAnimatedText(
-                //       'Your rental adventure begins here!!!!!',
-                //       textStyle: const TextStyle(
-                //         fontSize: 24,
-                //         fontStyle: FontStyle.italic,
-                //         fontWeight: FontWeight.bold,
-                //         color: Color.fromARGB(255, 95, 67, 160),
-                //       ),
-                //     ),
-                //   ],
-                // ),
+                
                     AnimatedTextKit(
                   animatedTexts: [
                     TyperAnimatedText(
@@ -229,7 +209,7 @@ class _LOGINState extends State<LOGIN> {
                         controller: passwordController,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.lock),
-                          labelText: ' Password',
+                          labelText: ' Enter Password',
                           suffixIcon: IconButton(
                             onPressed: () {
                               setState(() {
@@ -266,7 +246,7 @@ class _LOGINState extends State<LOGIN> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const signup()));
+                                      builder: (context) => const ForgotPasswordScreen()));
                             },
                             child: const Text(
                               'Forget password?',

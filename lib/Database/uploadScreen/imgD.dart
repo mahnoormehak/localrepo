@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:path/path.dart';
-// ignore: depend_on_referenced_packages
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -53,9 +52,23 @@ class DatabaseHelper {
     Database db = await database;
     return await db.query(table);
   }
+
   // Delete all rows in the database
   Future<void> deleteAllRows() async {
     Database db = await database;
     await db.delete(table);
+  }
+
+  // Get the latest image path from the database
+  Future<String?> getLatestImagePath() async {
+    Database db = await database;
+    List<Map<String, dynamic>> result = await db.query(table,
+        columns: [columnImagePath],
+        orderBy: "$columnId DESC",
+        limit: 1);
+    if (result.isNotEmpty) {
+      return result.first[columnImagePath] as String?;
+    }
+    return null;
   }
 }

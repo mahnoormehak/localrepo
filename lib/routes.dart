@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:localrepo/Database/uploadScreen/display.dart';
 import 'package:localrepo/Database/uploadScreen/image.dart';
 import 'package:localrepo/Database/uploadScreen/screen1.dart';
 import 'package:localrepo/cart/cart_screen.dart';
@@ -38,19 +39,20 @@ class AppRoutes {
     static const String uploadimages = '/uploadimages';
       static const String uploadProducts = '/uploadProducts';
             static const String installment = '/installment';
-
+    static const String combine = '/combine';
   static final List<GetPage> getPages = [
     GetPage(name: onboarding, page: () => const OnboardingScreen()),
     GetPage(name: signUp, page: () => const signup()),
     GetPage(name: logIn, page: () => const LOGIN()),
     GetPage(name: home, page: () => const InitScreen()),
+        GetPage(name: combine, page: () =>  CombinedScreen()),
     GetPage(name: products, page: () => const ProductsScreen()),
     GetPage(name: favorite, page: () => const FavoriteScreen()),
     GetPage(name: popularProducts, page: () => const PopularProducts()),
     GetPage(name: specialOffers, page: () => const SpecialOffers()),
      GetPage(name: uploadimages, page: () =>  ImageSelectorPage()),
     GetPage(name: uploadProducts, page: () => const UploadDeviceScreen()),
-    GetPage(name: installment, page: () =>  InstallmentScreen()),
+    GetPage(name: installment, page: () =>  InstallmentScreen(deviceName: '', price: 0,)),
     GetPage(
       name: rentalAgreement,
       page: () => const RentalAgreementScreen(deviceName: '', rentAmount: 0),

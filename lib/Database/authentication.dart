@@ -83,26 +83,22 @@ class DBHelper {
       return {};
     }
   }
-// static Future<void> updatePassword(String newPassword, String confPassword) async {
-//   // Check if newPassword and confirmPassword match
-//   if (newPassword == confPassword) {
-//     print('Updating password in the database...');
-//     await open();
-//     await _database?.update(
-//       tableName,
-//       {columnPassword: newPassword},
-//       where: '$columnEmail = ?',
-//     );
-//     print('Password updated successfully!');
-//   } else {
-//     throw Exception('Passwords do not match.');
-//   }
-// }
-static Future<void> updatePassword(String newPassword) async {
-  // Update the password in your database
-  // This is just a placeholder, replace it with your actual implementation
-  await DBHelper.updatePassword(newPassword);
+static Future<void> updatePassword(String newPassword, String confPassword) async {
+  // Check if newPassword and confirmPassword match
+  if (newPassword == confPassword) {
+    print('Updating password in the database...');
+    await open();
+    await _database?.update(
+      tableName,
+      {columnPassword: newPassword},
+      where: '$columnEmail = ?',
+    );
+    print('Password updated successfully!');
+  } else {
+    throw Exception('Passwords do not match.');
+  }
 }
+
 
 
    // Delete user data
