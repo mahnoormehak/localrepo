@@ -61,7 +61,49 @@ class _CombinedScreenState extends State<CombinedScreen> {
           ),
         TextButton(
             onPressed: () {
-              Navigator.push(
+              // Show options for buying through card or installment
+              _showBuyOptionsDialog(context, item);
+             
+
+            },
+            child: Text('Buy'),
+          ),
+        ],
+      );
+    },
+  );
+}
+void _showBuyOptionsDialog(BuildContext context, Map<String, dynamic> item) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Select Payment Method'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('How would you like to buy ${item['Name']}?'),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                // Handle buying through card
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => CardPaymentScreen(
+                //       deviceName: item['Name'],
+                //       price: item['price'] as double,
+                //     ),
+                //   ),
+                // );
+              },
+              child: Text('Credit Card'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Handle buying through installment
+                 Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) =>  InstallmentScreen(
@@ -71,15 +113,24 @@ class _CombinedScreenState extends State<CombinedScreen> {
                   ),
                 ),
               );
+               
+              },
+              child: Text('Installment'),
+            ),
+          ],
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
             },
-            child: Text('Buy'),
+            child: Text('Cancel'),
           ),
         ],
       );
     },
   );
 }
-
 
   void _showEditBottomSheet(BuildContext context, Map<String, dynamic> item) {
     TextEditingController nameController = TextEditingController(text: item['Name']);

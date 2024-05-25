@@ -1,10 +1,7 @@
 
 import 'package:flutter/material.dart';
-
-import 'package:get/get.dart';
-import 'package:localrepo/contract_page/gurantor.dart';
-import 'package:localrepo/custom_widgets/button.dart';
-import 'package:signature/signature.dart';
+import 'package:localrepo/contract_page/invoiceINS.dart';
+//import 'invoice_screen.dart'; // Import the invoice screen
 
 class InstallmentScreen extends StatefulWidget {
   final String deviceName;
@@ -26,12 +23,10 @@ class _InstallmentScreenState extends State<InstallmentScreen> {
   ];
 
   Map<String, dynamic>? selectedPlan;
-final TextEditingController _guarantorNameController = TextEditingController();
+  final TextEditingController _guarantorNameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _idCardController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
-  final TextEditingController _digitalSignatureController = TextEditingController();
-  
 
   void _selectPlan(int index) {
     setState(() {
@@ -45,98 +40,37 @@ final TextEditingController _guarantorNameController = TextEditingController();
 
   void _showPlanDetails(BuildContext context) {
     if (selectedPlan != null) {
-      final double totalCost = widget.price;
-      final double monthlyPayment = totalCost / selectedPlan!['months'];
-      final double interest = (totalCost * selectedPlan!['rate']) / 100;
-      final double totalPayment = totalCost + interest;
-      final double latePaymentPenalty = 500.0; // Example penalty amount
-      final double prepaymentPenalty = 500.0; // Example penalty amount
-      final String collateralDescription = 'Item being financed: ${widget.deviceName}';
-   //   final List<String> dueDates = List.generate(selectedPlan!['months'], (i) => 'Due date ${i + 1}'); // Example due dates
-
-      showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Padding(
-            padding: const EdgeInsets.all(23.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Text(
-                    'Installment Plan Details',
-                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-                  ),
-                ),
-               // SizedBox(height: 20.0),
-                _buildDetailRow('Monthly payment:', '\$${monthlyPayment.toStringAsFixed(2)}'),
-                _buildDetailRow('Total payment:', '\$${totalPayment.toStringAsFixed(2)}'),
-                _buildDetailRow('Late Payment Penalty:', '\$${latePaymentPenalty.toStringAsFixed(2)}'),
-                _buildDetailRow('Prepayment Penalty:', '\$${prepaymentPenalty.toStringAsFixed(2)}'),
-                _buildDetailRow('Collateral:', collateralDescription),
-             //   _buildDetailRow('Due Dates:', dueDates.join(', ')),
-             //   SizedBox(height: 20.0),
-                
-                Center(
-                  child: CustomButton(text: 'Confirm Plan', onPressed: (){
-                    Navigator.pop(context);
-                       ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    'Plan Confirmed',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16.0,
-                 //     fontWeight: FontWeight.bold
-                    ),
-                  ),
-                   backgroundColor: Color.fromARGB(255, 243, 146, 186),
-                  action: SnackBarAction(
-                    label: 'OK',
-                    textColor: Colors.black,
-                    onPressed: () {
-                      // Some code to undo the change.
-                    },
-                  ),
-                  duration: Duration(seconds: 2),
-                  behavior: SnackBarBehavior.floating,
-                ),
-              
-                      );
-                  }),
-                )
-              ],
-            ),
-          );
-        },
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => InvoiceScreen(
+            deviceName: widget.deviceName,
+            price: widget.price,
+            selectedPlan: selectedPlan!,
+            guarantorName: _guarantorNameController.text,
+            phoneNumber: _phoneNumberController.text,
+            idCardNumber: _idCardController.text,
+            address: _addressController.text,
+          ),
+        ),
       );
     } else {
-      
-       ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    'Please select an installment plan.',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16.0,
-                 //     fontWeight: FontWeight.bold
-                    ),
-                  ),
-                   backgroundColor: Color.fromARGB(255, 243, 146, 186),
-                  action: SnackBarAction(
-                    label: 'OK',
-                    textColor: Colors.black,
-                    onPressed: () {
-                      // Some code to undo the change.
-                    },
-                  ),
-                  duration: Duration(seconds: 2),
-                  behavior: SnackBarBehavior.floating,
-                ),
-              );
-            
-    
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Please select an installment plan.',
+            style: TextStyle(color: Colors.black, fontSize: 16.0),
+          ),
+          backgroundColor: Color.fromARGB(255, 243, 146, 186),
+          action: SnackBarAction(
+            label: 'OK',
+            textColor: Colors.black,
+            onPressed: () {},
+          ),
+          duration: Duration(seconds: 2),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
     }
   }
 
@@ -166,18 +100,19 @@ final TextEditingController _guarantorNameController = TextEditingController();
             ),
           ),
           actions: [
-            CustomButton(
-              text: 'Close',
+            TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
+              child: Text('Close'),
             ),
           ],
         );
       },
     );
   }
-   void _showGuarantorDetailsModal(BuildContext context) {
+
+  void _showGuarantorDetailsModal(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
@@ -192,74 +127,62 @@ final TextEditingController _guarantorNameController = TextEditingController();
                 ),
                 TextField(
                   controller: _phoneNumberController,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(labelText: 'Phone Number'),
                 ),
                 TextField(
                   controller: _idCardController,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(labelText: 'ID Card Number'),
                 ),
                 TextField(
                   controller: _addressController,
                   decoration: InputDecoration(labelText: 'Address'),
                 ),
-              
               ],
             ),
           ),
           actions: [
-            CustomButton(
-              text: 'Save',
+            TextButton(
               onPressed: () {
-                if (_areGuarantorDetailsFilled()) {
+                if (_areGuarantorDetailsFilled() && _validateGuarantorDetails()) {
                   Navigator.of(context).pop();
-                 ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    'Guarantor details saved!',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16.0,
-                 //     fontWeight: FontWeight.bold
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Guarantor details saved!',
+                        style: TextStyle(color: Colors.black, fontSize: 16.0),
+                      ),
+                      backgroundColor: Color.fromARGB(255, 243, 146, 186),
+                      action: SnackBarAction(
+                        label: 'OK',
+                        textColor: Colors.black,
+                        onPressed: () {},
+                      ),
+                      duration: Duration(seconds: 2),
+                      behavior: SnackBarBehavior.floating,
                     ),
-                  ),
-                   backgroundColor: Color.fromARGB(255, 243, 146, 186),
-                  action: SnackBarAction(
-                    label: 'OK',
-                    textColor: Colors.black,
-                    onPressed: () {
-                      // Some code to undo the change.
-                    },
-                  ),
-                  duration: Duration(seconds: 2),
-                  behavior: SnackBarBehavior.floating,
-                ),
-              
                   );
                 } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    'Please fill in all the details',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16.0,
-                 //     fontWeight: FontWeight.bold
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Please correct the details as per the requirements',
+                        style: TextStyle(color: Colors.black, fontSize: 16.0),
+                      ),
+                      backgroundColor: Color.fromARGB(255, 243, 146, 186),
+                      action: SnackBarAction(
+                        label: 'OK',
+                        textColor: Colors.black,
+                        onPressed: () {},
+                      ),
+                      duration: Duration(seconds: 2),
+                      behavior: SnackBarBehavior.floating,
                     ),
-                  ),
-                  backgroundColor: Color.fromARGB(255, 243, 146, 186),
-                  action: SnackBarAction(
-                    label: 'OK',
-                    textColor: Colors.black,
-                    onPressed: () {
-                      // Some code to undo the change.
-                    },
-                  ),
-                  duration: Duration(seconds: 2),
-                  behavior: SnackBarBehavior.floating,
-                ),
-              );
+                  );
                 }
               },
+              child: Text('Save'),
             ),
           ],
         );
@@ -267,7 +190,107 @@ final TextEditingController _guarantorNameController = TextEditingController();
     );
   }
 
+  bool _areGuarantorDetailsFilled() {
+    return _guarantorNameController.text.isNotEmpty &&
+        _phoneNumberController.text.isNotEmpty &&
+        _idCardController.text.isNotEmpty &&
+        _addressController.text.isNotEmpty;
+  }
 
+  bool _validateGuarantorDetails() {
+    final nameRegExp = RegExp(r'^[a-zA-Z\s]+$');
+    final addressRegExp = RegExp(r'^[a-zA-Z\s]+$');
+    final phoneRegExp = RegExp(r'^\d{11}$');
+    final idCardRegExp = RegExp(r'^\d{13}$');
+
+    if (!nameRegExp.hasMatch(_guarantorNameController.text)) {
+      _showValidationError('Guarantor name must contain only letters and spaces.');
+      return false;
+    }
+    if (!addressRegExp.hasMatch(_addressController.text)) {
+      _showValidationError('Address must contain only letters and spaces.');
+      return false;
+    }
+    if (!phoneRegExp.hasMatch(_phoneNumberController.text)) {
+      _showValidationError('Phone number must be exactly 11 digits.');
+      return false;
+    }
+    if (!idCardRegExp.hasMatch(_idCardController.text)) {
+      _showValidationError('ID card number must be exactly 13 digits.');
+      return false;
+    }
+    return true;
+  }
+
+  void _showValidationError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          message,
+          style: TextStyle(color: Colors.black, fontSize: 16.0),
+        ),
+        backgroundColor: Color.fromARGB(255, 243, 146, 186),
+        action: SnackBarAction(
+          label: 'OK',
+          textColor: Colors.black,
+          onPressed: () {},
+        ),
+        duration: Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+void _showConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Confirm Plan'),
+          // content: SingleChildScrollView(
+          //   child: Column(
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     children: [
+          //       _buildDetailRow('Device:', widget.deviceName),
+          //       _buildDetailRow('Price:', '\$${widget.price.toStringAsFixed(2)}'),
+          //       _buildDetailRow('Guarantor Name:', _guarantorNameController.text),
+          //       _buildDetailRow('Phone Number:', _phoneNumberController.text),
+          //       _buildDetailRow('ID Card Number:', _idCardController.text),
+          //       _buildDetailRow('Address:', _addressController.text),
+          //       SizedBox(height: 10),
+          //       if (selectedPlan != null)
+          //         _buildDetailRow(
+          //           'Duration:',
+          //           '${selectedPlan!['months']} months',
+                    
+          //         ),
+          //           if (selectedPlan != null)
+          //         _buildDetailRow(
+          //           'Installment price:',
+          //           '${(widget.price / selectedPlan!['months']).toStringAsFixed(2)} per month',
+                    
+          //         ),   
+          //     ],
+          //   ),
+          // ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _showPlanDetails(context);
+              },
+              child: Text('Confirm'),
+            ),
+          ],
+        );
+      },
+    );
+  }
   Widget _buildDetailRow(String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -287,57 +310,37 @@ final TextEditingController _guarantorNameController = TextEditingController();
     );
   }
 
-  bool _areGuarantorDetailsFilled() {
-    return _guarantorNameController.text.isNotEmpty &&
-        _phoneNumberController.text.isNotEmpty &&
-        _idCardController.text.isNotEmpty &&
-        _addressController.text.isNotEmpty;
-        //_digitalSignatureController.text.isNotEmpty;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Installment Plans '),
+        title: Text('Installment Plans'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(23.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-          
-               Container(
-                height: 140,
-             //   width: 100,
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 250, 246, 232),
-border: Border.all(color: Color.fromARGB(255, 170, 19, 163),width: 3),
-
-borderRadius: BorderRadius.circular(20,)
-
-               
-                      ),
-                
-                 child: Padding(
-                   padding: const EdgeInsets.fromLTRB(10.0,10,10,0),
-                   child:               Column(
-                     children: [
-                      Text('Device Name: ${widget.deviceName}',style: TextStyle(fontSize: 22.0,fontWeight: FontWeight.bold),),
-                       Text(
-                                         'Price of this device: \$${widget.price.toStringAsFixed(2)}',
-                                         style: TextStyle(fontSize: 22.0,fontWeight: FontWeight.bold),
-                                   ),
-                              Text(
-                                         'Set an Installment  for \$${widget.price.toStringAsFixed(2)}',
-                                         style: TextStyle(fontSize: 19.0,),
-                                   ),      
-                     ],
-                   ),
-                 ),
-               ),
-                SizedBox(height: 10.0),
-              Row(
+            Container(
+              height: 140,
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 250, 246, 232),
+                border: Border.all(color: Color.fromARGB(255, 170, 19, 163), width: 3),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(10.0, 10, 10, 0),
+                child: Column(
+                  children: [
+                    Text('Device Name: ${widget.deviceName}', style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold)),
+                    Text('Price of this device: \$${widget.price.toStringAsFixed(2)}', style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold)),
+                    Text('Set an Installment for \$${widget.price.toStringAsFixed(2)}', style: TextStyle(fontSize: 19.0)),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 10.0),
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -354,9 +357,7 @@ borderRadius: BorderRadius.circular(20,)
                 ),
               ],
             ),
-         
-      
-          SizedBox(height: 10.0),
+            SizedBox(height: 10.0),
             Expanded(
               child: ListView.builder(
                 itemCount: installmentPlans.length,
@@ -401,39 +402,32 @@ borderRadius: BorderRadius.circular(20,)
                 },
               ),
             ),
-      
-         
-            TextButton(onPressed: () => _showTermsAndConditions(context),
-              child: Text('Terms and Conditions')
+            TextButton(
+              onPressed: () => _showTermsAndConditions(context),
+              child: Text('Terms and Conditions'),
             ),
-            CustomButton(
+             CustomButton(
               text: 'Proceed',
               onPressed: () {
-                if (_areGuarantorDetailsFilled()) {
-                  _showPlanDetails(context);
+                if (_areGuarantorDetailsFilled() && _validateGuarantorDetails()) {
+                  _showConfirmationDialog(context);
                 } else {
-                   ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    'Please fill in all the guarantor details',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16.0,
-                 //     fontWeight: FontWeight.bold
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Please fill in all the guarantor details correctly',
+                        style: TextStyle(color: Colors.black, fontSize: 16.0),
+                      ),
+                      backgroundColor: Color.fromARGB(255, 243, 146, 186),
+                      action: SnackBarAction(
+                        label: 'OK',
+                        textColor: Colors.black,
+                        onPressed: () {},
+                      ),
+                      duration: Duration(seconds: 2),
+                      behavior: SnackBarBehavior.floating,
                     ),
-                  ),
-                   backgroundColor: Color.fromARGB(255, 243, 146, 186),
-                  action: SnackBarAction(
-                    label: 'OK',
-                    textColor: Colors.black,
-                    onPressed: () {
-                      // Some code to undo the change.
-                    },
-                  ),
-                  duration: Duration(seconds: 2),
-                  behavior: SnackBarBehavior.floating,
-                ),
-              );
+                  );
                 }
               },
             ),
@@ -450,6 +444,29 @@ void main() {
   ));
 }
 
+class CustomButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
 
+  CustomButton({required this.text, required this.onPressed});
 
-
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(vertical: 15.0), backgroundColor: Color.fromARGB(255, 89, 3, 97),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ), // Button color
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 18.0,
+          color: Colors.white, // Text color
+        ),
+      ),
+    );
+  }
+}
