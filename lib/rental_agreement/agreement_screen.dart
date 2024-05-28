@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:localrepo/rental_agreement/invRent.dart';
+//import 'package:localrepo/rental_agreement/invRent.dart';
 //import 'package:localrepo/rental_agreement/transcript.dart';
 
 
@@ -116,27 +116,24 @@ class _RentalAgreementScreenState extends State<RentalAgreementScreen> {
 void _updateTotalPrice() {
   // Calculate the number of days between start and end dates
   final int numberOfDays = endDate.difference(startDate).inDays;
-  
-  // If end date is not selected, default to 7 days
+
   if (numberOfDays <= 0) {
-    deviceDetailsList.forEach((device) {
-      device.rentAmount = widget.rentAmount * 7; // Calculate rent amount for 7 days
-    });
-  } else {
-    // Update the total price for all devices
-    deviceDetailsList.forEach((device) {
-      device.rentAmount = widget.rentAmount * numberOfDays;
-    });
+    // If end date is not selected, default to 7 days
+    endDate = startDate.add(const Duration(days: 7));
   }
+
+  // Update the total price for all devices
+  deviceDetailsList.forEach((device) {
+    device.rentAmount = widget.rentAmount * numberOfDays;
+  });
 }
 
 
 void _submitAgreement() {
   // Check if all fields are filled and validate guarantor details
   if (_DetailsFilled() && _validateDetails()) {
-    // Calculate total price
-    double totalPrice = deviceDetailsList.fold<double>(
-      0, (total, device) => total + device.rentAmount);
+    // Calculate total price with 7 days as default duration
+    double totalPrice = widget.rentAmount * 7;
 
     // Navigate to the InvoiceScreen with the necessary data
     Navigator.push(
@@ -151,9 +148,9 @@ void _submitAgreement() {
           idCardNumber: idCardNumberController.text,
           deviceName: widget.deviceName,
           rentAmount: widget.rentAmount,
-          numberOfDays: endDate.difference(startDate).inDays,
+          numberOfDays: 7, // Default duration of 7 days
           startDate: startDate,
-          endDate: endDate,
+          endDate: startDate.add(const Duration(days: 7)), // Default end date
           totalPrice: totalPrice,
         ),
       ),
@@ -196,7 +193,7 @@ void _submitAgreement() {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Guarantor Details'),
+          title: Text('Renter Details'),
           content: SingleChildScrollView(
             child: Column(
               children: [

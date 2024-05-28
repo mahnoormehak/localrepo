@@ -12,6 +12,7 @@ import 'package:localrepo/favorite/favorite_screen.dart';
 import 'package:localrepo/homescreens/popular_product.dart';
 import 'package:localrepo/homescreens/special_offers.dart';
 import 'package:localrepo/init_screen.dart';
+import 'package:localrepo/login%20screens/IDcard.dart';
 import 'package:localrepo/login%20screens/login.dart';
 import 'package:localrepo/onboarding_content/onboarding/screens/onboarding.dart';
 import 'package:localrepo/login%20screens/signUP.dart';
@@ -40,10 +41,12 @@ class AppRoutes {
       static const String uploadProducts = '/uploadProducts';
             static const String installment = '/installment';
     static const String combine = '/combine';
+     static const String IDcard = '/IDcard';
   static final List<GetPage> getPages = [
     GetPage(name: onboarding, page: () => const OnboardingScreen()),
     GetPage(name: signUp, page: () => const signup()),
     GetPage(name: logIn, page: () => const LOGIN()),
+   // GetPage(name: IDcard, page: () =>  IDVerificationScreen()),
     GetPage(name: home, page: () => const InitScreen()),
         GetPage(name: combine, page: () =>  CombinedScreen()),
     GetPage(name: products, page: () => const ProductsScreen()),

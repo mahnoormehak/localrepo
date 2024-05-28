@@ -31,7 +31,7 @@ class _LOGINState extends State<LOGIN> {
       String password = passwordController.text;
 
       // Retrieve user data from the database
-      Map<String, dynamic> userData = await DBHelper.AuthenticateUser(email);
+      Map<String, dynamic> userData = await DBHelper.authenticateUser(email);
 
       // Check if user exists
       if (userData.isNotEmpty && userData['email'] == email) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localrepo/Database/authentication.dart';
 
 class InvoiceScreen extends StatelessWidget {
   final String deviceName;
@@ -8,6 +9,7 @@ class InvoiceScreen extends StatelessWidget {
   final String phoneNumber;
   final String idCardNumber;
   final String address;
+  final Map<String, dynamic> userData; // Accept user data as a parameter
 
   InvoiceScreen({
     required this.deviceName,
@@ -17,6 +19,7 @@ class InvoiceScreen extends StatelessWidget {
     required this.phoneNumber,
     required this.idCardNumber,
     required this.address,
+    required this.userData, // Accept user data as a parameter
   });
 
   @override
@@ -68,6 +71,12 @@ class InvoiceScreen extends StatelessWidget {
                   _buildInfoRow('Phone:', phoneNumber),
                   _buildInfoRow('ID Card Number:', idCardNumber),
                   _buildInfoRow('Address:', address),
+                  SizedBox(height: 20.0),
+                  _buildSectionTitle('User Information'),
+                  _buildInfoRow('First Name:', userData['firstName'] ?? 'N/A'),
+                  _buildInfoRow('Last Name:', userData['lastName'] ?? 'N/A'),
+                  _buildInfoRow('Email:', userData['email'] ?? 'N/A'),
+                  _buildInfoRow('Phone:', userData['phone'] ?? 'N/A'),
                   SizedBox(height: 20.0),
                   _buildSectionTitle('Installment Plan'),
                   _buildInfoRow('Duration:', '${selectedPlan['months']} months'),
@@ -123,6 +132,8 @@ class InvoiceScreen extends StatelessWidget {
   }
 }
 
+
+
 void main() {
   runApp(MaterialApp(
     home: InvoiceScreen(
@@ -132,7 +143,8 @@ void main() {
       guarantorName: 'John Doe',
       phoneNumber: '123-456-7890',
       idCardNumber: 'A12345678',
-      address: '123 Main St, Anytown, USA',
+      address: '123 Main St, Anytown, USA', userData: {},
+      
     ),
   ));
 }

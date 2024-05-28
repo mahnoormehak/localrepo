@@ -50,7 +50,7 @@ class _InstallmentScreenState extends State<InstallmentScreen> {
             guarantorName: _guarantorNameController.text,
             phoneNumber: _phoneNumberController.text,
             idCardNumber: _idCardController.text,
-            address: _addressController.text,
+            address: _addressController.text, userData: {},
           ),
         ),
       );
@@ -246,32 +246,32 @@ void _showConfirmationDialog(BuildContext context) {
       builder: (context) {
         return AlertDialog(
           title: Text('Confirm Plan'),
-          // content: SingleChildScrollView(
-          //   child: Column(
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     children: [
-          //       _buildDetailRow('Device:', widget.deviceName),
-          //       _buildDetailRow('Price:', '\$${widget.price.toStringAsFixed(2)}'),
-          //       _buildDetailRow('Guarantor Name:', _guarantorNameController.text),
-          //       _buildDetailRow('Phone Number:', _phoneNumberController.text),
-          //       _buildDetailRow('ID Card Number:', _idCardController.text),
-          //       _buildDetailRow('Address:', _addressController.text),
-          //       SizedBox(height: 10),
-          //       if (selectedPlan != null)
-          //         _buildDetailRow(
-          //           'Duration:',
-          //           '${selectedPlan!['months']} months',
+          content: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildDetailRow('Device:', widget.deviceName),
+                _buildDetailRow('Price:', '\$${widget.price.toStringAsFixed(2)}'),
+                _buildDetailRow('Guarantor Name:', _guarantorNameController.text),
+                _buildDetailRow('Phone Number:', _phoneNumberController.text),
+                _buildDetailRow('ID Card Number:', _idCardController.text),
+                _buildDetailRow('Address:', _addressController.text),
+                SizedBox(height: 10),
+                if (selectedPlan != null)
+                  _buildDetailRow(
+                    'Duration:',
+                    '${selectedPlan!['months']} months',
                     
-          //         ),
-          //           if (selectedPlan != null)
-          //         _buildDetailRow(
-          //           'Installment price:',
-          //           '${(widget.price / selectedPlan!['months']).toStringAsFixed(2)} per month',
+                  ),
+                    if (selectedPlan != null)
+                  _buildDetailRow(
+                    'Installment price:',
+                    '${(widget.price / selectedPlan!['months']).toStringAsFixed(2)} per month',
                     
-          //         ),   
-          //     ],
-          //   ),
-          // ),
+                  ),   
+              ],
+            ),
+          ),
           actions: [
             TextButton(
               onPressed: () {

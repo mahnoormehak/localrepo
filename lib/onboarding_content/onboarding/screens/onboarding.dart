@@ -2,7 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
  import 'package:localrepo/homescreens/home_screen.dart';
+import 'package:localrepo/login%20screens/IDcard.dart';
+import 'package:localrepo/login%20screens/IDcard.dart';
 import 'package:localrepo/routes.dart';
+import '../../../login screens/IDcard.dart';
 import '../data/data.dart';
 import '../custom/custom_bg.dart';
 import '../widgets/item_card.dart';
