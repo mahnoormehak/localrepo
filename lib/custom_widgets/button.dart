@@ -16,16 +16,16 @@ const CustomButton({super.key,
     onPressed:()=> onPressed(),
   style: ElevatedButton.styleFrom(
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(39),
+      borderRadius: BorderRadius.circular(19),
       
     ),
-    backgroundColor: const Color.fromARGB(255, 228, 138, 228),
+    backgroundColor: Color.fromARGB(255, 129, 61, 106),
     padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
   ), 
   child: Text(text,
   
   style: const TextStyle(fontSize: 19,
-  color: Colors.black,
+  color: Colors.white,
   fontWeight: FontWeight.bold),), 
 
   );

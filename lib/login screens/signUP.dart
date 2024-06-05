@@ -1,9 +1,10 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:localrepo/Database/authentication.dart';
+import 'package:localrepo/Database/uploadScreen/productlist.dart';
 import 'package:localrepo/custom_widgets/button.dart';
 import 'package:localrepo/login%20screens/IDcard.dart';
-import 'package:localrepo/login%20screens/idList.dart';
+
 // import 'package:localrepo/custom_widgets/checkbox.dart';
 import 'package:localrepo/login%20screens/login.dart';
 import 'package:localrepo/profile/profile_screen.dart';
@@ -38,6 +39,7 @@ class _signupState extends State<signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
@@ -52,9 +54,9 @@ class _signupState extends State<signup> {
                       AnimatedTextKit(
                         animatedTexts: [
                           TyperAnimatedText(
-                            'Signup',
+                            'Create an Account',
                             textStyle: const TextStyle(
-                              fontSize: 27,
+                              fontSize: 25,
                               fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.bold,
                               color: Color.fromARGB(255, 95, 67, 160),
@@ -63,7 +65,7 @@ class _signupState extends State<signup> {
                           TyperAnimatedText(
                             'Embark on a seamless renting experience',
                             textStyle: const TextStyle(
-                              fontSize: 25,
+                              fontSize: 23,
                               fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.bold,
                               color: Color.fromARGB(255, 95, 67, 160),
@@ -76,12 +78,20 @@ class _signupState extends State<signup> {
                 ),
                 Lottie.asset(
                   "assets/lotties/7.json",
-                  height: 300.0,
+                  height: 200.0,
                   width: 330.0,
                 ),
-                const SizedBox(height: 5),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(40, 5, 40, 10),
+                  padding: const EdgeInsets.fromLTRB(25.0,0,10,0),
+                  child: Text('Please fill in the form below to create a new account and start using this application.',  style: TextStyle(
+                            fontSize: 17,
+                            
+                            //   color: Color.fromARGB(255, 255, 81, 100),
+                          ),),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -202,7 +212,7 @@ class _signupState extends State<signup> {
                   ),
                 ),
                 CustomButton(
-                  text: 'Signup',
+                  text: 'Create an Account',
                   onPressed: () {
                     _handleSignup(context);
                   },

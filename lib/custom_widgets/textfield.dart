@@ -9,7 +9,7 @@ class CustomTextField extends StatefulWidget {
     super.key,
     required this.controller,
     required this.text,
-    required this.icon,
+    required this.icon, required String? Function(dynamic value) validator,
   });
 
   @override
@@ -27,11 +27,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
         // Using the icon here
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(40),
-          borderSide: const BorderSide(color: Colors.orange),
+          borderSide: const BorderSide(color: Colors.orange,width: 2),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(40),
-          borderSide: const BorderSide(color: Colors.purple),
+          borderSide: const BorderSide(color: Colors.purple,width: 3),
+          
         ),
         filled: true,
         fillColor: Colors.white,

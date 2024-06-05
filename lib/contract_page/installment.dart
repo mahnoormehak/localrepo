@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:localrepo/contract_page/invoiceINS.dart';
+import 'package:localrepo/custom_widgets/button.dart';
 //import 'invoice_screen.dart'; // Import the invoice screen
 
 class InstallmentScreen extends StatefulWidget {
@@ -313,16 +315,36 @@ void _showConfirmationDialog(BuildContext context) {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Installment Plans'),
-      ),
+    
       body: Padding(
-        padding: const EdgeInsets.all(23.0),
+        padding: const EdgeInsets.fromLTRB(30,0,30,0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+              Container(
+          
+           margin: EdgeInsets.only(left: 0, top: 20, bottom: 4,right: 360),
+            //height: 30,
+ decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color.fromARGB(255, 46, 10, 207),const Color.fromARGB(157, 10, 91, 145)],
+                   begin: Alignment.topLeft,
+                   end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  color: Colors.white,
+                ),
+          ),
+          SizedBox(height: 15,),
             Container(
               height: 140,
+              width: 400,
               decoration: BoxDecoration(
                 color: Color.fromARGB(255, 250, 246, 232),
                 border: Border.all(color: Color.fromARGB(255, 170, 19, 163), width: 3),
@@ -339,7 +361,7 @@ void _showConfirmationDialog(BuildContext context) {
                 ),
               ),
             ),
-            SizedBox(height: 10.0),
+         //   SizedBox(height: 10.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -357,7 +379,7 @@ void _showConfirmationDialog(BuildContext context) {
                 ),
               ],
             ),
-            SizedBox(height: 10.0),
+           // SizedBox(height: 10.0),
             Expanded(
               child: ListView.builder(
                 itemCount: installmentPlans.length,
@@ -406,32 +428,38 @@ void _showConfirmationDialog(BuildContext context) {
               onPressed: () => _showTermsAndConditions(context),
               child: Text('Terms and Conditions'),
             ),
-             CustomButton(
-              text: 'Proceed',
-              onPressed: () {
-                if (_areGuarantorDetailsFilled() && _validateGuarantorDetails()) {
-                  _showConfirmationDialog(context);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Please fill in all the guarantor details correctly',
-                        style: TextStyle(color: Colors.black, fontSize: 16.0),
-                      ),
-                      backgroundColor: Color.fromARGB(255, 243, 146, 186),
-                      action: SnackBarAction(
-                        label: 'OK',
-                        textColor: Colors.black,
-                        onPressed: () {},
-                      ),
-                      duration: Duration(seconds: 2),
-                      behavior: SnackBarBehavior.floating,
-                    ),
-                  );
-                }
-              },
-            ),
-          ],
+             Row(
+               children: [
+                 Expanded(
+                   child: CustomButton(
+                    text: 'Proceed',
+                    onPressed: () {
+                      if (_areGuarantorDetailsFilled() && _validateGuarantorDetails()) {
+                        _showConfirmationDialog(context);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Please fill in all the guarantor details correctly',
+                              style: TextStyle(color: Colors.white, fontSize: 16.0),
+                            ),
+                             backgroundColor: Color.fromARGB(255, 153, 21, 87),
+                            action: SnackBarAction(
+                              label: 'OK',
+                              textColor: Colors.white,
+                              onPressed: () {},
+                            ),
+                            duration: Duration(seconds: 2),
+                            behavior: SnackBarBehavior.floating,
+                          ),
+                        );
+                      }
+                    },
+                               ),
+                 ),
+               ],
+             ),
+        SizedBox(height: 20,)  ],
         ),
       ),
     );
@@ -442,31 +470,4 @@ void main() {
   runApp(MaterialApp(
     home: InstallmentScreen(deviceName: 'Smartphone', price: 1200.0),
   ));
-}
-
-class CustomButton extends StatelessWidget {
-  final String text;
-  final VoidCallback onPressed;
-
-  CustomButton({required this.text, required this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(vertical: 15.0), backgroundColor: Color.fromARGB(255, 89, 3, 97),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-        ), // Button color
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 18.0,
-          color: Colors.white, // Text color
-        ),
-      ),
-    );
-  }
 }

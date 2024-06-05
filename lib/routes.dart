@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
-import 'package:localrepo/Database/uploadScreen/display.dart';
+import 'package:localrepo/Database/uploadScreen/combine.dart';
+//import 'package:localrepo/Database/uploadScreen/display.dart';
 import 'package:localrepo/Database/uploadScreen/image.dart';
+import 'package:localrepo/Database/uploadScreen/productlist.dart';
 import 'package:localrepo/Database/uploadScreen/screen1.dart';
 import 'package:localrepo/cart/cart_screen.dart';
 import 'package:localrepo/cart/components/check_out_card.dart';
@@ -17,6 +19,7 @@ import 'package:localrepo/login%20screens/login.dart';
 import 'package:localrepo/onboarding_content/onboarding/screens/onboarding.dart';
 import 'package:localrepo/login%20screens/signUP.dart';
 import 'package:localrepo/products/products_screen.dart';
+import 'package:localrepo/profile/profile_screen.dart';
 import 'package:localrepo/rental_agreement/agreement_screen.dart';
 import 'package:localrepo/sidebar/sidebar_screen.dart';
 
@@ -42,12 +45,16 @@ class AppRoutes {
             static const String installment = '/installment';
     static const String combine = '/combine';
      static const String IDcard = '/IDcard';
+       static const String profile = '/profile';
+           static const String ListProducts = '/ListProducts';
   static final List<GetPage> getPages = [
     GetPage(name: onboarding, page: () => const OnboardingScreen()),
     GetPage(name: signUp, page: () => const signup()),
     GetPage(name: logIn, page: () => const LOGIN()),
-   // GetPage(name: IDcard, page: () =>  IDVerificationScreen()),
+    GetPage(name: IDcard, page: () =>  IdCardVerificationScreen()),
     GetPage(name: home, page: () => const InitScreen()),
+        GetPage(name: profile, page: () => const Profile()),
+          GetPage(name: ListProducts, page: () =>  ProductListingPage()),
         GetPage(name: combine, page: () =>  CombinedScreen()),
     GetPage(name: products, page: () => const ProductsScreen()),
     GetPage(name: favorite, page: () => const FavoriteScreen()),

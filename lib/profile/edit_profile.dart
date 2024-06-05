@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:localrepo/Database/authentication.dart';
 
 import 'package:localrepo/custom_widgets/button.dart';
+import 'package:localrepo/custom_widgets/textfield.dart';
 
 class editScreen extends StatefulWidget {
   const editScreen({super.key});
@@ -104,68 +105,119 @@ class _editScreenState extends State<editScreen> {
               const SizedBox(
                 height: 20,
               ),
+
+              
               Padding(
                 padding: const EdgeInsets.all(18.0),
                 child: Column(
                   children: [
-                    TextFormField(
-                      controller: nameController,
-                      decoration: InputDecoration(
-                        labelText: 'Name',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(40),
+                  TextFormField(
+                        controller: nameController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.person),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                            borderSide: const BorderSide(
+                              color: Colors.orange, width: 2),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                            borderSide: const BorderSide(
+                              color: Colors.purple, width: 3),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          labelText: 'Full Name',
                         ),
                       ),
-                    ),
                     const SizedBox(
                       height: 10,
                     ),
-                    TextFormField(
-                      controller: lastNameController,
-                      decoration: InputDecoration(
-                        labelText: 'Lastname',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(40),
+                  TextFormField(
+                        controller: lastNameController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.person),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                            borderSide: const BorderSide(
+                              color: Colors.orange, width: 2),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                            borderSide: const BorderSide(
+                              color: Colors.purple, width: 3),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          labelText: 'Last name',
                         ),
                       ),
-                    ),
                     const SizedBox(
                       height: 10,
                     ),
-                    TextFormField(
-                      //    initialValue: _userData['email'],
-                      controller: emailController,
-                      decoration: InputDecoration(
-                        labelText: 'email',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(40),
+                  TextFormField(
+                        controller: emailController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.email),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                            borderSide: const BorderSide(
+                              color: Colors.orange, width: 2),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                            borderSide: const BorderSide(
+                              color: Colors.purple, width: 3),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          labelText: 'Email',
                         ),
                       ),
-                    ),
                     const SizedBox(
                       height: 10,
                     ),
-                    TextFormField(
-                      controller: passwordController,
-                      decoration: InputDecoration(
-                        labelText: 'password',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(40),
+                                     TextFormField(
+                        controller: passwordController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.lock),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                            borderSide: const BorderSide(
+                              color: Colors.orange, width: 2),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                            borderSide: const BorderSide(
+                              color: Colors.purple, width: 3),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          labelText: 'Password',
                         ),
                       ),
-                    ),
                     const SizedBox(
                       height: 10,
                     ),
-                    TextFormField(
-                      controller: phoneNumberController,
-                      decoration: InputDecoration(
-                        labelText: 'Phone',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(40),
+                                    TextFormField(
+                        controller: phoneNumberController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.numbers),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                            borderSide: const BorderSide(
+                              color: Colors.orange, width: 2),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                            borderSide: const BorderSide(
+                              color: Colors.purple, width: 3),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          labelText: 'Phone Number',
                         ),
                       ),
-                    ),
                   ],
                 ),
               ),
@@ -223,6 +275,10 @@ class _editScreenState extends State<editScreen> {
     await DBHelper.insertAndFetchUser(userData);
 
     // Navigate back to profile screen
-    Navigator.pop(context);
+    // Navigator.pop(context);
+    // Navigate back to profile screen and pass the updated data
+Navigator.pop(context, userData);
+
+  
   }
 }

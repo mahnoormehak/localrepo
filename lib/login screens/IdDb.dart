@@ -1,48 +1,49 @@
-// import 'package:sqflite/sqflite.dart';
-// import 'package:path/path.dart';
 
-// class DatabaseHelper1 {
-//   static final DatabaseHelper1 _instance = DatabaseHelper1._internal();
-//   static Database? _database;
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
+class DatabaseHelp {
+  static final DatabaseHelp instance = DatabaseHelp._instance();
+  static Database? _db;
 
-//   factory DatabaseHelper1() {
-//     return _instance;
-//   }
+  DatabaseHelp._instance();
 
-//   DatabaseHelper1._internal();
+  String idCardTable = 'idCardTable';
+  String colId = 'id';
+  String colImagePath = 'imagePath';
 
-//   Future<Database> get database async {
-//     if (_database != null) return _database!;
-//     _database = await _initDatabase();
-//     return _database!;
-//   }
+  Future<Database?> get db async {
+    if (_db == null) {
+      _db = await _initDb();
+    }
+    return _db;
+  }
 
-//   Future<Database> _initDatabase() async {
-//     final dbPath = await getDatabasesPath();
-//     final path = join(dbPath, 'id_verification.db');
+  Future<Database> _initDb() async {
+    Directory dir = await getApplicationDocumentsDirectory();
+    String path = join(dir.path, 'idCard.db');
+    final idCardDb = await openDatabase(path, version: 1, onCreate: _createDb);
+    return idCardDb;
+  }
 
-//     return await openDatabase(
-//       path,
-//       version: 1,
-//       onCreate: (db, version) {
-//         return db.execute(
-//           'CREATE TABLE id_cards(id INTEGER PRIMARY KEY AUTOINCREMENT, image_path TEXT, extracted_text TEXT)',
-//         );
-//       },
-//     );
-//   }
+  void _createDb(Database db, int version) async {
+    await db.execute(
+      'CREATE TABLE $idCardTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colImagePath TEXT)',
+    );
+  }
 
-//   Future<void> insertIDCard(String imagePath, String extractedText) async {
-//     final db = await database;
-//     await db.insert(
-//       'id_cards',
-//       {'image_path': imagePath, 'extracted_text': extractedText},
-//       conflictAlgorithm: ConflictAlgorithm.replace,
-//     );
-//   }
+  Future<int> insertIdCard(Map<String, dynamic> row) async {
+    Database? db = await this.db;
+    final int result = await db!.insert(idCardTable, row);
+    return result;
+  }
 
-//   Future<List<Map<String, dynamic>>> getIDCards() async {
-//     final db = await database;
-//     return await db.query('id_cards');
-//   }
-// }
+  Future<List<Map<String, dynamic>>> getIdCardList() async {
+    Database? db = await this.db;
+    final List<Map<String, dynamic>> result = await db!.query(idCardTable);
+    return result;
+  }
+}

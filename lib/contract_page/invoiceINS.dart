@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:localrepo/Database/authentication.dart';
+import 'package:localrepo/custom_widgets/button.dart';
 
 class InvoiceScreen extends StatelessWidget {
   final String deviceName;
@@ -33,62 +35,90 @@ class InvoiceScreen extends StatelessWidget {
     final String collateralDescription = 'Item being financed: $deviceName';
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Invoice'),
-        backgroundColor: Colors.deepPurple,
-      ),
+      
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
-          child: Card(
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.0),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Text(
-                      'Invoice',
-                      style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.deepPurple,
-                      ),
-                    ),
+          child: Column(
+            children: [
+                            Container(
+          
+           margin: EdgeInsets.only(left: 0, top: 20, bottom: 4,right: 360),
+            //height: 30,
+ decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color.fromARGB(255, 46, 10, 207),const Color.fromARGB(157, 10, 91, 145)],
+                   begin: Alignment.topLeft,
+                   end: Alignment.bottomRight,
                   ),
-                  Divider(thickness: 2),
-                  SizedBox(height: 10.0),
-                  _buildSectionTitle('Device Information'),
-                  _buildInfoRow('Device Name:', deviceName),
-                  _buildInfoRow('Price:', '\$${price.toStringAsFixed(2)}'),
-                  SizedBox(height: 20.0),
-                  _buildSectionTitle('Guarantor Information'),
-                  _buildInfoRow('Name:', guarantorName),
-                  _buildInfoRow('Phone:', phoneNumber),
-                  _buildInfoRow('ID Card Number:', idCardNumber),
-                  _buildInfoRow('Address:', address),
-                  SizedBox(height: 20.0),
-                  _buildSectionTitle('User Information'),
-                  _buildInfoRow('First Name:', userData['firstName'] ?? 'N/A'),
-                  _buildInfoRow('Last Name:', userData['lastName'] ?? 'N/A'),
-                  _buildInfoRow('Email:', userData['email'] ?? 'N/A'),
-                  _buildInfoRow('Phone:', userData['phone'] ?? 'N/A'),
-                  SizedBox(height: 20.0),
-                  _buildSectionTitle('Installment Plan'),
-                  _buildInfoRow('Duration:', '${selectedPlan['months']} months'),
-                  _buildInfoRow('Monthly Payment:', '\$${monthlyPayment.toStringAsFixed(2)}'),
-                  _buildInfoRow('Total Payment:', '\$${totalPayment.toStringAsFixed(2)}'),
-                  _buildInfoRow('Late Payment Penalty:', '\$${latePaymentPenalty.toStringAsFixed(2)}'),
-                  _buildInfoRow('Prepayment Penalty:', '\$${prepaymentPenalty.toStringAsFixed(2)}'),
-                  _buildInfoRow('Collateral:', collateralDescription),
-                ],
-              ),
-            ),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  color: Colors.white,
+                ),
           ),
+          SizedBox(height: 20,),
+              Card(
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(30,0,30,0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Text(
+                          'Invoice',
+                          style: TextStyle(
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.deepPurple,
+                          ),
+                        ),
+                      ),
+                      Divider(thickness: 2),
+                      SizedBox(height: 10.0),
+                      _buildSectionTitle('Device Information'),
+                      _buildInfoRow('Device Name:', deviceName),
+                      _buildInfoRow('Price:', '\$${price.toStringAsFixed(2)}'),
+                      SizedBox(height: 20.0),
+                      _buildSectionTitle('Guarantor Information'),
+                      _buildInfoRow('Name:', guarantorName),
+                      _buildInfoRow('Phone:', phoneNumber),
+                      _buildInfoRow('ID Card Number:', idCardNumber),
+                      _buildInfoRow('Address:', address),
+                  //    SizedBox(height: 20.0),
+                   
+                      SizedBox(height: 20.0),
+                      _buildSectionTitle('Installment Plan'),
+                      _buildInfoRow('Duration:', '${selectedPlan['months']} months'),
+                      _buildInfoRow('Monthly Payment:', '\$${monthlyPayment.toStringAsFixed(2)}'),
+                      _buildInfoRow('Total Payment:', '\$${totalPayment.toStringAsFixed(2)}'),
+                      _buildInfoRow('Late Payment Penalty:', '\$${latePaymentPenalty.toStringAsFixed(2)}'),
+                      _buildInfoRow('Prepayment Penalty:', '\$${prepaymentPenalty.toStringAsFixed(2)}'),
+                      _buildInfoRow('Collateral:', collateralDescription),
+                      SizedBox(height: 50.0),
+                         Row(
+                        children: [
+                          Expanded(child: CustomButton(text: 'OK', onPressed: (){})),
+                        ],
+                      ),
+                   SizedBox(height: 20,)
+                    ],
+                  ),
+                  
+                ),
+                
+              ),
+            ],
+          ),
+          
         ),
       ),
     );

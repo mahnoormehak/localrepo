@@ -1,15 +1,351 @@
 
+
+
+
+// import 'dart:io';
+// import 'dart:typed_data';
+
+// import 'package:file_picker/file_picker.dart';
+// import 'package:flutter/material.dart';
+// import 'package:image_picker/image_picker.dart';
+// import 'package:localrepo/Database/localdb.dart';
+// import 'package:localrepo/Database/uploadScreen/combine.dart';
+// //import 'package:localrepo/Database/uploadScreen/display.dart';
+// import 'package:localrepo/Database/uploadScreen/imgD.dart';
+// import 'package:localrepo/custom_widgets/button.dart';
+// import 'package:localrepo/custom_widgets/textfield.dart';
+// import 'package:lottie/lottie.dart';
+
+// class UploadDeviceScreen extends StatefulWidget {
+//   const UploadDeviceScreen({super.key});
+
+//   @override
+//   _UploadDeviceScreenState createState() => _UploadDeviceScreenState();
+// }
+
+// class _UploadDeviceScreenState extends State<UploadDeviceScreen> {
+//   FilePickerResult? result;
+//   File? _imageFile;
+//   String? _filename;
+//   PlatformFile? pickedFile;
+//   bool isLoading = false;
+//   File? fileToDisplay;
+//   Uint8List? _image;
+//   File? selectedImage;
+//   String _priceType = 'rent'; // default price type
+//   final TextEditingController _deviceNameController = TextEditingController();
+//   final TextEditingController _descriptionController = TextEditingController();
+//   final TextEditingController _priceController = TextEditingController();
+//   final TextEditingController _availbilityController = TextEditingController();
+//   final TextEditingController _qualityController = TextEditingController();
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _fetchData();
+//   }
+
+//   @override
+//   void dispose() {
+//     _deviceNameController.dispose();
+//     _descriptionController.dispose();
+//     _priceController.dispose();
+//     _availbilityController.dispose();
+//     _qualityController.dispose();
+//     super.dispose();
+//   }
+
+//   Future<void> _fetchData() async {
+//     try {
+//       final data = await LocalDatabase().fetchDataLocally();
+//       setState(() {
+//         // Handle fetched data
+//       });
+//     } catch (e) {
+//       print('Error fetching data: $e');
+//     }
+//   }
+
+//   void _showPriceTypeDialog() {
+//     showDialog(
+//       context: context,
+//       builder: (BuildContext context) {
+//         return AlertDialog(
+//           title: Text('Select Price Type'),
+//           content: Column(
+//             mainAxisSize: MainAxisSize.min,
+//             children: <Widget>[
+//               ListTile(
+//                 title: Text('Rent'),
+//                 onTap: () {
+//                   setState(() {
+//                     _priceType = 'rent';
+//                   });
+//                   Navigator.pop(context);
+//                 },
+//               ),
+//               ListTile(
+//                 title: Text('Sell'),
+//                 onTap: () {
+//                   setState(() {
+//                     _priceType = 'sell';
+//                   });
+//                   Navigator.pop(context);
+//                 },
+//               ),
+//             ],
+//           ),
+//         );
+//       },
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Colors.white,
+//       appBar: AppBar(
+//         leading: IconButton(
+//           onPressed: () {},
+//           icon: Icon(Icons.arrow_back),
+//           color: const Color.fromARGB(255, 163, 130, 30),
+//           iconSize: 32,
+//         ),
+//       ),
+//       body: SingleChildScrollView(
+//         child: Stack(
+//           children: [
+//             Padding(
+//               padding: EdgeInsets.fromLTRB(30, 0, 30, 30),
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: <Widget>[
+//                   Text(
+//                     'Set the Title, Description, Price, and Availability for your product.',
+//                     style: TextStyle(
+//                       fontSize: 17,
+//                     ),
+//                   ),
+//                   Center(
+//                     child: Lottie.asset(
+//                       'assets/lotties/pro.json',
+//                       height: 130,
+//                       width: 350,
+//                     ),
+//                   ),
+//                   Column(
+//                     children: [
+//                       CustomTextField(
+//                         controller: _deviceNameController,
+//                         text: 'Device Name',
+//                         icon: Icons.production_quantity_limits, validator: (value) {  },
+//                       ),
+//                       SizedBox(height: 10),
+//                       TextFormField(
+//                         maxLines: 9,
+//                         controller: _descriptionController,
+//                         decoration: InputDecoration(
+//                           labelText: 'Description',
+//                           prefixIcon: Icon(
+//                             Icons.description,
+//                             color: const Color.fromARGB(255, 134, 43, 10),
+//                             size: 28,
+//                           ),
+//                           enabledBorder: OutlineInputBorder(
+//                             borderRadius: BorderRadius.circular(40),
+//                             borderSide: BorderSide(color: Colors.orange, width: 2),
+//                           ),
+//                           focusedBorder: OutlineInputBorder(
+//                             borderRadius: BorderRadius.circular(40),
+//                             borderSide: BorderSide(color: Colors.purple, width: 3),
+//                           ),
+//                           filled: true,
+//                           fillColor: Colors.white,
+//                         ),
+//                       ),
+//                       SizedBox(height: 10),
+                      
+//                          CustomTextField(
+//                         controller: _priceController,
+//                         text: 'Price',
+//                         icon: Icons.price_change,
+//                       ),
+          
+//                       SizedBox(height: 10),
+//                       CustomTextField(
+//                         controller: _availbilityController,
+//                         text: 'Availability',
+//                         icon: Icons.event_available,
+//                       ),
+//                     ],
+//                   ),
+//                   SizedBox(height: 10),
+//                   Row(
+//                     mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                     children: [
+//                       CustomButton(
+//                         text: 'Cancel',
+//                         onPressed: () {
+//                           _deviceNameController.clear();
+//                           _descriptionController.clear();
+//                           _priceController.clear();
+//                           _availbilityController.clear();
+//                           _qualityController.clear();
+//                         },
+//                       ),
+//                       CustomButton(
+//                         text: 'Upload',
+//                         onPressed: () async {
+//                           double price = double.parse(_priceController.text);
+//                           int availability = int.parse(_availbilityController.text);
+//                           Uint8List imageData = Uint8List(0);
+//                           if (_imageFile != null) {
+//                             imageData = await _imageFile!.readAsBytes();
+//                           }
+//                           String result = await LocalDatabase().addDataLocally(
+//                             name: _deviceNameController.text,
+//                             description: _descriptionController.text,
+//                             price: price,
+//                             availability: availability,
+//                           );
+//                           if (result == 'added') {
+//                             List<Map<String, dynamic>>? fetchedData = await LocalDatabase().fetchDataLocally();
+//                             if (fetchedData != null) {
+//                               Navigator.push(
+//                                 context,
+//                                 MaterialPageRoute(
+//                                   builder: (context) => CombinedScreen(),
+//                                 ),
+//                               );
+//                             } else {
+//                               print('Error: Fetched data is null');
+//                             }
+//                           } else {
+//                             print('Error: Data addition failed');
+//                           }
+//                         },
+//                       )
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+
+//   // Method to select an image from the device
+//   Future<void> _pickImage() async {
+//     final picker = ImagePicker();
+//     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+//     if (pickedFile != null) {
+//       setState(() {
+//         _imageFile = File(pickedFile.path);
+//       });
+//     }
+//   }
+
+//   // Method to upload device details along with the image to the database
+//   void _uploadToDevice() async {
+//     if (_imageFile == null) {
+//       return;
+//     }
+//     final Uint8List imageData = await _imageFile!.readAsBytes();
+//     String deviceName = _deviceNameController.text;
+//     String description = _descriptionController.text;
+//     double price = double.tryParse(_priceController.text) ?? 0.0;
+//     int availability = int.tryParse(_availbilityController.text) ?? 0;
+//     String result = await LocalDatabase().addDataLocally(
+//       name: deviceName,
+//       description: description,
+//       price: price,
+//       availability: availability,
+//     );
+//     if (result == 'added') {
+//       print('Device details uploaded successfully!');
+//     } else {
+//       print('Failed to upload device details.');
+//     }
+//   }
+// }
+
+// extension StringExtension on String {
+//   String capitalize() {
+//     return "${this[0].toUpperCase()}${substring(1)}";
+//   }
+// }
+
+// class CustomIconButton extends StatelessWidget {
+//   final IconData icon;
+//   final VoidCallback onPressed;
+//   final Color? color;
+//   final double size;
+//   final double padding;
+//   final double borderRadius;
+//   final Color? backgroundColor;
+//   final String tooltip;
+
+//   CustomIconButton({
+//     required this.icon,
+//     required this.onPressed,
+//     this.color = Colors.white,
+//     this.size = 24.0,
+//     this.padding = 12.0,
+//     this.borderRadius = 8.0,
+//     this.backgroundColor = Colors.blue,
+//     this.tooltip = '',
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Material(
+//       color: Colors.transparent,
+//       child: InkWell(
+//         onTap: onPressed,
+//         borderRadius: BorderRadius.circular(borderRadius),
+//         splashColor: Colors.white.withOpacity(0.2),
+//         child: Tooltip(
+//           message: tooltip,
+//           child: Container(
+//             padding: EdgeInsets.all(padding),
+//             decoration: BoxDecoration(
+//               color: backgroundColor,
+//               borderRadius: BorderRadius.circular(borderRadius),
+//               boxShadow: [
+//                 BoxShadow(
+//                   color: Colors.black.withOpacity(0.2),
+//                   spreadRadius: 1,
+//                   blurRadius: 5,
+//                   offset: Offset(0, 3),
+//                 ),
+//               ],
+//             ),
+//             child: Icon(
+//               icon,
+//               color: color,
+//               size: size,
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:localrepo/Database/localdb.dart';
-import 'package:localrepo/Database/uploadScreen/display.dart';
+import 'package:localrepo/Database/uploadScreen/combine.dart';
+//import 'package:localrepo/Database/uploadScreen/display.dart';
 import 'package:localrepo/Database/uploadScreen/imgD.dart';
-// import 'package:localrepo/Database/uploadScreen/sc2.dart';
 import 'package:localrepo/custom_widgets/button.dart';
+import 'package:localrepo/custom_widgets/textfield.dart';
 import 'package:lottie/lottie.dart';
 
 class UploadDeviceScreen extends StatefulWidget {
@@ -20,42 +356,38 @@ class UploadDeviceScreen extends StatefulWidget {
 }
 
 class _UploadDeviceScreenState extends State<UploadDeviceScreen> {
-  FilePickerResult?result;
-       File? _imageFile;
-  String ? _filename;
-  PlatformFile? pickedfile;
-  bool isloading = false;
-  File ? fileToDisplay;
+  FilePickerResult? result;
+  File? _imageFile;
+  String? _filename;
+  PlatformFile? pickedFile;
+  bool isLoading = false;
+  File? fileToDisplay;
   Uint8List? _image;
   File? selectedImage;
+  String _priceType = 'rent'; // default price type
   final TextEditingController _deviceNameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  final TextEditingController _rentPriceController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
   final TextEditingController _availbilityController = TextEditingController();
-    final TextEditingController _qualityController = TextEditingController();
+  final TextEditingController _qualityController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
-    // Fetch data when the screen initializes
     _fetchData();
-  } 
+  }
+
+  @override
   void dispose() {
     _deviceNameController.dispose();
     _descriptionController.dispose();
-    _rentPriceController.dispose();
+    _priceController.dispose();
     _availbilityController.dispose();
     _qualityController.dispose();
-  
-     String deviceName = _deviceNameController.text;
-    String description = _descriptionController.text;
-    String rentPrice = _rentPriceController.text;
-    String availability= _availbilityController.text;
-    String quality = _qualityController.text;
-
-
     super.dispose();
   }
-   Future<void> _fetchData() async {
+
+  Future<void> _fetchData() async {
     try {
       final data = await LocalDatabase().fetchDataLocally();
       setState(() {
@@ -63,280 +395,269 @@ class _UploadDeviceScreenState extends State<UploadDeviceScreen> {
       });
     } catch (e) {
       print('Error fetching data: $e');
-      // Handle error
     }
   }
 
-   
 
+void _showSnackBarMessage(String message) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(
+        message,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 16.0,
+        ),
+      ),
+      backgroundColor: Color.fromARGB(255, 153, 21, 87),
+      duration: Duration(seconds: 3),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      margin: EdgeInsets.symmetric(horizontal: 7.0, vertical: 2.0),
+      padding: EdgeInsets.symmetric(horizontal: 7.0, vertical: 2.0),
+      action: SnackBarAction(
+        label: 'OK',
+        textColor: Colors.white,
+        onPressed: () {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        },
+      ),
+    ),
+  );
+}
+
+  void _handleUpload() async {
+    if (_deviceNameController.text.isEmpty) {
+      _showSnackBarMessage('Please enter a device name');
+      return;
+    }
+    if (_descriptionController.text.isEmpty) {
+      _showSnackBarMessage('Please enter a description');
+      return;
+    }
+    if (_priceController.text.isEmpty) {
+      _showSnackBarMessage('Please enter a price');
+      return;
+    }
+    if (_availbilityController.text.isEmpty) {
+      _showSnackBarMessage('Please enter availability');
+      return;
+    }
+
+    double price = double.parse(_priceController.text);
+    int availability = int.parse(_availbilityController.text);
+    Uint8List imageData = Uint8List(0);
+    if (_imageFile != null) {
+      imageData = await _imageFile!.readAsBytes();
+    }
+
+    String result = await LocalDatabase().addDataLocally(
+      name: _deviceNameController.text,
+      description: _descriptionController.text,
+      price: price,
+      availability: availability,
+    );
+
+    if (result == 'added') {
+      List<Map<String, dynamic>>? fetchedData = await LocalDatabase().fetchDataLocally();
+      if (fetchedData != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CombinedScreen(),
+          ),
+        );
+      } else {
+        print('Error: Fetched data is null');
+      }
+    } else {
+      print('Error: Data addition failed');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-              appBar: AppBar(
-      backgroundColor: const Color.fromARGB(255, 187, 98, 98),
-      title: Center(child: Text('Rent or Sell',style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold),)),
-      leading:  IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back_ios_new),) ,
-      actions: [
-        IconButton(onPressed: (){}, icon: Icon(Icons.wallet),)
-      ]),
+   
+     
+      
       body: SingleChildScrollView(
         child: Stack(
           children: [
-         
-           Padding(
-            
-            padding: EdgeInsets.fromLTRB(10,15,10,30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text('Enter details to upload your product',style: TextStyle(
-                  fontSize: 19,
-                  fontWeight: FontWeight.bold,
-                ),),
-
-    Center(
-                  child: Lottie.asset(
-                    'assets/lotties/pro.json', // Adjust the path to match your animation file
-                    height: 180, // Adjust the height as needed
-                    width: 350,
+           
+            Column(
+              children: [
+                 Container(
+          
+           margin: EdgeInsets.only(left: 0, top: 20, bottom: 4,right: 360),
+            //height: 30,
+ decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color.fromARGB(255, 132, 105, 253), Color.fromARGB(157, 10, 91, 145)],
+                   begin: Alignment.topLeft,
+                   end: Alignment.bottomRight,
                   ),
+                  borderRadius: BorderRadius.circular(15),
                 ),
-            SizedBox(height: 10,),
-             Padding(
-               padding: const EdgeInsets.all(12.0),
-               child: Column(
-                 children: [
-                   TextFormField(
-                        controller: _deviceNameController,
-                        decoration: InputDecoration(
-                          labelText: 'Device Name',
-                          prefixIcon: Icon(Icons.production_quantity_limits,
-                          color: const Color.fromARGB(255, 134, 43, 10),size:28 ,),
-                            enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
-            borderSide: BorderSide(color: Colors.orange, width: 2),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  color: Colors.white,
+                ),
           ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
-            borderSide: BorderSide(color: Colors.purple ,width: 3),
-          ),
-          filled: true,
-          fillColor: Colors.white,
-                          
+
+                Padding(
+                  padding: EdgeInsets.fromLTRB(30, 30, 30, 30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(height: 10,),
+                      Text(
+                        'Set the Title, Description, Price, and Availability for your product.This will be displayed the part of your poducts offerings',
+                        style: TextStyle(
+                          fontSize: 17,
                         ),
                       ),
-                
-                  SizedBox(height: 15,) ,
-                  TextFormField(
-                    maxLines: 6,
-                    controller: _descriptionController,
-                    decoration: InputDecoration(
-                      labelText: 'Description',
-                       prefixIcon: Icon(Icons.description,
-                       color: const Color.fromARGB(255, 134, 43, 10),size:28 ,
-                       ),
-                     enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
-            borderSide: BorderSide(color: Colors.orange, width: 2),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
-            borderSide: BorderSide(color: Colors.purple, width: 3),
-          ),
-          filled: true,
-          fillColor: Colors.white,
+                      SizedBox(height:50 ,),
                       
-                    ),
-                  ), 
-                     SizedBox(height: 15,) ,
-                  TextFormField(
-                    controller: _rentPriceController,
-                    decoration: InputDecoration(
-                      labelText: 'Price',
-                       prefixIcon: Icon(Icons.price_change_sharp,color: const Color.fromARGB(255, 134, 43, 10),size:28 ,),
-                      enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
-            borderSide: BorderSide(color: Colors.orange, width: 2),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
-            borderSide: BorderSide(color: Colors.purple, width: 3),
-          ),
-          filled: true,
-          fillColor: Colors.white,
-          
-                    ),
-                  ), 
-                     SizedBox(height: 15,) ,
-                  TextFormField(
-                    controller: _availbilityController,
-                    decoration: InputDecoration(
-                      labelText: 'Availability',
-                       prefixIcon: Icon(Icons.event_available,color: const Color.fromARGB(255, 134, 43, 10),size:28 ,),
-                      enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
-            borderSide: BorderSide(color: Colors.orange, width: 2),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
-            borderSide: BorderSide(color: Colors.purple, width: 3),
-          ),
-          filled: true,
-          fillColor: Colors.white,
-                    ),
-                  ),
-                    ],
-               ),
-             ), 
-                
-                   SizedBox(height: 20,) ,
+                      Column(
+                        children: [
+                          CustomTextField(
+                            controller: _deviceNameController,
+                            text: 'Device Name',
+                            icon: Icons.production_quantity_limits, validator: (value) {  },
+                          ),
+                          SizedBox(height: 10),
+                          TextFormField(
+                            maxLines: 9,
+                            controller: _descriptionController,
+                            decoration: InputDecoration(
+                              labelText: 'Description',
+                              prefixIcon: Icon(
+                                Icons.description,
+                                color: const Color.fromARGB(255, 134, 43, 10),
+                                size: 28,
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(40),
+                                borderSide: BorderSide(color: Colors.orange, width: 2),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(40),
+                                borderSide: BorderSide(color: Colors.purple, width: 3),
+                              ),
+                              filled: true,
+                              fillColor: Colors.white,
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          CustomTextField(
+                            controller: _priceController,
+                            text: 'Price',
+                            icon: Icons.price_change, validator: (value) {  },
+                          ),
+                          SizedBox(height: 10),
+                          CustomTextField(
+                            controller: _availbilityController,
+                            text: 'Availability',
+                            icon: Icons.event_available, validator: (value) {  },
+                          ),
+                        ],
+                      ),
+                     SizedBox(height: 30),
                     
-                     
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                    CustomButton(text: 'Cancel', onPressed: (){
-                      // Call the method to delete all data
-           
-                       _deviceNameController.clear();
-            _descriptionController.clear();
-            _rentPriceController.clear();
-            _availbilityController.clear();
-            _qualityController.clear();
-           
-            
-            // Navigate to the HomeScreen or any other screen if needed
-            //Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
-         
-                    }),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      //   children: [
+                      //     CustomButton(
+                      //       text: 'Cancel',
+                      //       onPressed: () {
+                      //         _deviceNameController.clear();
+                      //         _descriptionController.clear();
+                      //         _priceController.clear();
+                      //         _availbilityController.clear();
+                      //         _qualityController.clear();
+                      //       },
+                      //     ),
+                      //     CustomButton(
+                      //       text: 'Upload',
+                      //       onPressed: _handleUpload,
+                      //     )
+                      //   ],
+                        
+                        
+                      // ),
+                      
                     
-                      CustomButton(
-            text: 'Upload',
-            onPressed: () async { 
-              double price = double.parse(_rentPriceController.text);
-              int availability = int.parse(_availbilityController.text);
-         Uint8List imageData = Uint8List(0);
-  if (_imageFile != null) {
-    imageData = await _imageFile!.readAsBytes();
-  }
-    ///Uint8List imageData = await _imageFile!.readAsBytes();
-
-            String result =        await LocalDatabase().addDataLocally(
-          name: _deviceNameController.text,
-          description: _descriptionController.text,
-          price: price,
-          availability: availability,
-          // imageData: imageData, 
-     
-          // image: imageData, 
-              );
-             
-            if (result == 'added') {
-        // Fetch the data
-        List<Map<String, dynamic>>? fetchedData = await LocalDatabase().fetchDataLocally();
-        
-        // Navigate to the screen where you want to display the fetched data
-        if (fetchedData != null) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CombinedScreen()
-              //uploadScreen1(fetchedData: fetchedData),
-            ),
-          );
-        } else {
-          // Handle case where fetched data is null
-          print('Error: Fetched data is null');
-        }
-            } else {
-        // Handle case where data addition failed
-        print('Error: Data addition failed');
-            } 
-          
-                       })
+  //                      ],
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+  Column(
+                        children: [
+                      
+                         SizedBox(height: 20),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: CustomButton(
+                                  text: 'Upload',
+                                  onPressed: _handleUpload,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ],
                   ),
-          
+                ),
               ],
-              
             ),
-            
-          ),
-          ]
+          ],
         ),
       ),
     );
   }
-     // Method to select an image from the device
-  Future<void> _pickImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {
-        _imageFile = File(pickedFile.path);
-      });
-    }
-  }
 
-// Method to upload device details along with the image to the database
+
+  // Method to upload device details along with the image to the database
   void _uploadToDevice() async {
     if (_imageFile == null) {
-      // Show an error message or handle the case where no image is selected
       return;
     }
-
-    // Read the image file as bytes
     final Uint8List imageData = await _imageFile!.readAsBytes();
-
-    // Extract device details from text controllers
     String deviceName = _deviceNameController.text;
     String description = _descriptionController.text;
-    double rentPrice = double.tryParse(_rentPriceController.text) ?? 0.0;
+    double price = double.tryParse(_priceController.text) ?? 0.0;
     int availability = int.tryParse(_availbilityController.text) ?? 0;
-
-    // Store the device details along with the image data in the database
     String result = await LocalDatabase().addDataLocally(
       name: deviceName,
       description: description,
-      price: rentPrice,
+      price: price,
       availability: availability,
-      // imageData: imageData,
     );
-
     if (result == 'added') {
-      // Handle successful upload
       print('Device details uploaded successfully!');
     } else {
-      // Handle upload failure
       print('Failed to upload device details.');
     }
   }
 }
 
-
-//     // Call the method to add data locally with image data
-//     await LocalDatabase().addDataLocally(
-//       name: _deviceNameController.text,
-//       description: _descriptionController.text,
-//       price: double.parse(_rentPriceController.text),
-//       availability: int.parse(_availbilityController.text),
-//       imageData: imageData, // Pass image data to the method
-//     );
-
-//     // Navigate to the screen where you want to display the uploaded image
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(
-//         builder: (context) => uploadScreen1(), // Replace NextScreen with your screen widget
-//       ),
-//     );
-//     }
-//   }
-// }
-
-
-
-
-
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${substring(1)}";
+  }
+}

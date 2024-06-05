@@ -262,7 +262,7 @@ class _LOGINState extends State<LOGIN> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 20),
+              //  const SizedBox(height: 20),
                 CustomButton(
                   text: 'Login',
                   onPressed: () {
@@ -270,9 +270,9 @@ class _LOGINState extends State<LOGIN> {
                     // Navigator.push(context, MaterialPageRoute(builder: (context) => LOGIN(key: null,)));
                   },
                 ),
-                const SizedBox(height: 20),
+              //  const SizedBox(height: 20),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
+                  padding: const EdgeInsets.only(left: 0.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -290,9 +290,9 @@ class _LOGINState extends State<LOGIN> {
                                   builder: (context) => const signup()));
                         },
                         child: const Text(
-                          'Sign up',
+                          'Create an Account',
                           style: TextStyle(
-                            fontSize: 23,
+                            fontSize: 19,
                             fontWeight: FontWeight.bold,
                             //   color: Color.fromARGB(255, 255, 81, 100),
                           ),
@@ -300,7 +300,16 @@ class _LOGINState extends State<LOGIN> {
                       ),
                     ],
                   ),
+                  
                 ),
+                SizedBox(height: 10,),
+                Text('By signing into Equishare,you agree to our', style: TextStyle(
+                          fontSize: 17,
+                        ),),
+                Text('Terms of Service', style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                        ),)
               ],
             ),
           ),

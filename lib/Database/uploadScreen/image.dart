@@ -1,12 +1,11 @@
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:localrepo/Database/uploadScreen/display.dart';
+//import 'package:localrepo/Database/uploadScreen/display.dart';
 import 'package:localrepo/Database/uploadScreen/imgD.dart';
-//import 'package:localrepo/Database/uploadScreen/sc2.dart';
 import 'package:localrepo/Database/uploadScreen/screen1.dart';
 import 'package:localrepo/custom_widgets/button.dart';
-import 'package:lottie/lottie.dart';
 
 class ImageSelectorPage extends StatefulWidget {
   @override
@@ -15,109 +14,257 @@ class ImageSelectorPage extends StatefulWidget {
 
 class _ImageSelectorPageState extends State<ImageSelectorPage> {
   final picker = ImagePicker();
-  List<File?> selectedImages = [null, null, null, null];
-  final dbHelper = DatabaseHelper.instance;
+  List<File?> selectedImages = [];
 
-  Future<void> _getImage(int index) async {
+  Future<void> _getImage() async {
+    if (selectedImages.length >= 4) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('You can only upload up to 4 images.')),
+      );
+      return;
+    }
+
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      if (pickedFile != null) {
-        selectedImages[index] = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
-    });
+    if (pickedFile != null) {
+      setState(() {
+        selectedImages.add(File(pickedFile.path));
+      });
+    } else {
+      print('No image selected.');
+    }
   }
 
   Future<void> _saveToDatabase(String imagePath) async {
+    final dbHelper = DatabaseHelper.instance;
     final id = await dbHelper.insert(imagePath);
     print('Inserted row id: $id');
   }
 
-  void _navigateToDisplayImagesScreen() {
+ void _navigateToDisplayImagesScreen() {
+  if (selectedImages.length == 4) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => UploadDeviceScreen()),
     );
+  } else {
+  
+ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(
+        'Please select 4 images to continue.',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 16.0,
+        ),
+      ),
+      backgroundColor: Color.fromARGB(255, 153, 21, 87),
+      duration: Duration(seconds: 2),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      margin: EdgeInsets.symmetric(horizontal: 7.0, vertical: 2.0),
+      padding: EdgeInsets.symmetric(horizontal: 7.0, vertical: 2.0),
+      action: SnackBarAction(
+        label: 'OK',
+        textColor: Colors.white,
+        onPressed: () {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        },
+      ),
+    ),
+  );
+  }
+}
+
+  
+
+
+
+  void _removeImage(int index) {
+    setState(() {
+      selectedImages.removeAt(index);
+    });
   }
 
   @override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text('Image Selector'),
-    ),
-    body: Padding(
-      padding: const EdgeInsets.fromLTRB(30,0,30,30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+  Widget build(BuildContext context) {
+    return Scaffold(
+    
+      body: Stack(
         children: [
-          Text(
-            'Please select the images you want to upload:',
-            style: TextStyle(
-              fontSize: 23,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Center(
-                  child: Lottie.asset(
-                    'assets/lotties/pic1.json', // Adjust the path to match your animation file
-                    height: 200, // Adjust the height as needed
-                    width: 350,
-                  ),
-                ),
+          SingleChildScrollView(
 
-         // SizedBox(height: 20.0),
-          Expanded(
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 25.0,
-                mainAxisSpacing: 10.0,
-              ),
-              itemCount: selectedImages.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () => _getImage(index),
-                  child: AspectRatio(
-                    aspectRatio: 1,
+         //   padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 10,),
+                 Container(
+          
+           margin: EdgeInsets.only(left: 0, top: 20, bottom: 4,right: 360),
+            //height: 30,
+ decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color.fromARGB(255, 46, 10, 207),const Color.fromARGB(157, 10, 91, 145)],
+                   begin: Alignment.topLeft,
+                   end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  color: Colors.white,
+                ),
+          ),
+
+                
+                Text(
+                  'Add images',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 5,),
+                const Text(
+                  'Please select the images you want to upload. This will be displayed as part of your product offerings.',
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black87,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 50.0),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: GestureDetector(
+                    onTap: _getImage,
                     child: Container(
+                      padding: const EdgeInsets.all(16.0),
                       decoration: BoxDecoration(
-                     //   borderRadius: BorderRadius.circular(30),
+                        color: Colors.blue.shade50,
+                        borderRadius: BorderRadius.circular(15),
                         border: Border.all(
-                          
-                          color: Colors.black,
-                          width: 3.0,
+                          color: Colors.blue.shade100,
+                          width: 2.0,
                         ),
                       ),
-                      child: selectedImages[index] != null
-                          ? Image.file(
-                              selectedImages[index]!,
-                              fit: BoxFit.cover,
-                            )
-                          : Icon(Icons.image,color: Color.fromARGB(113, 0, 26, 97),),
+                      child: Column(
+                        children: const [
+                          Icon(
+                            Icons.photo_library,
+                            color: Colors.blue,
+                            size: 50,
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            'Upload Images',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            'Browse and upload up to 4 images only.',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                );
-              },
+                ),
+                const SizedBox(height: 25.0),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: selectedImages.asMap().entries.map((entry) {
+                      int index = entry.key;
+                      File? image = entry.value;
+
+                      return Stack(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(right: 8.0),
+                            width: 120,
+                            height: 120,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(
+                                color: Colors.black87,
+                                width: 2.0,
+                              ),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: Image.file(
+                                image!,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 0,
+                            right: 0,
+                            child: GestureDetector(
+                              onTap: () => _removeImage(index),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.yellow,
+                                  shape: BoxShape.circle,
+                              border: Border.all(color: Colors.white)  ),
+                                
+                                child: Icon(
+                                  Icons.close,
+                                  color: Colors.black,
+                                  size: 15,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    }).toList(),
+                  ),
+                  
+                ),
+              
+              ],
             ),
           ),
-          SizedBox(height: 16.0),
-          CustomButton(text: 'Next', onPressed: ()async{
-            for (File? image in selectedImages) {
-                  if (image != null) {
-                    await _saveToDatabase(image.path);
-                  }
-                }
-                _navigateToDisplayImagesScreen();
-          }),
-    
-         
-         
-            
-           ] )
-          )
-        
-      );
-}
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(27.0),
+              child: SizedBox(
+                width: double.infinity,
+                child: CustomButton(
+                  text: 'Continue',
+                  onPressed: () async {
+                    for (File? image in selectedImages) {
+                      if (image != null) {
+                        await _saveToDatabase(image.path);
+                      }
+                    }
+                    _navigateToDisplayImagesScreen();
+                  },
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

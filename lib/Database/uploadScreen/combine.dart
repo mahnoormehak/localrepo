@@ -204,18 +204,38 @@ void _showBuyOptionsDialog(BuildContext context, Map<String, dynamic> item) {
 
   void _deleteAllData() async {
     await dbHelper.deleteAllRows();
-  //  _fetchDataAndImages(); // Refresh the UI after deletion
+    _fetchDataAndImages(); // Refresh the UI after deletion
   }
+
+
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Combined Screen'),
-      ),
+
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+             Container(
+          
+           margin: EdgeInsets.only(left: 0, top: 35, bottom: 4,right: 340),
+            //height: 30,
+ decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color.fromARGB(255, 132, 105, 253), Color.fromARGB(157, 10, 91, 145)],
+                   begin: Alignment.topLeft,
+                   end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  color: Colors.white,
+                ),
+          ),
             ElevatedButton(
               onPressed: _deleteAllData,
               child: Text('Delete All Data'),
@@ -230,6 +250,8 @@ void _showBuyOptionsDialog(BuildContext context, Map<String, dynamic> item) {
     );
   }
 
+
+  /////////////////its print a container inside 4 images and
 Widget _buildImageAndDataWidgets() {
   List<Widget> containers = [];
 
@@ -242,35 +264,45 @@ Widget _buildImageAndDataWidgets() {
     List<String> batch = imagePaths.sublist(i * 4, (i * 4 + 4) > totalImages ? totalImages : (i * 4 + 4));
 
     for (String path in batch) {
-      try{imageWidgets.add(
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              selectedImages.add(path);
-            });
-          },
-          child: Container(
-            width: 100,
-            height: 100,
-            margin: EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: selectedImages.contains(path) ? Colors.blue : Colors.black,
-                width: 3.0,
-              ),
-              borderRadius: BorderRadius.circular(10.0),
-              image: DecorationImage(
-                image: FileImage(File(path)),
-                fit: BoxFit.cover,
+      try {
+        imageWidgets.add(
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                selectedImages.add(path);
+              });
+            },
+            child: Container(
+              width: 100,
+              height: 100,
+              margin: EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: selectedImages.contains(path) ? Colors.blue : Colors.black,
+                  width: 3.0,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+                image: DecorationImage(
+                  image: FileImage(File(path)),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
-        ),
-      );
-} catch (e) {
-    print('Error loading image: $e');
-  }
-}
+        );
+      } catch (e) {
+        print('Error loading image: $e');
+      }
+    }
+
     // Ensure there's a corresponding data item for this group
     if (i < totalDataItems) {
       Map<String, dynamic> item = _fetchedData![i];
@@ -284,6 +316,15 @@ Widget _buildImageAndDataWidgets() {
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
             borderRadius: BorderRadius.circular(10.0),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 5,
+                offset: Offset(0, 3),
+              ),
+            ],
+            color: Colors.white,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -352,6 +393,7 @@ Widget _buildImageAndDataWidgets() {
           decoration: BoxDecoration(
             border: Border.all(color: Colors.black),
             borderRadius: BorderRadius.circular(10.0),
+            color: Colors.white,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -375,9 +417,9 @@ Widget _buildImageAndDataWidgets() {
     children: containers,
   );
 }
+
 }
 
- 
 
 
 
@@ -385,7 +427,7 @@ Widget _buildImageAndDataWidgets() {
 
 
 
-
+///////////////its only print images line wise then data
 
 //   Widget _buildImageAndDataWidgets() {
 //     List<Widget> widgets = [];

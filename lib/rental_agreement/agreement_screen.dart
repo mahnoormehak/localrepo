@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:localrepo/custom_widgets/button.dart';
 //import 'package:localrepo/rental_agreement/invRent.dart';
 //import 'package:localrepo/rental_agreement/transcript.dart';
 
@@ -339,23 +341,37 @@ void _submitAgreement() {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'RENTAL AGREEMENT',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-        ),
-      ),
+   
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(40.0, 0, 40, 20),
+        padding: const EdgeInsets.fromLTRB(30.0, 0, 30, 0),
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 const SizedBox(height: 20.0),
+                 Container(
+          
+           margin: EdgeInsets.only(left: 0, top: 20, bottom: 4,right: 360),
+            //height: 30,
+ decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color.fromARGB(255, 46, 10, 207),const Color.fromARGB(157, 10, 91, 145)],
+                   begin: Alignment.topLeft,
+                   end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  color: Colors.white,
+                ),
+          ),
+
                 const Text(
                   'Please Fill out all the details:',
                   style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),
@@ -486,34 +502,16 @@ void _submitAgreement() {
                         ))
                   ],
                 ),
-              //  const SizedBox(height: 10.0),
-
-                // CustomButton(text: 'Agree', onPressed: (){
-                //      _submitAgreement();
-                //     }),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(70, 0, 70, 0),
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      color: const Color.fromARGB(255, 255, 193, 8),
-                    ),
-                    child: TextButton(
-                        onPressed: () {
-                          _submitAgreement();
-                        },
-                        child: const Text(
-                          'Agree',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )),
-                  ),
+                  const SizedBox(height: 5.0),
+                Row(
+                  children: [
+                    Expanded(child: 
+                    CustomButton(text: 'Agree', onPressed: (){
+                      _submitAgreement();
+                    }),)
+                  ],
                 ),
-                const SizedBox(height: 20.0),
+                const SizedBox(height: 10.0),
               ],
             ),
           ),
@@ -569,66 +567,90 @@ class Transcript extends StatelessWidget {
 @override
 Widget build(BuildContext context) {
   return Scaffold(
-    appBar: AppBar(
-      title: Text('Invoice'),
-      backgroundColor: Colors.deepPurple,
-    ),
+
     body: Padding(
       padding: const EdgeInsets.all(16.0),
       child: SingleChildScrollView(
-        child: Card(
-          elevation: 5,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Text(
-                    'Invoice',
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.deepPurple,
+        child: Column(
+          children: [
+            Container(
+          
+           margin: EdgeInsets.only(left: 0, top: 20, bottom: 4,right: 360),
+            //height: 30,
+ decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color.fromARGB(255, 46, 10, 207),const Color.fromARGB(157, 10, 91, 145)],
+                   begin: Alignment.topLeft,
+                   end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  color: Colors.white,
+                ),
+          ),SizedBox(height: 20,),
+            Card(
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(30,0,30,0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Text(
+                        'Invoice',
+                        style: TextStyle(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.deepPurple,
+                        ),
+                      ),
                     ),
-                  ),
+                    Divider(thickness: 2),
+                    SizedBox(height: 10.0),
+                    _buildSectionTitle('Renter Information'),
+                    _buildInfoRow('Renter Name:', renterName),
+                    _buildInfoRow('Phone Number:', phoneNumber),
+                    _buildInfoRow('Address:', address),
+                    _buildInfoRow('Nationality:', nationality as String), // Include nationality
+                    _buildInfoRow('ID Card Number:', idCardNumber as String), // Include ID card number
+                    _buildInfoRow('City:', city as String), // Include city
+                    SizedBox(height: 20.0),
+                    _buildSectionTitle('Device Information'),
+                    _buildInfoRow('Device Name:', deviceName),
+                    _buildInfoRow('Price per day:', '\$${rentAmount.toStringAsFixed(2)}'),
+                    _buildInfoRow('Number of days:', numberOfDays.toString()),
+                    _buildInfoRow('Start Date:', startDate.toString().substring(0, 10)),
+                    _buildInfoRow('End Date:', endDate.toString().substring(0, 10)),
+                    SizedBox(height: 20.0),
+                    Text(
+                      'Total Price: \$${totalPrice.toStringAsFixed(2)}',
+                      style: TextStyle(fontSize: 21.0, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 80.0),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomButton(text: 'Confirm', onPressed: (){
+                            
+                          }),
+                        ),
+                         
+                      ],
+                    ),
+                
+               SizedBox(height: 30.0),   ],
                 ),
-                Divider(thickness: 2),
-                SizedBox(height: 10.0),
-                _buildSectionTitle('Renter Information'),
-                _buildInfoRow('Renter Name:', renterName),
-                _buildInfoRow('Phone Number:', phoneNumber),
-                _buildInfoRow('Address:', address),
-                _buildInfoRow('Nationality:', nationality as String), // Include nationality
-                _buildInfoRow('ID Card Number:', idCardNumber as String), // Include ID card number
-                _buildInfoRow('City:', city as String), // Include city
-                SizedBox(height: 20.0),
-                _buildSectionTitle('Device Information'),
-                _buildInfoRow('Device Name:', deviceName),
-                _buildInfoRow('Price per day:', '\$${rentAmount.toStringAsFixed(2)}'),
-                _buildInfoRow('Number of days:', numberOfDays.toString()),
-                _buildInfoRow('Start Date:', startDate.toString().substring(0, 10)),
-                _buildInfoRow('End Date:', endDate.toString().substring(0, 10)),
-                SizedBox(height: 20.0),
-                Text(
-                  'Total Price: \$${totalPrice.toStringAsFixed(2)}',
-                  style: TextStyle(fontSize: 21.0, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 20.0),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context); // Navigate back to previous screen
-                    },
-                    child: Text('Back'),
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     ),
