@@ -5,17 +5,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:localrepo/Database/localdb.dart';
-import 'package:localrepo/Database/uploadScreen/imgD.dart';
+import 'package:localrepo/Database/imgD.dart';
 import 'package:localrepo/contract_page/installment.dart';
 import 'package:localrepo/contract_page/partnership.dart';
 import 'package:localrepo/rental_agreement/agreement_screen.dart';
 
-class CombinedScreen extends StatefulWidget {
+class SellScreen extends StatefulWidget {
   @override
-  _CombinedScreenState createState() => _CombinedScreenState();
+  _SellScreenState createState() => _SellScreenState();
 }
 
-class _CombinedScreenState extends State<CombinedScreen> {
+class _SellScreenState extends State<SellScreen> {
   final dbHelper = DatabaseHelper.instance;
   List<String> imagePaths = [];
   List<Map<String, dynamic>>? _fetchedData;
@@ -42,32 +42,16 @@ class _CombinedScreenState extends State<CombinedScreen> {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Rent or Buy?'),
-        content: Text('Do you want to rent or buy ${item['Name']}?'),
+        title: Text('Buy this item?'),
+        content: Text('Do you want to buy ${item['Name']}?'),
         actions: <Widget>[
           TextButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => RentalAgreementScreen(
-                    deviceName: item['Name'],
-                    rentAmount: item['price'] as double,
-                  ),
-                ),
-              );
-            },
-            child: Text('Rent'),
-          ),
-        TextButton(
-            onPressed: () {
-              // Show options for buying through card or installment
-              _showBuyOptionsDialog(context, item);
-             
-
+           _showBuyOptionsDialog(context, item);
             },
             child: Text('Buy'),
           ),
+       
         ],
       );
     },
@@ -211,31 +195,13 @@ void _showBuyOptionsDialog(BuildContext context, Map<String, dynamic> item) {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('sell screen'),),
 
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-             Container(
           
-           margin: EdgeInsets.only(left: 0, top: 35, bottom: 4,right: 340),
-            //height: 30,
- decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color.fromARGB(255, 132, 105, 253), Color.fromARGB(157, 10, 91, 145)],
-                   begin: Alignment.topLeft,
-                   end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  color: Colors.white,
-                ),
-          ),
             ElevatedButton(
               onPressed: _deleteAllData,
               child: Text('Delete All Data'),

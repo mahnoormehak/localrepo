@@ -341,9 +341,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:localrepo/Database/localdb.dart';
-import 'package:localrepo/Database/uploadScreen/combine.dart';
+import 'package:localrepo/Database/uploadScreen/Rent/RENT.dart';
 //import 'package:localrepo/Database/uploadScreen/display.dart';
-import 'package:localrepo/Database/uploadScreen/imgD.dart';
+import 'package:localrepo/Database/imgD.dart';
 import 'package:localrepo/custom_widgets/button.dart';
 import 'package:localrepo/custom_widgets/textfield.dart';
 import 'package:lottie/lottie.dart';
@@ -466,7 +466,7 @@ void _showSnackBarMessage(String message) {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => CombinedScreen(),
+            builder: (context) => RentScreen(),
           ),
         );
       } else {
@@ -481,7 +481,7 @@ void _showSnackBarMessage(String message) {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-   
+    appBar: AppBar(title: Text('Rent screen'),),
      
       
       body: SingleChildScrollView(
@@ -490,26 +490,7 @@ void _showSnackBarMessage(String message) {
            
             Column(
               children: [
-                 Container(
-          
-           margin: EdgeInsets.only(left: 0, top: 20, bottom: 4,right: 360),
-            //height: 30,
- decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color.fromARGB(255, 132, 105, 253), Color.fromARGB(157, 10, 91, 145)],
-                   begin: Alignment.topLeft,
-                   end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  color: Colors.white,
-                ),
-          ),
+                 
 
                 Padding(
                   padding: EdgeInsets.fromLTRB(30, 30, 30, 30),

@@ -3,16 +3,17 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 //import 'package:localrepo/Database/uploadScreen/display.dart';
-import 'package:localrepo/Database/uploadScreen/imgD.dart';
-import 'package:localrepo/Database/uploadScreen/screen1.dart';
+import 'package:localrepo/Database/imgD.dart';
+import 'package:localrepo/Database/uploadScreen/Rent/Products.dart';
+import 'package:localrepo/Database/uploadScreen/SELL/sellProduct.dart';
 import 'package:localrepo/custom_widgets/button.dart';
 
-class ImageSelectorPage extends StatefulWidget {
+class ImageSelectorPage1 extends StatefulWidget {
   @override
-  _ImageSelectorPageState createState() => _ImageSelectorPageState();
+  _ImageSelectorPageState1 createState() => _ImageSelectorPageState1();
 }
 
-class _ImageSelectorPageState extends State<ImageSelectorPage> {
+class _ImageSelectorPageState1 extends State<ImageSelectorPage1> {
   final picker = ImagePicker();
   List<File?> selectedImages = [];
 
@@ -44,7 +45,7 @@ class _ImageSelectorPageState extends State<ImageSelectorPage> {
   if (selectedImages.length == 4) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => UploadDeviceScreen()),
+      MaterialPageRoute(builder: (context) => UploadDeviceScreen1()),
     );
   } else {
   
@@ -90,7 +91,7 @@ ScaffoldMessenger.of(context).showSnackBar(
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    
+     appBar: AppBar(title: Text('Add images for Sell screen'),),
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -100,26 +101,7 @@ ScaffoldMessenger.of(context).showSnackBar(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: 10,),
-                 Container(
-          
-           margin: EdgeInsets.only(left: 0, top: 20, bottom: 4,right: 360),
-            //height: 30,
- decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color.fromARGB(255, 46, 10, 207),const Color.fromARGB(157, 10, 91, 145)],
-                   begin: Alignment.topLeft,
-                   end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  color: Colors.white,
-                ),
-          ),
+               
 
                 
                 Text(

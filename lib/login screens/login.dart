@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:localrepo/Database/authentication.dart';
 
 import 'package:localrepo/custom_widgets/button.dart';
@@ -133,7 +134,7 @@ class _LOGINState extends State<LOGIN> {
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(40, 10, 40, 30),
+            padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -237,7 +238,7 @@ class _LOGINState extends State<LOGIN> {
                         ),
                       ),
 
-                      //   SizedBox(height: 5),
+                         SizedBox(height: 5),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -262,13 +263,19 @@ class _LOGINState extends State<LOGIN> {
                     ],
                   ),
                 ),
-              //  const SizedBox(height: 20),
-                CustomButton(
-                  text: 'Login',
-                  onPressed: () {
-                    login();
-                    // Navigator.push(context, MaterialPageRoute(builder: (context) => LOGIN(key: null,)));
-                  },
+                const SizedBox(height: 70),
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomButton(
+                        text: 'Login',
+                        onPressed: () {
+                          login();
+                          // Navigator.push(context, MaterialPageRoute(builder: (context) => LOGIN(key: null,)));
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               //  const SizedBox(height: 20),
                 Padding(
@@ -302,15 +309,7 @@ class _LOGINState extends State<LOGIN> {
                   ),
                   
                 ),
-                SizedBox(height: 10,),
-                Text('By signing into Equishare,you agree to our', style: TextStyle(
-                          fontSize: 17,
-                        ),),
-                Text('Terms of Service', style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                        ),)
-              ],
+              ]
             ),
           ),
         ),

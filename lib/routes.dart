@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:localrepo/Database/uploadScreen/combine.dart';
+import 'package:localrepo/Database/uploadScreen/Rent/RENT.dart';
 //import 'package:localrepo/Database/uploadScreen/display.dart';
-import 'package:localrepo/Database/uploadScreen/image.dart';
-import 'package:localrepo/Database/uploadScreen/productlist.dart';
-import 'package:localrepo/Database/uploadScreen/screen1.dart';
+import 'package:localrepo/Database/uploadScreen/Rent/image.dart';
+
+import 'package:localrepo/Database/uploadScreen/Rent/Products.dart';
 import 'package:localrepo/cart/cart_screen.dart';
 import 'package:localrepo/cart/components/check_out_card.dart';
 import 'package:localrepo/cart/components/success_dialog.dart';
@@ -54,8 +54,8 @@ class AppRoutes {
     GetPage(name: IDcard, page: () =>  IdCardVerificationScreen()),
     GetPage(name: home, page: () => const InitScreen()),
         GetPage(name: profile, page: () => const Profile()),
-          GetPage(name: ListProducts, page: () =>  ProductListingPage()),
-        GetPage(name: combine, page: () =>  CombinedScreen()),
+          // GetPage(name: ListProducts, page: () =>  ProductListingPage()),
+     //   GetPage(name: Rent, page: () =>  RentScreen()),
     GetPage(name: products, page: () => const ProductsScreen()),
     GetPage(name: favorite, page: () => const FavoriteScreen()),
     GetPage(name: popularProducts, page: () => const PopularProducts()),

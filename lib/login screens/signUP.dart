@@ -1,7 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:localrepo/Database/authentication.dart';
-import 'package:localrepo/Database/uploadScreen/productlist.dart';
+
 import 'package:localrepo/custom_widgets/button.dart';
 import 'package:localrepo/login%20screens/IDcard.dart';
 
@@ -91,7 +92,7 @@ class _signupState extends State<signup> {
                 ),
                 const SizedBox(height: 10),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                  padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -207,16 +208,26 @@ class _signupState extends State<signup> {
                           fillColor: Colors.white,
                         ),
                       ),
-                      const SizedBox(height: 10),
-                    ],
+                      const SizedBox(height: 20),
+                  
+                 ],
                   ),
                 ),
-                CustomButton(
-                  text: 'Create an Account',
-                  onPressed: () {
-                    _handleSignup(context);
-                  },
-                ),
+                     Padding(
+                       padding: const EdgeInsets.fromLTRB(40,10,40,0),
+                       child: Row(
+                                         children: [
+                                           Expanded(
+                        child: CustomButton(
+                          text: 'Create an Account',
+                          onPressed: () {
+                            _handleSignup(context);
+                          },
+                        ),
+                                           ),
+                                         ],
+                                       ),
+                     ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
