@@ -8,8 +8,10 @@ import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:localrepo/Database/localdb.dart';
 import 'package:localrepo/Database/uploadScreen/Rent/RENT.dart';
+
 //import 'package:localrepo/Database/uploadScreen/display.dart';
 import 'package:localrepo/Database/imgD.dart';
+import 'package:localrepo/Database/uploadScreen/SELL/LOcal.dart';
 import 'package:localrepo/Database/uploadScreen/SELL/sell.dart';
 import 'package:localrepo/custom_widgets/button.dart';
 import 'package:localrepo/custom_widgets/textfield.dart';
@@ -56,7 +58,7 @@ class _UploadDeviceScreenState1 extends State<UploadDeviceScreen1> {
 
   Future<void> _fetchData() async {
     try {
-      final data = await LocalDatabase().fetchDataLocally();
+      final data = await LocalDB2().fetchDataLocally1();
       setState(() {
         // Handle fetched data
       });
@@ -120,7 +122,7 @@ void _showSnackBarMessage(String message) {
       imageData = await _imageFile!.readAsBytes();
     }
 
-    String result = await LocalDatabase().addDataLocally(
+    String result = await LocalDB2().addDataLocally1(
       name: _deviceNameController.text,
       description: _descriptionController.text,
       price: price,
@@ -128,7 +130,7 @@ void _showSnackBarMessage(String message) {
     );
 
     if (result == 'added') {
-      List<Map<String, dynamic>>? fetchedData = await LocalDatabase().fetchDataLocally();
+      List<Map<String, dynamic>>? fetchedData = await LocalDB2().fetchDataLocally1();
       if (fetchedData != null) {
         Navigator.push(
           context,
@@ -290,7 +292,7 @@ void _showSnackBarMessage(String message) {
     String description = _descriptionController.text;
     double price = double.tryParse(_priceController.text) ?? 0.0;
     int availability = int.tryParse(_availbilityController.text) ?? 0;
-    String result = await LocalDatabase().addDataLocally(
+    String result = await LocalDB2().addDataLocally1(
       name: deviceName,
       description: description,
       price: price,

@@ -342,7 +342,6 @@ Widget _buildImageAndDataWidgets() {
 
 
 
-
 ///////////////its only print images line wise then data
 
 //   Widget _buildImageAndDataWidgets() {

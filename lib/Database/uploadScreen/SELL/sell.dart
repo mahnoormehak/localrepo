@@ -4,19 +4,23 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:localrepo/Database/authentication.dart';
 import 'package:localrepo/Database/localdb.dart';
 import 'package:localrepo/Database/imgD.dart';
+import 'package:localrepo/Database/uploadScreen/SELL/LOcal.dart';
+import 'package:localrepo/Database/uploadScreen/SELL/sellD.dart';
 import 'package:localrepo/contract_page/installment.dart';
 import 'package:localrepo/contract_page/partnership.dart';
 import 'package:localrepo/rental_agreement/agreement_screen.dart';
-
+import 'package:localrepo/Database/uploadScreen/SELL/LOcal.dart';
+//
 class SellScreen extends StatefulWidget {
   @override
   _SellScreenState createState() => _SellScreenState();
 }
 
 class _SellScreenState extends State<SellScreen> {
-  final dbHelper = DatabaseHelper.instance;
+  final dbHelper1 = SellDBHelper.instance;
   List<String> imagePaths = [];
   List<Map<String, dynamic>>? _fetchedData;
   List<String> selectedImages = [];
@@ -28,12 +32,12 @@ class _SellScreenState extends State<SellScreen> {
   }
 
   Future<void> _fetchDataAndImages() async {
-    final List<Map<String, dynamic>> rows = await dbHelper.queryAllRows();
-    final List<Map<String, dynamic>>? data = await LocalDatabase().fetchDataLocally();
+    final List<Map<String, dynamic>> rows = await dbHelper1.queryAllRows();
+    final List<Map<String, dynamic>>? data = await LocalDB2().fetchDataLocally1();
     setState(() {
       _fetchedData = data;
       imagePaths.clear();
-      imagePaths.addAll(rows.map((row) => row[DatabaseHelper.columnImagePath] as String));
+      imagePaths.addAll(rows.map((row) => row[SellDBHelper.columnImagePath] as String));
     });
   }
 
@@ -149,7 +153,7 @@ void _showBuyOptionsDialog(BuildContext context, Map<String, dynamic> item) {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
-                  await LocalDatabase().updateItemLocally(
+                  await LocalDB2().updateItemLocally1(
                     id: item['id'],
                     name: nameController.text,
                     description: descriptionController.text,
@@ -157,7 +161,7 @@ void _showBuyOptionsDialog(BuildContext context, Map<String, dynamic> item) {
                     availability: int.tryParse(availabilityController.text) ?? 0,
                   );
 
-                  List<Map<String, dynamic>>? newData = await LocalDatabase().fetchDataLocally();
+                  List<Map<String, dynamic>>? newData = await LocalDB2().fetchDataLocally1();
                   setState(() {
                     _fetchedData = newData;
                   });
@@ -187,7 +191,7 @@ void _showBuyOptionsDialog(BuildContext context, Map<String, dynamic> item) {
   }
 
   void _deleteAllData() async {
-    await dbHelper.deleteAllRows();
+    await dbHelper1.deleteAllRows();
     _fetchDataAndImages(); // Refresh the UI after deletion
   }
 
@@ -217,7 +221,15 @@ void _showBuyOptionsDialog(BuildContext context, Map<String, dynamic> item) {
   }
 
 
-  /////////////////its print a container inside 4 images and
+
+
+
+
+
+
+
+
+  ///////////////its print a container inside 4 images and
 Widget _buildImageAndDataWidgets() {
   List<Widget> containers = [];
 
@@ -306,8 +318,8 @@ Widget _buildImageAndDataWidgets() {
                   ),
                   IconButton(
                     onPressed: () async {
-                      await LocalDatabase().deleteDataLocally(item['id']);
-                      List<Map<String, dynamic>>? newData = await LocalDatabase().fetchDataLocally();
+                      await LocalDB2().deleteDataLocally1(item['id']);
+                      List<Map<String, dynamic>>? newData = await LocalDB2().fetchDataLocally1();
                       setState(() {
                         _fetchedData = newData;
                       });
@@ -455,8 +467,8 @@ Widget _buildImageAndDataWidgets() {
 //                         ),
 //                         IconButton(
 //                           onPressed: () async {
-//                             await LocalDatabase().deleteDataLocally(item['id']);
-//                             List<Map<String, dynamic>>? newData = await LocalDatabase().fetchDataLocally();
+//                             await LocalDB2().deleteDataLocally1(item['id']);
+//                             List<Map<String, dynamic>>? newData = await LocalDB2().fetchDataLocally1();
 //                             setState(() {
 //                               _fetchedData = newData;
 //                             });

@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 //import 'package:localrepo/Database/uploadScreen/display.dart';
 import 'package:localrepo/Database/imgD.dart';
 import 'package:localrepo/Database/uploadScreen/Rent/Products.dart';
+import 'package:localrepo/Database/uploadScreen/SELL/sellD.dart';
 import 'package:localrepo/Database/uploadScreen/SELL/sellProduct.dart';
 import 'package:localrepo/custom_widgets/button.dart';
 
@@ -36,7 +37,7 @@ class _ImageSelectorPageState1 extends State<ImageSelectorPage1> {
   }
 
   Future<void> _saveToDatabase(String imagePath) async {
-    final dbHelper = DatabaseHelper.instance;
+    final dbHelper = SellDBHelper.instance;
     final id = await dbHelper.insert(imagePath);
     print('Inserted row id: $id');
   }

@@ -1,8 +1,10 @@
 
 // import 'dart:io';
 // import 'package:flutter/material.dart';
+// import 'package:flutter/widgets.dart';
 // import 'package:image_picker/image_picker.dart';
-// import 'package:localrepo/Database/uploadScreen/imgD.dart';
+// import 'package:localrepo/Database/imgD.dart';
+
 // import 'package:localrepo/contract_page/contract_page.dart';
 // import 'package:localrepo/custom_widgets/button.dart';
 // import 'package:localrepo/profile/edit_profile.dart';
@@ -77,7 +79,7 @@
 //           ),
 //           ElevatedButton(
 //             style: ElevatedButton.styleFrom(
-//               backgroundColor: Color.fromARGB(255, 207, 137, 32),
+//                 backgroundColor: Color.fromARGB(255, 129, 61, 106),
 //               shape: RoundedRectangleBorder(
 //                 borderRadius: BorderRadius.circular(8),
 //               ),
@@ -231,7 +233,7 @@
 //                 ),
 //                 onTap: () {
 //                   Navigator.push(
-//                     context, MaterialPageRoute(builder: (context) => const editScreen())).then((value) {
+//                     context, MaterialPageRoute(builder: (context) => const EditScreen())).then((value) {
 //                     if (value != null && value is Map<String, dynamic>) {
 //                       setState(() {
 //                         userData = value;
@@ -280,11 +282,20 @@
 //                 onTap: () {},
 //               ),
 //               const SizedBox(height: 20),
-//               CustomButton(
-//                 text: 'Sign out',
-//                 onPressed: () {
-//                   _confirmSignOut(context);
-//                 },
+//               Padding(
+//                 padding: const EdgeInsets.fromLTRB(30,0,30,0),
+//                 child: Row(
+//                   children: [
+//                     Expanded(
+//                       child: CustomButton(
+//                         text: 'Sign out',
+//                         onPressed: () {
+//                           _confirmSignOut(context);
+//                         },
+//                       ),
+//                     ),
+//                   ],
+//                 ),
 //               ),
 //             ],
 //           ),
@@ -309,9 +320,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:localrepo/Database/uploadScreen/Rent/image.dart';
 import 'package:localrepo/Database/imgD.dart';
-import 'package:localrepo/Database/uploadScreen/SELL/sellimage.dart';
+import 'package:localrepo/Database/uploadScreen/Rent/image.dart';
+import 'package:localrepo/Database/uploadScreen/SELL/sellProduct.dart';
+import 'package:localrepo/Database/uploadScreen/SELL/image.dart.dart';
+
 import 'package:localrepo/contract_page/contract_page.dart';
 import 'package:localrepo/custom_widgets/button.dart';
 import 'package:localrepo/profile/edit_profile.dart';
@@ -320,8 +333,6 @@ import 'package:localrepo/login%20screens/login.dart';
 import 'package:localrepo/onboarding_content/onboarding/screens/onboarding.dart';
 import 'package:localrepo/routes.dart';
 import 'package:localrepo/Database/database_helper.dart';
-
-import 'path_to_your/ImageSelectorPage.dart'; // Import the ImageSelectorPage
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -389,7 +400,7 @@ class _ProfileState extends State<Profile> {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromARGB(255, 207, 137, 32),
+                backgroundColor: Color.fromARGB(255, 129, 61, 106),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -409,7 +420,8 @@ class _ProfileState extends State<Profile> {
                 });
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const OnboardingScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const OnboardingScreen()),
                 );
               },
             ),
@@ -445,7 +457,7 @@ class _ProfileState extends State<Profile> {
     }
   }
 
-  void _showRentOrSellDialog() {
+  void _showSellerOptions() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -454,57 +466,37 @@ class _ProfileState extends State<Profile> {
             borderRadius: BorderRadius.circular(15),
           ),
           title: const Text(
-            "Choose Option",
+            "Become a Seller",
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 207, 137, 32),
             ),
           ),
           content: const Text(
-            "Do you want to rent or sell?",
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.black,
-            ),
+            "Would you like to rent or sell items?",
+            style: TextStyle(fontSize: 16),
           ),
           actions: <Widget>[
             TextButton(
               child: const Text(
                 "Rent",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.blue,
-                ),
+                style: TextStyle(fontSize: 16, color: Colors.blue),
               ),
               onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ImageSelectorPage()),
-                );
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>ImageSelectorPage()));
+                // Navigate to rent items screen
+               // Navigator.pushNamed(context, AppRoutes.rentItems);
               },
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-              backgroundColor: Color.fromARGB(255, 129, 61, 106),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
+            TextButton(
               child: const Text(
                 "Sell",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                ),
+                style: TextStyle(fontSize: 16, color: Colors.blue),
               ),
               onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ImageSelectorPage1()),
-                );
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>ImageSelectorPage1()));
+                // Navigate to sell items screen
+             //   Navigator.pushNamed(context, AppRoutes.sellItems);
               },
             ),
           ],
@@ -527,8 +519,8 @@ class _ProfileState extends State<Profile> {
         ),
         leading: IconButton(
           onPressed: () {
-            Navigator.push(
-              context, MaterialPageRoute(builder: (context) => const LOGIN()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const LOGIN()));
           },
           icon: const Icon(Icons.arrow_back_ios_new),
         ),
@@ -541,7 +533,7 @@ class _ProfileState extends State<Profile> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(10,0,10,0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
               GestureDetector(
@@ -550,7 +542,7 @@ class _ProfileState extends State<Profile> {
                   alignment: Alignment.center,
                   children: [
                     CircleAvatar(
-                      radius: 90.0,
+                      radius: 70.0,
                       backgroundColor: Colors.grey.shade200,
                       child: _profileImagePath != null
                           ? ClipOval(
@@ -584,10 +576,11 @@ class _ProfileState extends State<Profile> {
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               Text(
                 '${userData['firstName'] ?? ''} ${userData['lastName'] ?? ''}',
-                style: const TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                    fontSize: 21, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 5),
               Text(
@@ -599,7 +592,7 @@ class _ProfileState extends State<Profile> {
                 'Phone: ${userData['phone'] ?? ''}',
                 style: const TextStyle(fontSize: 17),
               ),
-              const Divider(height: 15, thickness: 2),
+              const Divider(height: 20, thickness: 2),
               ListTile(
                 trailing: const Text(
                   'Edit Profile',
@@ -611,7 +604,10 @@ class _ProfileState extends State<Profile> {
                 ),
                 onTap: () {
                   Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => const editScreen())).then((value) {
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const EditScreen()))
+                      .then((value) {
                     if (value != null && value is Map<String, dynamic>) {
                       setState(() {
                         userData = value;
@@ -620,20 +616,32 @@ class _ProfileState extends State<Profile> {
                   });
                 },
               ),
-              const Divider(height: 0, thickness: 2),
+              const Divider(height: 10, thickness: 2),
               _buildListTile(
                 icon: Icons.policy,
                 title: 'Policies',
                 onTap: () {
                   Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => const ContractPage()));
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ContractPage()));
                 },
               ),
-               _buildListTile(
+              _buildListTile(
                 icon: Icons.reviews,
                 title: 'Reviews',
                 onTap: () {
-                 
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ContractPage()));
+                },
+              ),
+              _buildListTile(
+                icon: Icons.history,
+                title: 'Rent Items',
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.signUp);
                 },
               ),
               _buildListTile(
@@ -644,16 +652,16 @@ class _ProfileState extends State<Profile> {
               _buildListTile(
                 icon: Icons.sell,
                 title: 'Become a Seller',
-                onTap: _showRentOrSellDialog,
+                onTap: _showSellerOptions,
               ),
               _buildListTile(
                 icon: Icons.history_edu_rounded,
                 title: 'Add to cart',
                 onTap: () {},
               ),
-              const SizedBox(height: 70),
+              const SizedBox(height: 20),
               Padding(
-                padding: const EdgeInsets.fromLTRB(30,0,30,0),
+                padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
                 child: Row(
                   children: [
                     Expanded(
@@ -674,15 +682,25 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  ListTile _buildListTile({required IconData icon, required String title, required VoidCallback onTap}) {
+  ListTile _buildListTile(
+      {required IconData icon,
+      required String title,
+      required VoidCallback onTap}) {
     return ListTile(
       leading: Icon(icon, color: Colors.black),
       title: Text(
         title,
-        style: const TextStyle(fontSize: 17, fontWeight: FontWeight.normal, color: Colors.black),
+        style: const TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.normal,
+            color: Colors.black),
       ),
-      trailing: const Icon(Icons.arrow_forward_ios_outlined, color: Colors.black),
+      trailing: const Icon(
+        Icons.arrow_forward_ios_outlined,
+        color: Colors.black,
+      ),
       onTap: onTap,
     );
   }
 }
+

@@ -4,6 +4,7 @@ import 'package:localrepo/Database/uploadScreen/Rent/RENT.dart';
 import 'package:localrepo/Database/uploadScreen/Rent/image.dart';
 
 import 'package:localrepo/Database/uploadScreen/Rent/Products.dart';
+import 'package:localrepo/Database/uploadScreen/SELL/image.dart.dart';
 import 'package:localrepo/cart/cart_screen.dart';
 import 'package:localrepo/cart/components/check_out_card.dart';
 import 'package:localrepo/cart/components/success_dialog.dart';
@@ -47,11 +48,13 @@ class AppRoutes {
      static const String IDcard = '/IDcard';
        static const String profile = '/profile';
            static const String ListProducts = '/ListProducts';
+             static const String sellimages = '/sellimages';
   static final List<GetPage> getPages = [
     GetPage(name: onboarding, page: () => const OnboardingScreen()),
     GetPage(name: signUp, page: () => const signup()),
     GetPage(name: logIn, page: () => const LOGIN()),
     GetPage(name: IDcard, page: () =>  IdCardVerificationScreen()),
+
     GetPage(name: home, page: () => const InitScreen()),
         GetPage(name: profile, page: () => const Profile()),
           // GetPage(name: ListProducts, page: () =>  ProductListingPage()),
