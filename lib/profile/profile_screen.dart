@@ -327,6 +327,9 @@ import 'package:localrepo/Database/uploadScreen/SELL/image.dart.dart';
 
 import 'package:localrepo/contract_page/contract_page.dart';
 import 'package:localrepo/custom_widgets/button.dart';
+import 'package:localrepo/login%20screens/IDcard.dart';
+import 'package:localrepo/login%20screens/handleUser.dart';
+import 'package:localrepo/main.dart';
 import 'package:localrepo/profile/edit_profile.dart';
 import 'package:localrepo/Database/authentication.dart';
 import 'package:localrepo/login%20screens/login.dart';
@@ -510,11 +513,13 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text(
-          'Profile',
-          style: TextStyle(
-            fontSize: 23,
-            fontWeight: FontWeight.bold,
+        title: Center(
+          child: const Text(
+            'Profile',
+            style: TextStyle(
+              fontSize: 23,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         leading: IconButton(
@@ -524,12 +529,6 @@ class _ProfileState extends State<Profile> {
           },
           icon: const Icon(Icons.arrow_back_ios_new),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.wallet),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -542,7 +541,7 @@ class _ProfileState extends State<Profile> {
                   alignment: Alignment.center,
                   children: [
                     CircleAvatar(
-                      radius: 70.0,
+                      radius: 80.0,
                       backgroundColor: Colors.grey.shade200,
                       child: _profileImagePath != null
                           ? ClipOval(
@@ -576,7 +575,7 @@ class _ProfileState extends State<Profile> {
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               Text(
                 '${userData['firstName'] ?? ''} ${userData['lastName'] ?? ''}',
                 style: const TextStyle(
@@ -616,7 +615,7 @@ class _ProfileState extends State<Profile> {
                   });
                 },
               ),
-              const Divider(height: 10, thickness: 2),
+              const Divider(height: 5, thickness: 2),
               _buildListTile(
                 icon: Icons.policy,
                 title: 'Policies',
@@ -624,7 +623,7 @@ class _ProfileState extends State<Profile> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ContractPage()));
+                          builder: (context) => const MyApp()));
                 },
               ),
               _buildListTile(
@@ -634,14 +633,17 @@ class _ProfileState extends State<Profile> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ContractPage()));
+                          builder: (context) =>  UserHandleScreen()));
                 },
               ),
               _buildListTile(
                 icon: Icons.history,
                 title: 'Rent Items',
                 onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.signUp);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>  IdCardVerificationScreen()));
                 },
               ),
               _buildListTile(

@@ -134,7 +134,7 @@ class _LOGINState extends State<LOGIN> {
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+            padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

@@ -16,6 +16,7 @@ import 'package:localrepo/homescreens/popular_product.dart';
 import 'package:localrepo/homescreens/special_offers.dart';
 import 'package:localrepo/init_screen.dart';
 import 'package:localrepo/login%20screens/IDcard.dart';
+import 'package:localrepo/login%20screens/handleUser.dart';
 import 'package:localrepo/login%20screens/login.dart';
 import 'package:localrepo/onboarding_content/onboarding/screens/onboarding.dart';
 import 'package:localrepo/login%20screens/signUP.dart';
@@ -49,11 +50,13 @@ class AppRoutes {
        static const String profile = '/profile';
            static const String ListProducts = '/ListProducts';
              static const String sellimages = '/sellimages';
+                static const String userData= '/userData';
   static final List<GetPage> getPages = [
     GetPage(name: onboarding, page: () => const OnboardingScreen()),
     GetPage(name: signUp, page: () => const signup()),
     GetPage(name: logIn, page: () => const LOGIN()),
     GetPage(name: IDcard, page: () =>  IdCardVerificationScreen()),
+        GetPage(name: userData, page: () =>  UserHandleScreen()),
 
     GetPage(name: home, page: () => const InitScreen()),
         GetPage(name: profile, page: () => const Profile()),

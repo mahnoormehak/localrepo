@@ -52,6 +52,7 @@ class _signupState extends State<signup> {
                 Center(
                   child: Column(
                     children: [
+                      SizedBox(height: 40,),
                       AnimatedTextKit(
                         animatedTexts: [
                           TyperAnimatedText(

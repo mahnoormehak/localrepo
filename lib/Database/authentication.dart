@@ -176,7 +176,12 @@ class DBHelper {
       return {};
     }
   }
-
+ // Fetch all users data
+  static Future<List<Map<String, dynamic>>> fetchAllUsersData() async {
+    await open();
+    List<Map<String, dynamic>> result = await _database!.query(tableName);
+    return result;
+  }
   // Fetch user data
   static Future<Map<String, dynamic>> authenticateUser(String email) async {
     await open();

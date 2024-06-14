@@ -111,33 +111,33 @@ class LocalDatabase {
     }
   }
 
-  Future<void> updateItemLocally({
-    required int id,
-    required String name,
-    required String description,
-    required double price,
-    required int availability,
-     Uint8List? imageData,
+  // Future<void> updateItemLocally({
+  //   required int id,
+  //   required String name,
+  //   required String description,
+  //   required double price,
+  //   required int availability,
+  //    Uint8List? imageData,
 
-  }) async {
-    try {
-      final db = await database;
-      await db.update(
-        'Localdata',
-        {
-          'Name': name,
-          'description': description,
-          'price': price,
-          'availability': availability,
-          'image': imageData,
-        },
-        where: 'id = ?',
-        whereArgs: [id],
-      );
-      print('Item with ID $id updated successfully');
-    } catch (e) {
-      print('Error updating item: $e');
-    }
+  // }) async {
+  //   try {
+  //     final db = await database;
+  //     await db.update(
+  //       'Localdata',
+  //       {
+  //         'Name': name,
+  //         'description': description,
+  //         'price': price,
+  //         'availability': availability,
+  //         'image': imageData,
+  //       },
+  //       where: 'id = ?',
+  //       whereArgs: [id],
+  //     );
+  //     print('Item with ID $id updated successfully');
+  //   } catch (e) {
+  //     print('Error updating item: $e');
+  //   }
 
   Future<void> updateItemLocally({
     required int id,
@@ -168,4 +168,4 @@ class LocalDatabase {
   addUserRegistration({required String email, required String firstName, required String lastName, required String password, required String phone}) {}
 
 }
-}
+

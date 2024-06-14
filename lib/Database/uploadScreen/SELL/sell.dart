@@ -130,7 +130,7 @@ void _showBuyOptionsDialog(BuildContext context, Map<String, dynamic> item) {
       context: context,
       builder: (BuildContext context) {
         return Padding(
-          padding: EdgeInsets.all(20.0),
+          padding: EdgeInsets.fromLTRB(20.0,2,20,10),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -141,6 +141,8 @@ void _showBuyOptionsDialog(BuildContext context, Map<String, dynamic> item) {
               TextFormField(
                 controller: descriptionController,
                 decoration: InputDecoration(labelText: 'Description'),
+                minLines: 1,
+                maxLines: 6,
               ),
               TextFormField(
                 controller: priceController,

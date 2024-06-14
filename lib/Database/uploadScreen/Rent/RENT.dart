@@ -67,6 +67,73 @@ class _RenrScreenState extends State<RentScreen> {
 }
 
 
+  // void _showEditBottomSheet(BuildContext context, Map<String, dynamic> item) {
+  //   TextEditingController nameController = TextEditingController(text: item['Name']);
+  //   TextEditingController descriptionController = TextEditingController(text: item['description']);
+  //   TextEditingController priceController = TextEditingController(text: item['price']?.toString());
+  //   TextEditingController availabilityController = TextEditingController(text: item['availability']?.toString());
+
+  //   showModalBottomSheet(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return Padding(
+  //         padding: EdgeInsets.fromLTRB(20.0,20,20,10),
+  //         child: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             TextFormField(
+  //               controller: nameController,
+  //               decoration: InputDecoration(labelText: 'Name'),
+  //             ),
+  //              TextFormField(
+  //             controller: descriptionController,
+  //             decoration: InputDecoration(labelText: 'Description'),
+  //             minLines: 1, // Minimum number of lines to be displayed
+  //             maxLines: 6, // Maximum number of lines to be displayed
+  //           ),
+  //             TextFormField(
+  //               controller: priceController,
+  //               decoration: InputDecoration(labelText: 'Price'),
+  //             ),
+  //             TextFormField(
+  //               controller: availabilityController,
+  //               decoration: InputDecoration(labelText: 'Availability'),
+  //             ),
+  //             SizedBox(height: 20),
+  //             ElevatedButton(
+  //               onPressed: () async {
+  //                 await LocalDatabase().updateItemLocally(
+  //                   id: item['id'],
+  //                   name: nameController.text,
+  //                   description: descriptionController.text,
+  //                   price: double.tryParse(priceController.text) ?? 0,
+  //                   availability: int.tryParse(availabilityController.text) ?? 0,
+  //                 );
+
+  //                 List<Map<String, dynamic>>? newData = await LocalDatabase().fetchDataLocally();
+  //                 setState(() {
+  //                   _fetchedData = newData;
+  //                 });
+
+  //                 Navigator.pop(context);
+  //               },
+  //               child: Text(
+  //                 'Save',
+  //                 style: TextStyle(
+  //                   fontSize: 20,
+  //                   fontWeight: FontWeight.bold,
+  //                   color: Colors.pink[600],
+  //                 ),
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+
+   
   void _showEditBottomSheet(BuildContext context, Map<String, dynamic> item) {
     TextEditingController nameController = TextEditingController(text: item['Name']);
     TextEditingController descriptionController = TextEditingController(text: item['description']);
@@ -77,7 +144,7 @@ class _RenrScreenState extends State<RentScreen> {
       context: context,
       builder: (BuildContext context) {
         return Padding(
-          padding: EdgeInsets.all(20.0),
+          padding: EdgeInsets.fromLTRB(20.0,2,20,10),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -88,6 +155,8 @@ class _RenrScreenState extends State<RentScreen> {
               TextFormField(
                 controller: descriptionController,
                 decoration: InputDecoration(labelText: 'Description'),
+                minLines: 1,
+                maxLines: 6,
               ),
               TextFormField(
                 controller: priceController,

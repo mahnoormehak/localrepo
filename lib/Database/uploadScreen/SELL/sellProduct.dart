@@ -162,7 +162,7 @@ void _showSnackBarMessage(String message) {
                  
 
                 Padding(
-                  padding: EdgeInsets.fromLTRB(30, 30, 30, 30),
+                  padding: EdgeInsets.fromLTRB(30, 10, 30, 30),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -257,7 +257,7 @@ void _showSnackBarMessage(String message) {
   Column(
                         children: [
                       
-                         SizedBox(height: 20),
+                         SizedBox(height: 50),
                           Row(
                             children: [
                               Expanded(
