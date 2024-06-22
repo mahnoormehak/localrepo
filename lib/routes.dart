@@ -1,27 +1,27 @@
 import 'package:get/get.dart';
-import 'package:localrepo/Database/uploadScreen/combine.dart';
-//import 'package:localrepo/Database/uploadScreen/display.dart';
-import 'package:localrepo/Database/uploadScreen/image.dart';
-import 'package:localrepo/Database/uploadScreen/productlist.dart';
-import 'package:localrepo/Database/uploadScreen/screen1.dart';
-import 'package:localrepo/cart/cart_screen.dart';
-import 'package:localrepo/cart/components/check_out_card.dart';
-import 'package:localrepo/cart/components/success_dialog.dart';
-import 'package:localrepo/contract_page/contract_page.dart';
-import 'package:localrepo/contract_page/installment.dart';
-import 'package:localrepo/details/details_screen.dart';
-import 'package:localrepo/favorite/favorite_screen.dart';
-import 'package:localrepo/homescreens/popular_product.dart';
-import 'package:localrepo/homescreens/special_offers.dart';
-import 'package:localrepo/init_screen.dart';
-import 'package:localrepo/login%20screens/IDcard.dart';
-import 'package:localrepo/login%20screens/login.dart';
-import 'package:localrepo/onboarding_content/onboarding/screens/onboarding.dart';
-import 'package:localrepo/login%20screens/signUP.dart';
-import 'package:localrepo/products/products_screen.dart';
-import 'package:localrepo/profile/profile_screen.dart';
-import 'package:localrepo/rental_agreement/agreement_screen.dart';
-import 'package:localrepo/sidebar/sidebar_screen.dart';
+import 'package:localrepo/routes.dart';
+import 'package:localrepo/user_side/Database/uploadScreen/combine.dart';
+import 'package:localrepo/user_side/Database/uploadScreen/image.dart';
+import 'package:localrepo/user_side/Database/uploadScreen/productlist.dart';
+import 'package:localrepo/user_side/Database/uploadScreen/screen1.dart';
+import 'package:localrepo/user_side/cart/cart_screen.dart';
+import 'package:localrepo/user_side/cart/components/check_out_card.dart';
+import 'package:localrepo/user_side/cart/components/success_dialog.dart';
+import 'package:localrepo/user_side/contract_page/contract_page.dart';
+import 'package:localrepo/user_side/contract_page/installment.dart';
+import 'package:localrepo/user_side/details/details_screen.dart';
+import 'package:localrepo/user_side/favorite/favorite_screen.dart';
+import 'package:localrepo/user_side/homescreens/popular_product.dart';
+import 'package:localrepo/user_side/homescreens/special_offers.dart';
+import 'package:localrepo/user_side/init_screen.dart';
+import 'package:localrepo/user_side/login%20screens/IDcard.dart';
+import 'package:localrepo/user_side/login%20screens/login.dart';
+import 'package:localrepo/user_side/login%20screens/signUP.dart';
+import 'package:localrepo/user_side/onboarding_content/onboarding/screens/onboarding.dart';
+import 'package:localrepo/user_side/products/products_screen.dart';
+import 'package:localrepo/user_side/profile/profile_screen.dart';
+import 'package:localrepo/user_side/rental_agreement/agreement_screen.dart';
+import 'package:localrepo/user_side/sidebar/sidebar_screen.dart';
 
 class AppRoutes {
   static const String onboarding = '/onboarding';
@@ -80,6 +80,12 @@ class AppRoutes {
     ),
     GetPage(name: orderSuccess, page: () => const OrderSuccessScreen()),
   ];
+}
+
+mixin userId {
+}
+
+mixin widget {
 }
 
 
