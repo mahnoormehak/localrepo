@@ -4,6 +4,7 @@ import 'package:localrepo/user_side/custom_widgets/button.dart';
 import 'package:localrepo/user_side/homescreens/home_screen.dart';
 import 'package:localrepo/user_side/login%20screens/forgotpass.dart';
 import 'package:localrepo/user_side/login%20screens/signUP.dart';
+
 import 'package:lottie/lottie.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
@@ -129,7 +130,7 @@ class _LOGINState extends State<LOGIN> {
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(40, 10, 40, 30),
+            padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -233,7 +234,7 @@ class _LOGINState extends State<LOGIN> {
                         ),
                       ),
 
-                      //   SizedBox(height: 5),
+                         SizedBox(height: 5),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -258,13 +259,19 @@ class _LOGINState extends State<LOGIN> {
                     ],
                   ),
                 ),
-              //  const SizedBox(height: 20),
-                CustomButton(
-                  text: 'Login',
-                  onPressed: () {
-                    login();
-                    // Navigator.push(context, MaterialPageRoute(builder: (context) => LOGIN(key: null,)));
-                  },
+                const SizedBox(height: 70),
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomButton(
+                        text: 'Login',
+                        onPressed: () {
+                          login();
+                          // Navigator.push(context, MaterialPageRoute(builder: (context) => LOGIN(key: null,)));
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               //  const SizedBox(height: 20),
                 Padding(
@@ -298,15 +305,7 @@ class _LOGINState extends State<LOGIN> {
                   ),
                   
                 ),
-                SizedBox(height: 10,),
-                Text('By signing into Equishare,you agree to our', style: TextStyle(
-                          fontSize: 17,
-                        ),),
-                Text('Terms of Service', style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                        ),)
-              ],
+              ]
             ),
           ),
         ),

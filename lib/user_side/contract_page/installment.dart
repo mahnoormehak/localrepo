@@ -315,32 +315,13 @@ void _showConfirmationDialog(BuildContext context) {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    
+     appBar: AppBar(title: Text('Installment Screen'),),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(30,0,30,0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-              Container(
-          
-           margin: EdgeInsets.only(left: 0, top: 20, bottom: 4,right: 360),
-            //height: 30,
- decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color.fromARGB(255, 46, 10, 207),const Color.fromARGB(157, 10, 91, 145)],
-                   begin: Alignment.topLeft,
-                   end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  color: Colors.white,
-                ),
-          ),
+             
           SizedBox(height: 15,),
             Container(
               height: 140,

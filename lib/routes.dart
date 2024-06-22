@@ -15,6 +15,7 @@ import 'package:localrepo/user_side/homescreens/popular_product.dart';
 import 'package:localrepo/user_side/homescreens/special_offers.dart';
 import 'package:localrepo/user_side/init_screen.dart';
 import 'package:localrepo/user_side/login%20screens/IDcard.dart';
+import 'package:localrepo/user_side/login%20screens/handleUser.dart';
 import 'package:localrepo/user_side/login%20screens/login.dart';
 import 'package:localrepo/user_side/login%20screens/signUP.dart';
 import 'package:localrepo/user_side/onboarding_content/onboarding/screens/onboarding.dart';
@@ -47,15 +48,19 @@ class AppRoutes {
      static const String IDcard = '/IDcard';
        static const String profile = '/profile';
            static const String ListProducts = '/ListProducts';
+             static const String sellimages = '/sellimages';
+                static const String userData= '/userData';
   static final List<GetPage> getPages = [
     GetPage(name: onboarding, page: () => const OnboardingScreen()),
     GetPage(name: signUp, page: () => const signup()),
     GetPage(name: logIn, page: () => const LOGIN()),
     GetPage(name: IDcard, page: () =>  IdCardVerificationScreen()),
+        GetPage(name: userData, page: () =>  UserHandleScreen()),
+
     GetPage(name: home, page: () => const InitScreen()),
         GetPage(name: profile, page: () => const Profile()),
-          GetPage(name: ListProducts, page: () =>  ProductListingPage()),
-        GetPage(name: combine, page: () =>  CombinedScreen()),
+          // GetPage(name: ListProducts, page: () =>  ProductListingPage()),
+     //   GetPage(name: Rent, page: () =>  RentScreen()),
     GetPage(name: products, page: () => const ProductsScreen()),
     GetPage(name: favorite, page: () => const FavoriteScreen()),
     GetPage(name: popularProducts, page: () => const PopularProducts()),

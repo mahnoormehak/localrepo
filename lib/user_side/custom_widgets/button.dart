@@ -16,7 +16,7 @@ const CustomButton({super.key,
     onPressed:()=> onPressed(),
   style: ElevatedButton.styleFrom(
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(19),
+      borderRadius: BorderRadius.circular(17),
       
     ),
     backgroundColor: Color.fromARGB(255, 129, 61, 106),
