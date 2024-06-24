@@ -17,8 +17,7 @@ class MyApp extends StatelessWidget {
     Get.put(NavController()); // Initialize the NavController
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute:
-          AppRoutes.onboarding, // Set initial route to OnboardingScreen
+      initialRoute: AppRoutes.home, // Set initial route to OnboardingScreen
       getPages: AppRoutes.getPages, // Define all your routes using GetX
     );
   }

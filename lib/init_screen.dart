@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:localrepo/chat/chat_screen.dart';
+
 import 'package:localrepo/constants_copy.dart';
 import 'package:localrepo/favorite/favorite_screen.dart';
 import 'package:localrepo/getx_logic/navigator_cont.dart';
 import 'package:localrepo/homescreens/home_screen.dart';
 import 'package:localrepo/profile/profile_screen.dart';
-import 'package:localrepo/sidebar/sidebar_screen.dart';
 
 const Color inActiveIconColor = Color(0xFFB6B6B6);
 
 class InitScreen extends StatelessWidget {
-  const InitScreen({Key? key}) : super(key: key);
+  const InitScreen({super.key});
   static String routeName = "/";
 
   @override
@@ -21,16 +22,13 @@ class InitScreen extends StatelessWidget {
     final List<Widget> pages = [
       const HomeScreen(),
       const FavoriteScreen(),
-      const Center(child: Text("Chat")),
+      const chatScreen(),
       const Profile(),
     ];
 
     return Obx(
       () => Scaffold(
-        appBar: AppBar(
-          title: const Text("Init Screen"),
-        ),
-        drawer: const Sidebar(),
+        // Removed the AppBar title here
         body: pages[navController.currentIndex.value],
         bottomNavigationBar: BottomNavigationBar(
           onTap: (index) => navController.changePage(index),

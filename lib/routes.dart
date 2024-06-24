@@ -14,6 +14,7 @@ import 'package:localrepo/login%20screens/signUP.dart';
 import 'package:localrepo/products/products_screen.dart';
 import 'package:localrepo/rental_agreement/agreement_screen.dart';
 import 'package:localrepo/sidebar/sidebar_screen.dart';
+import 'package:localrepo/notification/notification_screen.dart';
 
 class AppRoutes {
   static const String onboarding = '/onboarding';
@@ -32,12 +33,14 @@ class AppRoutes {
   static const String checkoutcard = '/checkoutcard';
   static const String checkout = '/checkout';
   static const String orderSuccess = '/order_success';
+  static const String notification = '/notifications';
 
   static final List<GetPage> getPages = [
     GetPage(name: onboarding, page: () => const OnboardingScreen()),
     GetPage(name: signUp, page: () => const signup()),
     GetPage(name: logIn, page: () => const LOGIN()),
     GetPage(name: home, page: () => const InitScreen()),
+    GetPage(name: notification, page: () => const NotificationsScreen()),
     GetPage(name: products, page: () => const ProductsScreen()),
     GetPage(name: favorite, page: () => const FavoriteScreen()),
     GetPage(name: popularProducts, page: () => const PopularProducts()),

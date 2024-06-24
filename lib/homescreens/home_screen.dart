@@ -9,8 +9,8 @@ class HomeScreen extends StatelessWidget {
   static String routeName = "/home";
 
   const HomeScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home Screen'),
       ),
-      drawer: const Sidebar(), // Make sure Sidebar is implemented correctly
+      drawer: const Sidebar(), // Ensure the Sidebar is here
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(vertical: 16),

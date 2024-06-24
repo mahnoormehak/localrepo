@@ -80,7 +80,7 @@ class CheckoutCard extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.to(CheckoutPage());
+                      Get.to(const CheckoutPage());
                     },
                     child: const Text("Check Out"),
                   ),
