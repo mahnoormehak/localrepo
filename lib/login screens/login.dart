@@ -3,7 +3,8 @@ import 'package:localrepo/Database/authentication.dart';
 
 import 'package:localrepo/custom_widgets/button.dart';
 
-import 'package:localrepo/homescreens/home_screen.dart';
+// import 'package:localrepo/homescreens/home_screen.dart';
+import 'package:localrepo/init_screen.dart';
 
 import 'package:localrepo/login%20screens/signUP.dart';
 
@@ -62,7 +63,7 @@ class _LOGINState extends State<LOGIN> {
           // Navigate to the next screen after a short delay
           Future.delayed(const Duration(seconds: 2), () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()));
+                MaterialPageRoute(builder: (context) => const InitScreen()));
           });
         } else {
           // Passwords don't match, show error message

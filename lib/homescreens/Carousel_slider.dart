@@ -5,10 +5,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 class MyCarouselSlider extends StatelessWidget {
   final List<String> imagePaths = [
-    "assets/images/sony_alpha9_1.png",
-    "assets/images/dji_mavic_1.png",
-    "assets/images/dji_ronin_1.png",
-    "assets/images/dji_gimble_1.png",
+    "assets/images/banner_4.png",
+    "assets/images/banner_1.png",
+    "assets/images/banner_2.png",
+    "assets/images/banner_3.png",
   ];
 
   MyCarouselSlider({super.key});
