@@ -85,11 +85,11 @@ class ForgetPasswordScreen extends StatelessWidget {
                       width: 500,
                     ),
                   ),
-                CustomTextField(
-                  controller: forgetPasswordController.idCardController,
-                  labelText: 'ID Card Number',
-                  validator: forgetPasswordController.validateIdCard, onChanged: (value) {  },
-                ),
+                // CustomTextField(
+                //   controller: forgetPasswordController.idCardController,
+                //   labelText: 'ID Card Number',
+                //   validator: forgetPasswordController.validateIdCard, onChanged: (value) {  }, icon: Icons.,
+                // ),
                 SizedBox(height: 20),
                 CustomPasswordField(
                   controller: forgetPasswordController.passwordController,

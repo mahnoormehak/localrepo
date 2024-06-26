@@ -85,7 +85,7 @@ class LoginScreen extends StatelessWidget {
                   controller: loginController.emailController,
                   labelText: 'Email',
                   validator: loginController.validateEmail,
-                  onChanged: (value) {},
+                  onChanged: (value) {}, icon: Icons.email,
                 ),
                 SizedBox(height: 20),
                 CustomPasswordField(

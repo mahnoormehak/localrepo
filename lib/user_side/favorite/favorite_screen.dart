@@ -9,8 +9,7 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final FavoriteController favoriteController = Get.find();
-
+ final FavoriteController troller = Get.find();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Favorites"),
@@ -18,12 +17,12 @@ class FavoriteScreen extends StatelessWidget {
       body: SafeArea(
         child: Obx(
           () {
-            if (favoriteController.favoriteProducts.isEmpty) {
+            if (troller.favoriteProducts.isEmpty) {
               return const Center(child: Text("No favorite items"));
             } else {
               return GridView.builder(
                 padding: const EdgeInsets.all(16),
-                itemCount: favoriteController.favoriteProducts.length,
+                itemCount: troller.favoriteProducts.length,
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 200,
                   childAspectRatio: 0.7,
@@ -31,7 +30,7 @@ class FavoriteScreen extends StatelessWidget {
                   crossAxisSpacing: 16,
                 ),
                 itemBuilder: (context, index) {
-                  final product = favoriteController.favoriteProducts[index];
+                  final product = troller.favoriteProducts[index];
                   return ProductCard(
                     product: product,
                     onPress: () {

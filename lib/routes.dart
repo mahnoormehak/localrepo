@@ -18,6 +18,7 @@ import 'package:localrepo/user_side/login%20screens/IDcard.dart';
 import 'package:localrepo/user_side/login%20screens/handleUser.dart';
 import 'package:localrepo/user_side/login%20screens/login.dart';
 import 'package:localrepo/user_side/login%20screens/signUP.dart';
+import 'package:localrepo/user_side/models/Product.dart';
 import 'package:localrepo/user_side/onboarding_content/onboarding/screens/onboarding.dart';
 import 'package:localrepo/user_side/products/products_screen.dart';
 import 'package:localrepo/user_side/profile/profile_screen.dart';
@@ -50,6 +51,8 @@ class AppRoutes {
            static const String ListProducts = '/ListProducts';
              static const String sellimages = '/sellimages';
                 static const String userData= '/userData';
+                 //final ProductDetailsArguments args;
+
   static final List<GetPage> getPages = [
     GetPage(name: onboarding, page: () => const OnboardingScreen()),
     GetPage(name: signUp, page: () => const signup()),
@@ -78,7 +81,10 @@ class AppRoutes {
     ),
     GetPage(name: sidebar, page: () => const Sidebar()),
     GetPage(name: contract, page: () => const ContractPage()),
-    GetPage(name: cart, page: () => const CartScreen()),
+GetPage(
+  name: CartScreen.routeName,
+  page: () => CartScreen(),
+),
     GetPage(
       name: checkoutcard,
       page: () => CheckoutCard(totalPrice: Get.arguments['totalPrice']),
@@ -93,7 +99,11 @@ mixin userId {
 mixin widget {
 }
 
+class ProductDetailsArguments {
+  final Product product;
 
+  ProductDetailsArguments({required this.product});
+}
 
 
 // import 'package:get/get.dart';

@@ -7,12 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:localrepo/user_side/Database/uploadScreen/SELL/LOcal.dart';
+import 'package:localrepo/user_side/Database/uploadScreen/SELL/sell.dart';
 import 'package:localrepo/user_side/custom_widgets/button.dart';
 import 'package:localrepo/user_side/custom_widgets/textfield.dart';
-
-
-//import 'package:localrepo/Database/uploadScreen/display.dart';
-
+import 'package:localrepo/user_side/models/Product.dart';
 import 'package:lottie/lottie.dart';
 
 class UploadDeviceScreen1 extends StatefulWidget {
@@ -130,12 +128,12 @@ void _showSnackBarMessage(String message) {
     if (result == 'added') {
       List<Map<String, dynamic>>? fetchedData = await LocalDB2().fetchDataLocally1();
       if (fetchedData != null) {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => SellScreen(),
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SellScreen(),
+          ),
+        );
       } else {
         print('Error: Fetched data is null');
       }
@@ -309,3 +307,6 @@ extension StringExtension on String {
     return "${this[0].toUpperCase()}${substring(1)}";
   }
 }
+
+
+

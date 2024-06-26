@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:localrepo/user_side/contract_page/installment.dart';
+import 'package:localrepo/user_side/details/components/top_rounded_container.dart';
+import 'package:localrepo/user_side/models/Product.dart';
 import '../models/cart.dart';
 import 'components/cart_card.dart';
 import 'components/check_out_card.dart';
 
 class CartScreen extends StatefulWidget {
   static String routeName = "/cart";
+   // final ProductDetailsArguments args;
 
   const CartScreen({
-    super.key,
+    super.key
+    ,
+    //required this.args
   });
 
   @override
@@ -28,6 +34,7 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     // Calculate total price
     double totalPrice = calculateTotalPrice(demoCarts);
+   // final Product product = widget.args.product;
 
     // Remove duplicate items from the cart list
     final Set<int> productIds = {};
@@ -87,7 +94,56 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: CheckoutCard(totalPrice: totalPrice),
+      bottomNavigationBar:CheckoutCard(totalPrice: totalPrice),
+//       TopRoundedContainer(
+//         color: Colors.white,
+//         child: SafeArea(
+//           child: Padding(
+//             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+//             child: Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               children: [
+//                  ElevatedButton(
+//               onPressed: () {
+//                 // Handle buying through installment
+//                 Navigator.pop(context); // Close the dialog
+//                 Navigator.push(
+//                   context,
+//                   MaterialPageRoute(
+//                     builder: (context) => InstallmentScreen(
+//                       deviceName: product.title ,
+//                       price: product.price,
+                     
+//                     ),
+//                   ),
+//                 );
+//               },
+//               child: Text('Installment'),
+//             ),
+//  
+//                 ]
+//                 ),
+//                 ),
+//                 ),
+//                 ),
+      
+      
+      
+      
+      
+      
+     
     );
   }
+}
+void fun(){
+
+}
+
+
+
+class ProductDetailsArguments {
+  final Product product;
+
+  ProductDetailsArguments({required this.product});
 }

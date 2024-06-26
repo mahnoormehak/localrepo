@@ -341,6 +341,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:localrepo/user_side/Database/localdb.dart';
+import 'package:localrepo/user_side/Database/uploadScreen/Rent/RENT.dart';
 import 'package:localrepo/user_side/Database/uploadScreen/combine.dart';
 import 'package:localrepo/user_side/custom_widgets/button.dart';
 import 'package:localrepo/user_side/custom_widgets/textfield.dart';
@@ -464,7 +465,7 @@ void _showSnackBarMessage(String message) {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => CombinedScreen(),
+            builder: (context) => RentScreen(),
           ),
         );
       } else {

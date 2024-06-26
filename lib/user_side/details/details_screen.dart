@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:localrepo/user_side/Database/uploadScreen/SELL/sell.dart';
 import 'package:localrepo/user_side/cart/cart_screen.dart';
+import 'package:localrepo/user_side/contract_page/installment.dart';
 import 'package:localrepo/user_side/getx_logic/favorite_cont.dart';
 import 'package:localrepo/user_side/models/Product.dart';
 import 'package:localrepo/user_side/models/cart.dart';
+import 'package:localrepo/user_side/rental_agreement/agreement_screen.dart';
 import 'components/product_description.dart';
 import 'components/product_images.dart';
 import 'components/top_rounded_container.dart';
@@ -15,13 +18,16 @@ class DetailsScreen extends StatefulWidget {
 
   const DetailsScreen({super.key, required this.args});
 
+
   @override
   _DetailsScreenState createState() => _DetailsScreenState();
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
+ 
   int rentalDays = 1;
   final FavoriteController favoriteController = Get.find();
+
 
   Future<void> _selectDate(BuildContext context) async {
     DateTimeRange? picked = await showDateRangePicker(
@@ -36,9 +42,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
     }
   }
 
+
+
   @override
   Widget build(BuildContext context) {
-    final Product product = widget.args.product;
+          final Product product = widget.args.product;
+
     double totalPrice = rentalDays * product.price;
     bool isFavorite = favoriteController.isFavorite(product);
 
@@ -157,7 +166,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             onPressed: () => _selectDate(context),
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.white,
-                              backgroundColor: Colors.blueAccent,
+                              backgroundColor: Colors.purple,
                             ),
                             child: const Text("Select Dates"),
                           ),
@@ -180,38 +189,132 @@ class _DetailsScreenState extends State<DetailsScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: TopRoundedContainer(
-        color: Colors.white,
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+bottomNavigationBar: TopRoundedContainer(
+  color: Colors.white,
+  child: SafeArea(
+    child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween, // Adjust this property to control button spacing
+        children: [
+          Expanded(
             child: ElevatedButton(
+
               onPressed: () {
-                demoCarts.add(Cart(product: product, numOfItem: rentalDays));
-                Navigator.pushNamed(
-                  context,
-                  CartScreen.routeName,
-                  arguments: rentalDays * product.price,
-                );
+                _showBuyOptionsDialog(context, product);
+  
+                // demoCarts.add(Cart(product: product, numOfItem: rentalDays));
+                // Navigator.pushNamed(
+                //   context,
+                //   CartScreen.routeName,
+                //   arguments: product.price,
+                // );
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: Colors.blueAccent,
-                padding: const EdgeInsets.symmetric(vertical: 16),
+                backgroundColor: Colors.purple,
+                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24), // Adjust padding as needed
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
               child: const Text(
-                "Add To Cart",
+                "Buy",
                 style: TextStyle(fontSize: 16),
               ),
             ),
           ),
-        ),
+          Expanded(
+            child: ElevatedButton(
+              onPressed: () {
+      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RentalAgreementScreen(
+                            deviceName: product.title, // Or the appropriate field from your Product class
+                            rentAmount: rentalDays*product.price,
+                          ),
+                        ),
+                      );
+              },
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.redAccent,
+                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24), // Adjust padding as needed
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+              ),
+              child: const Text(
+                "Rent",
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+          ),
+        ],
       ),
+    ),
+  ),
+),
+
     );
   }
+void _showBuyOptionsDialog(BuildContext context, Product product) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Select Payment Method'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('How would you like to buy ${product.title}?'),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () async {
+                // Assuming imagePath is fetched somewhere in your logic
+                String imagePath = ''; // Replace with actual logic to fetch imagePath
+
+                Navigator.pop(context); // Close the dialog
+                demoCarts.add(Cart(product: product, numOfItem: rentalDays));
+                Navigator.pushNamed(
+                  context,
+                  CartScreen.routeName,
+                  arguments: product.price,
+                );
+              },
+              child: Text('Add to Cart'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Get.to(()=>InstallmentScreen(deviceName: product.title, price: product.price));
+                // Handle buying through installment
+                // Navigator.pop(context); // Close the dialog
+                // demoCarts.add(Cart(product: product, numOfItem: rentalDays));
+                // Navigator.pushNamed(
+                //   context,
+                //   CartScreen.routeName,
+                //   arguments: product.price,
+                // );
+              },
+              child: Text('Installment'),
+            ),
+          ],
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('Cancel'),
+          ),
+        ],
+      );
+    },
+  );
+  
+}
 }
 
 class ProductDetailsArguments {

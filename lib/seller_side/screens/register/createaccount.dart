@@ -5,8 +5,10 @@ import 'package:localrepo/seller_side/providers/sellerinfo_controller.dart';
 import 'package:localrepo/seller_side/screens/login/login.dart';
 import 'package:localrepo/seller_side/utils/colors.dart';
 import 'package:localrepo/seller_side/widgets/button.dart';
+//import 'package:localrepo/seller_side/widgets/button.dart';
 import 'package:localrepo/seller_side/widgets/passwordfield.dart';
 import 'package:localrepo/seller_side/widgets/textfield.dart';
+//import 'package:localrepo/user_side/custom_widgets/button.dart';
 
 class CreateAccount extends StatelessWidget {
   final UserController userController = Get.put(UserController());
@@ -68,7 +70,7 @@ class CreateAccount extends StatelessWidget {
                 validator: userController.validateEmail,
                 onChanged: (value) {
                   userController.email.value = value;
-                },
+                }, icon: Icons.email,
               ),
               SizedBox(height: 20),
               CustomPasswordField(

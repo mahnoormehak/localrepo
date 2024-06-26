@@ -60,7 +60,7 @@ class BankInfoScreen extends StatelessWidget {
               return CustomTextField(
                 controller: bankNameController,
                 labelText: 'Enter bank name',
-                onChanged: (value) => bankInfoController.bankName.value = value,
+                onChanged: (value) => bankInfoController.bankName.value = value, icon: Icons.food_bank,
               );
             }),
             SizedBox(height: 20),
@@ -76,7 +76,7 @@ class BankInfoScreen extends StatelessWidget {
               return CustomTextField(
                 controller: accountHolderNameController,
                 labelText: 'Enter account holder name',
-                onChanged: (value) => bankInfoController.accountHolderName.value = value,
+                onChanged: (value) => bankInfoController.accountHolderName.value = value, icon: Icons.person,
               );
             }),
             SizedBox(height: 20),
@@ -93,7 +93,7 @@ class BankInfoScreen extends StatelessWidget {
                 controller: accountNumberController,
                 labelText: 'Enter account number',
                 onChanged: (value) => bankInfoController.accountNumber.value = value,
-                validator: bankInfoController.validateAccountNumber,
+                validator: bankInfoController.validateAccountNumber, icon: Icons.numbers,
               );
             }),
             SizedBox(height: 20),
@@ -109,7 +109,7 @@ class BankInfoScreen extends StatelessWidget {
               return CustomTextField(
                 controller: branchCodeController,
                 labelText: 'Enter branch code',
-                onChanged: (value) => bankInfoController.branchCode.value = value,
+                onChanged: (value) => bankInfoController.branchCode.value = value, icon: Icons.inventory,
               );
             }),
             SizedBox(height: 20),
@@ -126,7 +126,7 @@ class BankInfoScreen extends StatelessWidget {
                 controller: ibanController,
                 labelText: 'Enter IBAN',
                 onChanged: (value) => bankInfoController.iban.value = value,
-                validator: bankInfoController.validateIBAN,
+                validator: bankInfoController.validateIBAN, icon: Icons.comment_bank,
               );
             }),
             SizedBox(height: 20),

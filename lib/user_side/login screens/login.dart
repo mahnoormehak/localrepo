@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:localrepo/user_side/Database/authentication.dart';
 import 'package:localrepo/user_side/custom_widgets/button.dart';
 import 'package:localrepo/user_side/homescreens/home_screen.dart';
+import 'package:localrepo/user_side/init_screen.dart';
 import 'package:localrepo/user_side/login%20screens/forgotpass.dart';
 import 'package:localrepo/user_side/login%20screens/signUP.dart';
 
@@ -60,7 +61,7 @@ class _LOGINState extends State<LOGIN> {
           // Navigate to the next screen after a short delay
           Future.delayed(const Duration(seconds: 2), () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()));
+                MaterialPageRoute(builder: (context) => const InitScreen()));
           });
         } else {
           // Passwords don't match, show error message

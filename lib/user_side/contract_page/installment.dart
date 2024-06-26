@@ -335,8 +335,8 @@ void _showConfirmationDialog(BuildContext context) {
                 padding: const EdgeInsets.fromLTRB(10.0, 10, 10, 0),
                 child: Column(
                   children: [
-                    Text('Device Name: ${widget.deviceName}', style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold)),
-                    Text('Price of this device: \$${widget.price.toStringAsFixed(2)}', style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold)),
+                    Text('Device Name: ${widget.deviceName}', style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold)),
+                    Text('Price of this device: \$${widget.price.toStringAsFixed(2)}', style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold)),
                     Text('Set an Installment for \$${widget.price.toStringAsFixed(2)}', style: TextStyle(fontSize: 19.0)),
                   ],
                 ),

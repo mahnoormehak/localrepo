@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:localrepo/AI/icon.dart';
 import 'package:localrepo/user_side/constants.dart';
 import 'package:localrepo/user_side/favorite/favorite_screen.dart';
 import 'package:localrepo/user_side/getx_logic/navigator_cont.dart';
@@ -27,9 +28,9 @@ class InitScreen extends StatelessWidget {
 
     return Obx(
       () => Scaffold(
-        appBar: AppBar(
-          title: const Text("Init Screen"),
-        ),
+        // appBar: AppBar(
+        //  // title: const Text("Init Screen"),
+        // ),
         drawer: const Sidebar(),
         body: pages[navController.currentIndex.value],
         bottomNavigationBar: BottomNavigationBar(
@@ -85,6 +86,7 @@ class InitScreen extends StatelessWidget {
             ),
           ],
         ),
+        floatingActionButton: FloatingButton(), 
       ),
     );
   }

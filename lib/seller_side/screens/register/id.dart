@@ -57,7 +57,7 @@ class IDCardScreen extends StatelessWidget {
               return CustomTextField(
                 controller: controller,
                 labelText: 'Enter ID Card name',
-                onChanged: (value) => idCardController.idName.value = value,
+                onChanged: (value) => idCardController.idName.value = value, icon: Icons.info,
               );
             }),
             SizedBox(height: 20),
@@ -70,7 +70,7 @@ class IDCardScreen extends StatelessWidget {
                 controller: controller,
                 labelText: 'Enter ID Card number',
                 onChanged: (value) => idCardController.idNumber.value = value,
-                validator: idCardController.validateIDNumber,
+                validator: idCardController.validateIDNumber, icon: Icons.info,
               );
             }),
             SizedBox(height: 50),

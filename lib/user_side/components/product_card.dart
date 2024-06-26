@@ -101,18 +101,6 @@ class ProductCard extends StatelessWidget {
 }
 
 
-
-
-
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:localrepo/constants_copy.dart';
-
-// import '../models/Product.dart';
-
 // class ProductCard extends StatelessWidget {
 //   const ProductCard({
 //     super.key,
@@ -128,6 +116,7 @@ class ProductCard extends StatelessWidget {
 
 //   @override
 //   Widget build(BuildContext context) {
+//      final FavoriteController favoriteController = Get.find();
 //     return SizedBox(
 //       width: width,
 //       child: GestureDetector(
@@ -144,7 +133,7 @@ class ProductCard extends StatelessWidget {
 //                     color: kSecondaryColor.withOpacity(0.1),
 //                     borderRadius: BorderRadius.circular(12),
 //                   ),
-//                   child: Image.asset(product.images[0]),
+//                   child: Image.asset(product.images[0]), // Update to load images correctly
 //                 ),
 //               ),
 //               const SizedBox(height: 5),
@@ -164,28 +153,36 @@ class ProductCard extends StatelessWidget {
 //                       color: kPrimaryColor,
 //                     ),
 //                   ),
-//                   InkWell(
-//                     borderRadius: BorderRadius.circular(50),
-//                     onTap: () {},
-//                     child: Container(
-//                       padding: const EdgeInsets.all(6),
-//                       height: 24,
-//                       width: 24,
-//                       decoration: BoxDecoration(
-//                         color: product.isFavourite
-//                             ? kPrimaryColor.withOpacity(0.15)
-//                             : kSecondaryColor.withOpacity(0.1),
-//                         shape: BoxShape.circle,
-//                       ),
-//                       child: SvgPicture.asset(
-//                         "assets/icons/Heart Icon_2.svg",
-//                         colorFilter: ColorFilter.mode(
-//                             product.isFavourite
-//                                 ? const Color(0xFFFF4848)
-//                                 : const Color(0xFFDBDEE4),
-//                             BlendMode.srcIn),
-//                       ),
-//                     ),
+//                   Obx(
+//                     () {
+//                       final isFavorite = favoriteController.isFavorite(product);
+//                       return InkWell(
+//                         borderRadius: BorderRadius.circular(50),
+//                         onTap: () {
+//                           favoriteController.toggleFavorite(product);
+//                         },
+//                         child: Container(
+//                           padding: const EdgeInsets.all(6),
+//                           height: 24,
+//                           width: 24,
+//                           decoration: BoxDecoration(
+//                             color: isFavorite
+//                                 ? kPrimaryColor.withOpacity(0.15)
+//                                 : kSecondaryColor.withOpacity(0.1),
+//                             shape: BoxShape.circle,
+//                           ),
+//                           child: SvgPicture.asset(
+//                             "assets/icons/Heart Icon_2.svg",
+//                             colorFilter: ColorFilter.mode(
+//                               isFavorite
+//                                   ? const Color(0xFFFF4848)
+//                                   : const Color(0xFFDBDEE4),
+//                               BlendMode.srcIn,
+//                             ),
+//                           ),
+//                         ),
+//                       );
+//                     },
 //                   ),
 //                 ],
 //               )
@@ -196,3 +193,4 @@ class ProductCard extends StatelessWidget {
 //     );
 //   }
 // }
+

@@ -72,7 +72,7 @@ class _SignupStepperAlternativeState extends State<SignupStepperAlternative> {
             padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 16.0),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Colors.purple.shade300, Colors.purple.shade600],
+                colors: [Color(0xFFFCE4EC), Color(0xFFEDE7F6)], // Light pink and lavender
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -89,7 +89,7 @@ class _SignupStepperAlternativeState extends State<SignupStepperAlternative> {
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Colors.purple,
                   ),
                 ),
                 SizedBox(height: 8),
@@ -98,7 +98,7 @@ class _SignupStepperAlternativeState extends State<SignupStepperAlternative> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16,
-                    color: Colors.white70,
+                    color: Colors.purple.shade700,
                   ),
                 ),
               ],
@@ -131,7 +131,7 @@ class _SignupStepperAlternativeState extends State<SignupStepperAlternative> {
                       _finishSignup();
                     }
                   },
-                  child: Text(_currentStep == _steps.length - 1 ? "" : 'Next'),
+                  child: Text(_currentStep == _steps.length - 1 ? "Finish" : 'Next'),
                 ),
               ],
             ),

@@ -5,6 +5,8 @@ import 'package:localrepo/user_side/models/Product.dart';
 import 'package:localrepo/user_side/products/products_screen.dart';
 import 'section_title.dart';
 
+import 'package:get/get.dart';
+
 class PopularProducts extends StatelessWidget {
   static const String popularProducts = '/popular_products';
   const PopularProducts({super.key});
@@ -60,3 +62,4 @@ class PopularProducts extends StatelessWidget {
     );
   }
 }
+
