@@ -29,6 +29,7 @@ class AppRoutes {
   static const String onboarding = '/onboarding';
   static const String signUp = '/signup';
   static const String logIn = '/login';
+  static const String init = '/init';
   static const String home = '/home';
   static const String products = '/products';
   static const String favorite = '/favorite';
@@ -42,35 +43,38 @@ class AppRoutes {
   static const String checkoutcard = '/checkoutcard';
   static const String checkout = '/checkout';
   static const String orderSuccess = '/order_success';
-    static const String uploadimages = '/uploadimages';
-      static const String uploadProducts = '/uploadProducts';
-            static const String installment = '/installment';
-    static const String combine = '/combine';
-     static const String IDcard = '/IDcard';
-       static const String profile = '/profile';
-           static const String ListProducts = '/ListProducts';
-             static const String sellimages = '/sellimages';
-                static const String userData= '/userData';
-                 //final ProductDetailsArguments args;
-
+  static const String uploadimages = '/uploadimages';
+  static const String uploadProducts = '/uploadProducts';
+  static const String installment = '/installment';
+  static const String combine = '/combine';
+  static const String IDcard = '/IDcard';
+  static const String profile = '/profile';
+  static const String ListProducts = '/ListProducts';
+  static const String sellimages = '/sellimages';
+  static const String userData = '/userData';
   static final List<GetPage> getPages = [
     GetPage(name: onboarding, page: () => const OnboardingScreen()),
     GetPage(name: signUp, page: () => const signup()),
     GetPage(name: logIn, page: () => const LOGIN()),
-    GetPage(name: IDcard, page: () =>  IdCardVerificationScreen()),
-        GetPage(name: userData, page: () =>  UserHandleScreen()),
+    GetPage(name: IDcard, page: () => IdCardVerificationScreen()),
+    GetPage(name: userData, page: () => UserHandleScreen()),
 
     GetPage(name: home, page: () => const InitScreen()),
-        GetPage(name: profile, page: () => const Profile()),
-          // GetPage(name: ListProducts, page: () =>  ProductListingPage()),
-     //   GetPage(name: Rent, page: () =>  RentScreen()),
+    GetPage(name: profile, page: () => const Profile()),
+    // GetPage(name: ListProducts, page: () =>  ProductListingPage()),
+    //   GetPage(name: Rent, page: () =>  RentScreen()),
     GetPage(name: products, page: () => const ProductsScreen()),
     GetPage(name: favorite, page: () => const FavoriteScreen()),
     GetPage(name: popularProducts, page: () => const PopularProducts()),
     GetPage(name: specialOffers, page: () => const SpecialOffers()),
-     GetPage(name: uploadimages, page: () =>  ImageSelectorPage()),
+    GetPage(name: uploadimages, page: () => ImageSelectorPage()),
     GetPage(name: uploadProducts, page: () => const UploadDeviceScreen()),
-    GetPage(name: installment, page: () =>  InstallmentScreen(deviceName: '', price: 0,)),
+    GetPage(
+        name: installment,
+        page: () => InstallmentScreen(
+              deviceName: '',
+              price: 0,
+            )),
     GetPage(
       name: rentalAgreement,
       page: () => const RentalAgreementScreen(deviceName: '', rentAmount: 0),
@@ -93,11 +97,9 @@ GetPage(
   ];
 }
 
-mixin userId {
-}
+mixin userId {}
 
-mixin widget {
-}
+mixin widget {}
 
 class ProductDetailsArguments {
   final Product product;

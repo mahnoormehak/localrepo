@@ -68,10 +68,9 @@ class _ManagementScreenState extends State<ManagementScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: '  management',
-        appBarHeight: 90.0, // Custom app bar height
-        paddingTop: 15.0, // Padding from the top
+      appBar: CustomAppBar2(
+        title: 'Home Screen',
+        appBarHeight: 100.0,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

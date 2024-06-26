@@ -129,10 +129,9 @@ Future<void> _loadImageFromDatabase() async {
   }
  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: CustomAppBar2(
         title: 'Profile',
-        appBarHeight: 90.0, // Custom app bar height
-        paddingTop: 15.0, // Padding from the top
+        appBarHeight: 100.0,
       ),
       body: FutureBuilder<Map<String, dynamic>>(
         future: databaseHelper.getUserData(userId), // Fetch user data based on userId

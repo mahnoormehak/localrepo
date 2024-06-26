@@ -15,7 +15,7 @@ class OrderSuccessScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Lottie.asset(
-              'assets/lottie/success1.json', // path to your Lottie animation file
+              'assets/lotties/success1.json', // path to your Lottie animation file
               width: MediaQuery.of(context).size.width * 0.6,
               height: MediaQuery.of(context).size.width * 0.6,
               fit: BoxFit.cover,

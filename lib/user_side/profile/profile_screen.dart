@@ -327,6 +327,7 @@ import 'package:localrepo/main.dart';
 
 import 'package:localrepo/routes.dart';
 import 'package:localrepo/seller_side/screens/register/stepper.dart';
+import 'package:localrepo/seller_side/widgets/appbar.dart';
 import 'package:localrepo/user_side/Database/authentication.dart';
 import 'package:localrepo/user_side/Database/uploadScreen/SELL/image.dart.dart';
 import 'package:localrepo/user_side/Database/uploadScreen/image.dart';
@@ -467,24 +468,9 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Center(
-          child: const Text(
-            'Profile',
-            style: TextStyle(
-              fontSize: 23,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const LOGIN()));
-          },
-          icon: const Icon(Icons.arrow_back_ios_new),
-        ),
+      appBar: CustomAppBar2(
+        title: 'Profile',
+        appBarHeight: 100.0,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -620,6 +606,7 @@ class _ProfileState extends State<Profile> {
                 onTap: () {},
               ),
               const SizedBox(height: 20),
+              const Spacer(),
               Padding(
                 padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
                 child: Row(

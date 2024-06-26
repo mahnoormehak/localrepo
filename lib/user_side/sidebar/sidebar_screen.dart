@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:localrepo/user_side/profile/profile_screen.dart';
 class Sidebar extends StatelessWidget {
-  const Sidebar({Key? key}) : super(key: key);
+  const Sidebar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class Sidebar extends StatelessWidget {
             title: const Text('Profile'),
             onTap: () {
               Get.back();
-              Get.to(Profile());
+              Get.to(const Profile());
             },
           ),
           ListTile(
@@ -51,7 +51,7 @@ class Sidebar extends StatelessWidget {
             title: const Text('Signout'),
             onTap: () {
               Get.back();
-              Get.to(Profile());
+              Get.to(const Profile());
               // Handle signout logic here
             },
           ),

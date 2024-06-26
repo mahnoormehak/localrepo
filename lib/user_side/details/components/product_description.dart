@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:localrepo/user_side/constants.dart';
 import 'package:localrepo/user_side/models/Product.dart';
+
 class ProductDescription extends StatelessWidget {
   const ProductDescription({
     super.key,

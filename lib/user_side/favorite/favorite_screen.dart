@@ -1,6 +1,7 @@
 // favorite_screen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:localrepo/seller_side/widgets/appbar.dart';
 import 'package:localrepo/user_side/components/product_card.dart';
 import 'package:localrepo/user_side/getx_logic/favorite_cont.dart';
 class FavoriteScreen extends StatelessWidget {
@@ -11,8 +12,9 @@ class FavoriteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
  final FavoriteController troller = Get.find();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Favorites"),
+      appBar: CustomAppBar2(
+        title: 'Favorite',
+        appBarHeight: 100.0,
       ),
       body: SafeArea(
         child: Obx(

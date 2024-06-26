@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:localrepo/chat/chat_screen.dart';
 import 'package:localrepo/seller_side/screens/analytics/analytics.dart';
 import 'package:localrepo/seller_side/screens/homescreen/home.dart';
 import 'package:localrepo/seller_side/screens/inventory/managment.dart';
@@ -129,7 +130,7 @@ class NavBarScreen extends StatelessWidget {
         liveData: DataProvider.fetchLiveData(),
         salesData: DataProvider.fetchSalesData(),
       ),
-      MessagesPage(),
+      ChatScreen(sellerName: 'Anglena',),
       ProfileScreen(),
     ];
 

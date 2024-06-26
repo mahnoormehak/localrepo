@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:localrepo/AI/icon.dart';
+import 'package:localrepo/chat/chat_screen.dart';
 import 'package:localrepo/user_side/constants.dart';
 import 'package:localrepo/user_side/favorite/favorite_screen.dart';
 import 'package:localrepo/user_side/getx_logic/navigator_cont.dart';
@@ -22,7 +23,7 @@ class InitScreen extends StatelessWidget {
     final List<Widget> pages = [
       const HomeScreen(),
       const FavoriteScreen(),
-      const Center(child: Text("Chat")),
+    ChatScreen(sellerName: "robert"),
       const Profile(),
     ];
 

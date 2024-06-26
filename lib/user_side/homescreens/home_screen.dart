@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localrepo/seller_side/widgets/appbar.dart';
 import 'package:localrepo/user_side/homescreens/Carousel_slider.dart';
 import 'package:localrepo/user_side/homescreens/home_header.dart';
 import 'package:localrepo/user_side/homescreens/popular_product.dart';
@@ -8,16 +9,17 @@ class HomeScreen extends StatelessWidget {
   static String routeName = "/home";
 
   const HomeScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Screen'),
+      appBar: CustomAppBar2(
+        title: 'Home Screen',
+        appBarHeight: 100.0,
       ),
-      drawer: const Sidebar(), // Make sure Sidebar is implemented correctly
+      drawer: const Sidebar(), // Ensure the Sidebar is here
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(vertical: 16),

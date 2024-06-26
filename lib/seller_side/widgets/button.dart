@@ -42,7 +42,7 @@ class CustomButton extends StatelessWidget {
   final Function onPressed;
   final double width; // Add a width parameter
 
-  CustomButton({
+  const CustomButton({super.key, 
     required this.text,
     required this.color,
     required this.fontcolor,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:localrepo/user_side/cart/components/success_dialog.dart';
+
 class CheckoutPage extends StatefulWidget {
   @override
   _CheckoutPageState createState() => _CheckoutPageState();
